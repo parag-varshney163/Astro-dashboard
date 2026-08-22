@@ -283,7 +283,7 @@ const findFirstAccessibleRoute = (permissions) => {
 
   // if (p.insightsAndMetrices) return ROUTES.INSIGHTS_METRICES;
   // if (p.flagged) return ROUTES.FLAGGED;
-  // if (p.chatbotTemplate) return ROUTES.CHATBOT_TEMPLATES;
+  if (p.chatbotTemplate) return ROUTES.CHATBOT_TEMPLATES;
 
   return ROUTES.UNAUTHORIZED;
 };

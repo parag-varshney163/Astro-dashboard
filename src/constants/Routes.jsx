@@ -3,7 +3,7 @@ const ROUTES = {
   LOGIN: "/login",
   RESET_PASSWORD: "/resetPassword",
   UPDATE_PASSWORD: `/updatePassword/:token`,
-  //DASHBOARD: "/reported-calls",
+  DASHBOARD: "/customer-support",
   // MODERATION_PANEL: "/moderation-panel",
   // ACTIVITY_LOG: "/activity-log",
   // FLAGGED: "/flagged",
