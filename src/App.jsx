@@ -8,6 +8,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
 import ResetPassword from "./pages/ResetPassword";
 import Unauthorized from "./pages/Unauthorized";
+import Transactions from "./pages/Transactions";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
@@ -80,6 +81,14 @@ function App() {
           element={
             <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
               <ChatBot/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.TRANSACTIONS}
+          element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <Transactions/>
             </ProtectedRoute>
           }
         />

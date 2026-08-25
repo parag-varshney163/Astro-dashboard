@@ -1424,7 +1424,7 @@ function UserHeader({ user }) {
             {user.name}
           </p>
           <p style={{ color: colors.textSecondary, fontSize: "12px" }}>
-            {user.id} • {user.role} • {user.gender} • {user.language} •Lvl {user.level?.levelNumber} •Version- {user.appVersion}
+            {user.id} • {user.phoneNumber} • {user.language} •Lvl {user.level?.levelNumber} •Version- {user.appVersion}
           </p>
         </div>
       </div>
@@ -1449,7 +1449,7 @@ function UserStats({ user }) {
         justifyContent: "center"
       }}
     >
-      <div style={statBox}>
+      {/* <div style={statBox}>
         <p>Status</p>
         <p style={{ color: colors.accent }}>{user.accountStatus}</p>
       </div>
@@ -1464,6 +1464,10 @@ function UserStats({ user }) {
       <div style={statBox}>
         <p>Role</p>
         <p style={{ color: colors.accent }}>{user.role}</p>
+      </div> */}
+      <div style={statBox}>
+        <p>Payment Status</p>
+        <p style={{ color: colors.accent }}>{}</p>
       </div>
     </div>
   );

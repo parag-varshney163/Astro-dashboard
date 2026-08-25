@@ -22,6 +22,7 @@ const ROUTES = {
   ACCOUNT_MANAGEMENT:"/account-management",
   // INSIGHTS_METRICES:"/insights-metrics",
    CHATBOT_TEMPLATES:"/chatbot-templates",
+   TRANSACTIONS:"/transactions",
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

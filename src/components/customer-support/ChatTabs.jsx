@@ -52,21 +52,21 @@ export default function ChatTabs({
       label: "Assigned",
       color: colors.purple,
     },
-    {
-      id: "open",
-      label: "Open Ticket",
-      color: colors.accent,
-    },
-    {
-      id: "escalated",
-      label: "Escalated",
-      color: colors.accent,
-    },
-    {
-      id: "insights",
-      label: "Data Insights",
-      color: null,
-    },
+    // {
+    //   id: "open",
+    //   label: "Open Ticket",
+    //   color: colors.accent,
+    // },
+    // {
+    //   id: "escalated",
+    //   label: "Escalated",
+    //   color: colors.accent,
+    // },
+    // {
+    //   id: "insights",
+    //   label: "Data Insights",
+    //   color: null,
+    // },
   ];
 
   /* =========================
@@ -145,7 +145,9 @@ export default function ChatTabs({
         style={{
           display: "flex",
           gap: "14px",
-          marginTop: "-8px",
+          
+          paddingTop:"8px",
+          paddingLeft:"8px",
           alignItems: "center",
           flexWrap: "wrap",
         }}

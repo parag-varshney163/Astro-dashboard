@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -78,6 +78,15 @@ const MENU_ITEMS = [
     name: "Account Management",
     icon: Trash2,
     path: "/account-management",
+    permission: {
+      section: "moderationDashboard",
+      key: "accountManagement",
+    },
+  },
+   {
+    name: "Transactions",
+    icon: Coins,
+    path: "/transactions",
     permission: {
       section: "moderationDashboard",
       key: "accountManagement",

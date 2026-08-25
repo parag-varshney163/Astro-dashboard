@@ -517,6 +517,15 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+        case "/transactions":
+        return (
+          <>
+            Transa
+            <span style={{ color: colors.accent }}>
+              ctions
+            </span>
+          </>
+        );
 
       default:
         if (callName) {
