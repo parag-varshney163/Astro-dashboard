@@ -526,6 +526,24 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+        case "/faqs":
+        return (
+          <>
+            FAQ
+            <span style={{ color: colors.accent }}>
+              s
+            </span>
+          </>
+        );
+         case "/festivals":
+        return (
+          <>
+            Festi
+            <span style={{ color: colors.accent }}>
+              vals
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

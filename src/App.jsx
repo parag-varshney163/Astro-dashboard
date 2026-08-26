@@ -13,8 +13,10 @@ import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
 import LoginPage from "./pages/LoginPage";
+import Festivals from "./pages/Festivals";
 import ROUTES from "./constants/Routes";
 import ChatBot from "./pages/ChatBot";
+import Faqs from "./pages/Faqs";
 
 
 function App() {
@@ -89,6 +91,22 @@ function App() {
           element={
             <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
               <Transactions/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path={ROUTES.FAQS}
+          element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <Faqs/>
+            </ProtectedRoute>
+          }
+        />
+           <Route
+            path={ROUTES.FESTIVALS}
+            element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <Festivals/>
             </ProtectedRoute>
           }
         />

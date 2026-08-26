@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, FileQuestionMark, FerrisWheel, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -92,6 +92,25 @@ const MENU_ITEMS = [
       key: "accountManagement",
     },
   },
+    {
+    name: "FAQs",
+    icon: FileQuestionMark,
+    path: "/faqs",
+    permission: {
+      section: "moderationDashboard",
+      key: "accountManagement",
+    },
+  },
+   {
+    name: "Festivals",
+    icon: FerrisWheel,
+    path: "/festivals",
+    permission: {
+      section: "moderationDashboard",
+      key: "accountManagement",
+    },
+  },
+  
   // {
   //   name: "Insights & Metrics",
   //   icon: BarChart3,

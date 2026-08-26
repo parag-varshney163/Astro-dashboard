@@ -23,6 +23,8 @@ const ROUTES = {
   // INSIGHTS_METRICES:"/insights-metrics",
    CHATBOT_TEMPLATES:"/chatbot-templates",
    TRANSACTIONS:"/transactions",
+   FAQS:"/faqs",
+   FESTIVALS:"/festivals",
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import agamiastroinstance from "../../api/agamiastroinstance";
 import axiosInstance from "../../api/axiosInstance";
 import colors from "../../constants/colors";
 import DataTable from "../ui/DataTable";
@@ -50,7 +51,7 @@ const TransactionsTable = () => {
         params.phone = appliedFilters.phone.trim();
       }
 
-      const response = await axiosInstance.get(
+      const response = await agamiastroinstance.get(
         "/api/v1/dashboard/transactions",
         {
           params,
@@ -185,6 +186,28 @@ const TransactionsTable = () => {
         );
       },
     },
+     {
+      key: "userId",
+      label: "User ID",
+      width: "2fr",
+      align: "center",
+      render: (value) => (
+        <span
+          title={value}
+          style={{
+            color: colors.textPrimary,
+            fontSize: "13px",
+            fontWeight: 500,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            maxWidth: "100%",
+          }}
+        >
+          {value || "-"}
+        </span>
+      ),
+    },
 
     {
       key: "transactionStatus",
@@ -244,37 +267,122 @@ const TransactionsTable = () => {
       ),
     },
 
-    {
-      key: "invoiceUrl",
-      label: "Invoice",
-      width: "0.8fr",
-      render: (value) => (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
+    // {
+    //   key: "invoiceUrl",
+    //   label: "Invoice",
+    //   width: "0.8fr",
+    //   render: (value) => (
+    //     <button
+    //       type="button"
+    //       onClick={(e) => {
+    //         e.stopPropagation();
 
-            if (value) {
-              window.open(value, "_blank", "noopener,noreferrer");
-            }
-          }}
-          disabled={!value}
+    //         if (value) {
+    //           window.open(value, "_blank", "noopener,noreferrer");
+    //         }
+    //       }}
+    //       disabled={!value}
+    //       style={{
+    //         padding: "6px 12px",
+    //         borderRadius: "8px",
+    //         border: `1px solid ${colors.accent}`,
+    //         background: "transparent",
+    //         color: colors.accent,
+    //         fontSize: "12px",
+    //         fontWeight: 600,
+    //         cursor: value ? "pointer" : "not-allowed",
+    //         opacity: value ? 1 : 0.5,
+    //       }}
+    //     >
+    //       View
+    //     </button>
+    //   ),
+    // },
+    {
+  key: "invoiceUrl",
+  label: "Invoice",
+  width: "0.8fr",
+  render: (value, row) => {
+    // Backend says invoiceUrl is null for failed transactions
+    if (!value) {
+      return (
+        <span
           style={{
-            padding: "6px 12px",
-            borderRadius: "8px",
-            border: `1px solid ${colors.accent}`,
-            background: "transparent",
-            color: colors.accent,
+            color: colors.textMuted,
             fontSize: "12px",
-            fontWeight: 600,
-            cursor: value ? "pointer" : "not-allowed",
-            opacity: value ? 1 : 0.5,
           }}
         >
-          View
-        </button>
-      ),
-    },
+          -
+        </span>
+      );
+    }
+
+    const handleViewInvoice = async (e) => {
+      e.stopPropagation();
+
+      try {
+        // Open tab immediately so browser doesn't block it
+        const newTab = window.open("", "_blank");
+
+        if (!newTab) {
+          alert("Please allow popups to view the invoice.");
+          return;
+        }
+
+        // invoiceUrl is already relative:
+        // /invoices/sub_xxxxx
+        //
+        // axiosInstance/agamiastroinstance should already
+        // attach Authorization: Bearer <token>
+        const response = await agamiastroinstance.get(value, {
+          responseType: "blob",
+          headers: {
+            Accept: "text/html",
+          },
+        });
+
+        const blob = new Blob([response.data], {
+          type: "text/html",
+        });
+
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        newTab.location.href = blobUrl;
+
+        // Cleanup after some time
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blobUrl);
+        }, 60000);
+      } catch (error) {
+        console.error("Invoice fetch error:", error);
+
+        alert(
+          error?.response?.data?.message ||
+            "Unable to open invoice"
+        );
+      }
+    };
+
+    return (
+      <button
+        type="button"
+        onClick={handleViewInvoice}
+        style={{
+          padding: "6px 12px",
+          borderRadius: "8px",
+          border: `1px solid ${colors.accent}`,
+          background: "transparent",
+          color: colors.accent,
+          fontSize: "12px",
+          fontWeight: 600,
+          cursor: "pointer",
+        }}
+      >
+        View
+      </button>
+    );
+  },
+},
   ];
 
   const handlePageChange = (newPage) => {
