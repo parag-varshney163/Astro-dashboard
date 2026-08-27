@@ -544,6 +544,24 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+         case "/tutorial-viedos":
+        return (
+          <>
+            Tutorial
+            <span style={{ color: colors.accent }}>
+              Viedos
+            </span>
+          </>
+        );
+         case "/rashifal":
+        return (
+          <>
+            Rashi
+            <span style={{ color: colors.accent }}>
+              Fal
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

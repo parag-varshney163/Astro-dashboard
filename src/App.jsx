@@ -6,6 +6,7 @@ import AccountManagement from "./pages/AccountManagement";
 import CustomerSupport from "./pages/CustomerSupport";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
+import TutorialViedos from "./pages/TutorialViedos";
 import ResetPassword from "./pages/ResetPassword";
 import Unauthorized from "./pages/Unauthorized";
 import Transactions from "./pages/Transactions";
@@ -15,6 +16,7 @@ import WelcomePage from "./pages/WelcomePage";
 import LoginPage from "./pages/LoginPage";
 import Festivals from "./pages/Festivals";
 import ROUTES from "./constants/Routes";
+import Rashifal from "./pages/Rashifal";
 import ChatBot from "./pages/ChatBot";
 import Faqs from "./pages/Faqs";
 
@@ -107,6 +109,22 @@ function App() {
             element={
             <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
               <Festivals/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+            path={ROUTES.TUTORIAL_VIEDOS}
+            element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <TutorialViedos/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+            path={ROUTES.RAHIFAL}
+            element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <Rashifal/>
             </ProtectedRoute>
           }
         />

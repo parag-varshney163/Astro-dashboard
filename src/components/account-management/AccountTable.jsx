@@ -308,30 +308,115 @@ export default function AccountTable({ data = [], page,
 
   ];
 
-  return <>
+  // return <>
+  //   <div
+  //     style={{
+  //       display: "flex",
+  //       justifyContent: "space-between",
+  //       alignItems: "center",
+  //       marginBottom: 16,
+  //     }}
+  //   >
+  //     <div style={{ color: colors.textSecondary }}>
+  //       {selectedIds.length} selected
+  //     </div>
+
+  //     <FilterDropDown
+  //       defaultLabel="Bulk Actions"
+  //       width={180}
+  //       options={["approve", "rejected"]}
+  //       onSelect={(val) => handleBulkAction(val)}
+  //     />
+  //   </div>
+
+  //   <DataTable columns={columns} data={data} paginationMode="server"
+  //     page={page}
+  //     totalPages={totalPages}
+  //     onPageChange={onPageChange} />;
+  // </>
+  return (
+  <>
+    {/* Header */}
     <div
+      className="rounded-3xl p-5 mb-6"
       style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 16,
+        background: colors.gradientCard,
+        border: `1px solid ${colors.cardBorder}`,
       }}
     >
-      <div style={{ color: colors.textSecondary }}>
-        {selectedIds.length} selected
-      </div>
+      <div className="flex flex-wrap items-center justify-between gap-5">
+        <div>
+          <h2
+            className="text-xl font-semibold"
+            style={{ color: colors.textPrimary }}
+          >
+            Account Deletion Requests
+          </h2>
 
-      <FilterDropDown
-        defaultLabel="Bulk Actions"
-        width={180}
-        options={["approve", "rejected"]}
-        onSelect={(val) => handleBulkAction(val)}
-      />
+          <p
+            className="text-sm mt-1"
+            style={{ color: colors.textMuted }}
+          >
+            Review, approve or reject account deletion requests.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3 flex-wrap">
+          <div
+            className="px-4 py-2 rounded-xl font-medium"
+            style={{
+              background: colors.hover,
+              border: `1px solid ${colors.cardBorder}`,
+              color: colors.accent,
+            }}
+          >
+            {selectedIds.length} Selected
+          </div>
+
+          <FilterDropDown
+            defaultLabel="Bulk Actions"
+            width={180}
+            options={["approve", "rejected"]}
+            onSelect={(val) => handleBulkAction(val)}
+          />
+        </div>
+      </div>
     </div>
 
-    <DataTable columns={columns} data={data} paginationMode="server"
+    {/* Table */}
+    <DataTable
+      columns={columns}
+      data={data}
+      paginationMode="server"
       page={page}
       totalPages={totalPages}
-      onPageChange={onPageChange} />;
+      onPageChange={onPageChange}
+    />
+
+    {/* Empty State */}
+    {!data.length && (
+      <div
+        className="rounded-3xl mt-6 p-12 text-center"
+        style={{
+          background: colors.gradientCard,
+          border: `1px solid ${colors.cardBorder}`,
+        }}
+      >
+        <div
+          className="text-lg font-semibold"
+          style={{ color: colors.textPrimary }}
+        >
+          No Requests Found
+        </div>
+
+        <p
+          className="mt-2"
+          style={{ color: colors.textMuted }}
+        >
+          There are currently no account deletion requests available.
+        </p>
+      </div>
+    )}
   </>
+);
 }

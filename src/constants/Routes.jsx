@@ -25,6 +25,8 @@ const ROUTES = {
    TRANSACTIONS:"/transactions",
    FAQS:"/faqs",
    FESTIVALS:"/festivals",
+   TUTORIAL_VIEDOS:"/tutorial-viedos",
+   RAHIFAL:"/rashifal"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",
