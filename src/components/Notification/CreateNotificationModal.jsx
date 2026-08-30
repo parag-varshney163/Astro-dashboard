@@ -86,13 +86,25 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
   //   { id: "te", label: "తెలుగు", value: "Telugu" },
   //   { id: "bn", label: "বাংলা", value: "Bengali" },
   // ];
+  // const languageOptions = [
+  //   { id: "hi", label: "हिंदी", value: "हिंदी" },
+  //   { id: "en", label: "English", value: "English" },
+  //   { id: "ta", label: "தமிழ்", value: "தமிழ்" },
+  //   { id: "te", label: "తెలుగు", value: "తెలుగు" },
+  //   { id: "bn", label: "বাংলা", value: "বাংলা" },
+  // ];
   const languageOptions = [
-    { id: "hi", label: "हिंदी", value: "हिंदी" },
-    { id: "en", label: "English", value: "English" },
-    { id: "ta", label: "தமிழ்", value: "தமிழ்" },
-    { id: "te", label: "తెలుగు", value: "తెలుగు" },
-    { id: "bn", label: "বাংলা", value: "বাংলা" },
-  ];
+  { id: "en", label: "English", value: "English" },
+  { id: "gu", label: "Gujarati", value: "Gujarati" },
+  { id: "hi", label: "Hindi", value: "Hindi" },
+  { id: "bn", label: "Bengali", value: "Bengali" },
+  { id: "mr", label: "Marathi", value: "Marathi" },
+  { id: "pa", label: "Punjabi", value: "Punjabi" },
+  { id: "ta", label: "Tamil", value: "Tamil" },
+  { id: "te", label: "Telugu", value: "Telugu" },
+  { id: "kn", label: "Kannada", value: "Kannada" },
+  { id: "ml", label: "Malayalam", value: "Malayalam" },
+];
 
   const cohortOptions = [
     "All Users",
@@ -990,7 +1002,7 @@ return (
               )}
 
               {/* User Cohort */}
-              <div>
+              {/* <div>
                 <CustomDropdown
                   options={audienceOptions.map((o) => o.label)}
                   value={
@@ -1036,10 +1048,10 @@ return (
                   Target specific user segments based on
                   behavior and activity.
                 </p>
-              </div>
+              </div> */}
 
               {/* Custom User IDs */}
-              {formData.audienceType === "custom" && (
+              {/* {formData.audienceType === "custom" && (
                 <div className="mt-3">
                   <label className={labelClass}>
                     User IDs{" "}
@@ -1060,7 +1072,7 @@ return (
                     }
                   />
                 </div>
-              )}
+              )} */}
 
               {/* Target Languages */}
               <div>
@@ -1145,7 +1157,7 @@ return (
               </div>
 
               {/* Deep Link */}
-              {formData.audienceType !==
+              {/* {formData.audienceType !==
                 "start_vibe_call_users" && (
                 <div>
                   <label className={labelClass}>
@@ -1196,7 +1208,7 @@ return (
                     </p>
                   )}
                 </div>
-              )}
+              )} */}
 
               {/* Date & Time */}
               <div className="grid grid-cols-2 gap-4">
