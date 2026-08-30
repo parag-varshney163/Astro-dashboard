@@ -188,31 +188,31 @@ export default function AccountTable({ data = [], page,
       ),
     },
 
-    {
-      key: "totalTime",
-      label: "Total Time Online",
-      render: (value) => (
-        <span style={{ color: colors.accent, fontWeight: 500 }}>
-          {value || "0h 0m"}
-        </span>
-      ),
-    },
+    // {
+    //   key: "totalTime",
+    //   label: "Total Time Online",
+    //   render: (value) => (
+    //     <span style={{ color: colors.accent, fontWeight: 500 }}>
+    //       {value || "0h 0m"}
+    //     </span>
+    //   ),
+    // },
 
-    {
-      key: "amountSpent",
-      label: "Amount Spent",
-      render: (value) => (
-        <span style={{ color: colors.accent }}>
-          ₹ {Number(value || 0).toLocaleString()}
-        </span>
-      ),
-    },
+    // {
+    //   key: "amountSpent",
+    //   label: "Amount Spent",
+    //   render: (value) => (
+    //     <span style={{ color: colors.accent }}>
+    //       ₹ {Number(value || 0).toLocaleString()}
+    //     </span>
+    //   ),
+    // },
 
-    {
-      key: "totalCalls",
-      label: "Total Calls",
-      render: (value) => <span>{value ?? 0}</span>,
-    },
+    // {
+    //   key: "totalCalls",
+    //   label: "Total Calls",
+    //   render: (value) => <span>{value ?? 0}</span>,
+    // },
 
     {
       key: "updatedAt",

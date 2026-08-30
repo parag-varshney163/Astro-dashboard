@@ -182,21 +182,21 @@ export default function FiltersSection({ filters, setFilters }) {
         onSelect={(val) => handleFilterChange("action", val)}
       />
 
-      <FilterDropDown
+      {/* <FilterDropDown
         defaultLabel="All Types"
         width={170}
         options={["user", "creator"]}
         onSelect={(val) => handleFilterChange("role", val)}
-      />
+      /> */}
 
-      <FilterDropDown
+      {/* <FilterDropDown
         defaultLabel="Engagement"
         width={170}
         options={["Low (0-30)", "Medium (30-60)", "High (60+)"]}
         onSelect={(val) => handleFilterChange("engagement", val)}
-      />
+      /> */}
 
-      <FilterDropDown
+      {/* <FilterDropDown
         defaultLabel="Reason"
         width={170}
         options={[
@@ -206,16 +206,16 @@ export default function FiltersSection({ filters, setFilters }) {
           "Other",
         ]}
         onSelect={(val) => handleFilterChange("reason", val)}
-      />
+      /> */}
 
-      <FilterDropDown
+      {/* <FilterDropDown
         defaultLabel="Gender"
         width={170}
         options={["Male", "Female", "Other"]}
         onSelect={(val) => handleFilterChange("gender", val)}
-      />
+      /> */}
 
-      <FilterDropDown
+      {/* <FilterDropDown
         defaultLabel="Date"
         width={170}
         options={[
@@ -225,7 +225,7 @@ export default function FiltersSection({ filters, setFilters }) {
           "Last 30 Days",
         ]}
         onSelect={(val) => handleFilterChange("date", val)}
-      />
+      /> */}
 
       <div className="flex-1 min-w-[320px]">
         <SearchBar

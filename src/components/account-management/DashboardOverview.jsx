@@ -192,7 +192,7 @@ export default function DashboardOverview() {
 
         {/* High Engagement */}
 
-        <DashboardCard
+        {/* <DashboardCard
           title="High"
           highlight="Engagement"
           value={stats.highEngagement}
@@ -205,7 +205,7 @@ export default function DashboardOverview() {
           trendText="Require Follow Up"
           trendColor={colors.warning}
           width="100%"
-        />
+        /> */}
 
 
         {/* Approved */}

@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, FileQuestionMark, FerrisWheel, View, Radius, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, FileQuestionMark, FerrisWheel, View, Radius, Bell, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -123,6 +123,15 @@ const MENU_ITEMS = [
     name: "Rashifal",
     icon: Radius,
     path: "/rashifal",
+    permission: {
+      section: "moderationDashboard",
+      key: "accountManagement",
+    },
+  },
+   {
+    name: "Notification",
+    icon: Bell,
+    path: "/notification",
     permission: {
       section: "moderationDashboard",
       key: "accountManagement",

@@ -10,6 +10,7 @@ import TutorialViedos from "./pages/TutorialViedos";
 import ResetPassword from "./pages/ResetPassword";
 import Unauthorized from "./pages/Unauthorized";
 import Transactions from "./pages/Transactions";
+import Notification from "./pages/Notification";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
@@ -125,6 +126,14 @@ function App() {
             element={
             <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
               <Rashifal/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.NOTIFICATION}
+            element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <Notification/>
             </ProtectedRoute>
           }
         />
