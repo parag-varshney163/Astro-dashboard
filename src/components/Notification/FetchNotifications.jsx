@@ -24,7 +24,7 @@
 import axios from "axios";
 
 
-const BASE_URL = "https://sandbox.agamiastro.in/api/v1/notifications";
+const BASE_URL = "https://sandbox.agamiastro.in/api/v1/customer";
 
 // /* ===========================
 //    FETCH NOTIFICATIONS

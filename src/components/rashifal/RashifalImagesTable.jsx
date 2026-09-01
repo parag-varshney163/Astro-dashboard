@@ -259,67 +259,67 @@ const RashifalImagesTable = () => {
                 </span>
             )
         },
-        // {
-        //     key: "actions",
-        //     label: "Actions",
-        //     width: "1.5fr",
+        {
+            key: "actions",
+            label: "Actions",
+            width: "1.5fr",
 
-        //     render: (_, row) => (
+            render: (_, row) => (
 
-        //         <div className="flex gap-2">
-
-
-        //             <button
-
-        //                 onClick={() => {
-
-        //                     setSelectedImage(row);
-        //                     setShowModal(true);
-
-        //                 }}
-
-        //                 className="px-3 py-1 rounded-lg"
-
-        //                 style={{
-
-        //                     background: colors.hover,
-        //                     color: colors.accentLight
-
-        //                 }}
-
-        //             >
-
-        //                 Edit
-
-        //             </button>
+                <div className="flex gap-2">
 
 
+                    <button
+
+                        onClick={() => {
+
+                            setSelectedImage(row);
+                            setShowModal(true);
+
+                        }}
+
+                        className="px-3 py-1 rounded-lg"
+
+                        style={{
+
+                            background: colors.hover,
+                            color: colors.accentLight
+
+                        }}
+
+                    >
+
+                        Edit
+
+                    </button>
 
 
-        //             <button
-
-        //                 onClick={() => handleDelete(row._id)}
-
-        //                 className="px-3 py-1 rounded-lg"
-
-        //                 style={{
-
-        //                     background: colors.danger,
-        //                     color: colors.white
-
-        //                 }}
-
-        //             >
-
-        //                 Delete
-
-        //             </button>
 
 
-        //         </div>
+                    {/* <button
 
-        //     )
-        // }
+                        onClick={() => handleDelete(row._id)}
+
+                        className="px-3 py-1 rounded-lg"
+
+                        style={{
+
+                            background: colors.danger,
+                            color: colors.white
+
+                        }}
+
+                    >
+
+                        Delete
+
+                    </button> */}
+
+
+                </div>
+
+            )
+        }
 
 
     ];

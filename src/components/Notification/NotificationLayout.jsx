@@ -348,7 +348,7 @@ const NotificationLayout = () => {
         setLoading(true);
 
         const res = await axiosInstance.get(
-          "/api/v1/notifications/stats"
+          "/api/v1/customer/notification/stats"
         );
 
         if (res.data?.success) {
