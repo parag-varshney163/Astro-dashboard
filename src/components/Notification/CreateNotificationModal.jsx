@@ -94,16 +94,17 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
   //   { id: "bn", label: "বাংলা", value: "বাংলা" },
   // ];
   const languageOptions = [
-  { id: "en", label: "English", value: "English" },
-  { id: "gu", label: "Gujarati", value: "Gujarati" },
-  { id: "hi", label: "Hindi", value: "Hindi" },
-  { id: "bn", label: "Bengali", value: "Bengali" },
-  { id: "mr", label: "Marathi", value: "Marathi" },
-  { id: "pa", label: "Punjabi", value: "Punjabi" },
-  { id: "ta", label: "Tamil", value: "Tamil" },
-  { id: "te", label: "Telugu", value: "Telugu" },
-  { id: "kn", label: "Kannada", value: "Kannada" },
-  { id: "ml", label: "Malayalam", value: "Malayalam" },
+  { id: "en", label: "English", value: "en" },
+  { id: "hi", label: "Hindi", value: "hi" },
+  { id: "hinglish", label: "Hinglish", value: "hinglish" },
+  { id: "bn", label: "Bengali", value: "bn" },
+  { id: "mr", label: "Marathi", value: "mr" },
+  { id: "gu", label: "Gujarati", value: "gu" },
+  { id: "pa", label: "Punjabi", value: "pa" },
+  { id: "ta", label: "Tamil", value: "ta" },
+  { id: "te", label: "Telugu", value: "te" },
+  { id: "kn", label: "Kannada", value: "kn" },
+  { id: "ml", label: "Malayalam", value: "ml" },
 ];
 
   const cohortOptions = [
