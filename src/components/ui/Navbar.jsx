@@ -562,6 +562,33 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+         case "/notification":
+        return (
+          <>
+            Noti
+            <span style={{ color: colors.accent }}>
+              fication
+            </span>
+          </>
+        );
+         case "/data-insights":
+        return (
+          <>
+            Data
+            <span style={{ color: colors.accent }}>
+              Insights
+            </span>
+          </>
+        );
+         case "/auto-pay":
+        return (
+          <>
+            Auto
+            <span style={{ color: colors.accent }}>
+              Pay
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

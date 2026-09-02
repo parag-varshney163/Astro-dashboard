@@ -40,18 +40,26 @@ export default function TemplateSearchHeader({
           width={200}
           defaultLabel="All Categories"
           options={[
-            "General/Greeting",
-            "App Info/Getting Started",
-            "Login / Account",
-            "KYC / Verification",
-            "Wallet / Coins / Recharge",
-            "Payment Issues",
-            "Refunds",
-            "Call / Audio Issues",
-            "Creator / Service Quality",
-            "Offers / Coupons",
-            "Safety / Policy",
-            "Feedback / Complaint",
+            // "General/Greeting",
+            // "App Info/Getting Started",
+            // "Login / Account",
+            // "KYC / Verification",
+            // "Wallet / Coins / Recharge",
+            // "Payment Issues",
+            // "Refunds",
+            // "Call / Audio Issues",
+            // "Creator / Service Quality",
+            // "Offers / Coupons",
+            // "Safety / Policy",
+            // "Feedback / Complaint",
+            "Astrology Chat Related",
+            "Kundali Related",
+            "Horoscope Related",
+            "Subscription Related",
+            "Login Related",
+            "Technical Issues",
+            "Account Deletion",
+            "Other Queries",
           ]}
           onSelect={(value) => onCategoryChange?.(value)}
         />
@@ -76,9 +84,8 @@ export default function TemplateSearchHeader({
             style={{
               borderRadius: "20px",
               padding: "8px 18px",
-              border: `1px solid ${
-                view === "grid" ? colors.accent : "transparent"
-              }`,
+              border: `1px solid ${view === "grid" ? colors.accent : "transparent"
+                }`,
             }}
             onClick={() => {
               setView("grid");
@@ -97,9 +104,8 @@ export default function TemplateSearchHeader({
             style={{
               borderRadius: "20px",
               padding: "8px 18px",
-              border: `1px solid ${
-                view === "list" ? colors.accent : "transparent"
-              }`,
+              border: `1px solid ${view === "list" ? colors.accent : "transparent"
+                }`,
             }}
             onClick={() => {
               setView("list");

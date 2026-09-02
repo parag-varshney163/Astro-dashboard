@@ -27,7 +27,9 @@ const ROUTES = {
    FESTIVALS:"/festivals",
    TUTORIAL_VIEDOS:"/tutorial-viedos",
    RAHIFAL:"/rashifal",
-   NOTIFICATION:"/notification"
+   NOTIFICATION:"/notification",
+   DATA_INSIGHTS:"/data-insights",
+   AUTO_PAY:"/auto-pay"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

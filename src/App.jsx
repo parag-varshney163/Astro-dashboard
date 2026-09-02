@@ -11,6 +11,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Unauthorized from "./pages/Unauthorized";
 import Transactions from "./pages/Transactions";
 import Notification from "./pages/Notification";
+import DataInsights from "./pages/DataInsights";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
@@ -19,6 +20,7 @@ import Festivals from "./pages/Festivals";
 import ROUTES from "./constants/Routes";
 import Rashifal from "./pages/Rashifal";
 import ChatBot from "./pages/ChatBot";
+import AutoPay from "./pages/AutoPay";
 import Faqs from "./pages/Faqs";
 
 
@@ -134,6 +136,22 @@ function App() {
             element={
             <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
               <Notification/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.DATA_INSIGHTS}
+            element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <DataInsights/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.AUTO_PAY}
+            element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+              <AutoPay/>
             </ProtectedRoute>
           }
         />
