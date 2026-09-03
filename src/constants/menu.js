@@ -61,7 +61,7 @@ const MENU_ITEMS = [
     icon: MessageSquare,
     path: "/customer-support",
     permission: {
-      section: "moderationDashboard",
+      section: "agamiCustomerDashboard",
       key: "customerSupport",
     },
   },
@@ -70,8 +70,8 @@ const MENU_ITEMS = [
     icon: Bot,
     path: "/chatbot-templates",
     permission: {
-      section: "moderationDashboard",
-      key: "chatbotTemplate",
+      section: "agamiCustomerDashboard",
+      key: "chatBotTemplate",
     },
   },
   {
@@ -79,7 +79,7 @@ const MENU_ITEMS = [
     icon: Trash2,
     path: "/account-management",
     permission: {
-      section: "moderationDashboard",
+      section: "agamiCustomerDashboard",
       key: "accountManagement",
     },
   },
@@ -88,8 +88,8 @@ const MENU_ITEMS = [
     icon: Coins,
     path: "/transactions",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "transactions",
     },
   },
     {
@@ -97,8 +97,8 @@ const MENU_ITEMS = [
     icon: FileQuestionMark,
     path: "/faqs",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "faqs",
     },
   },
    {
@@ -106,8 +106,8 @@ const MENU_ITEMS = [
     icon: FerrisWheel,
     path: "/festivals",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "festivals",
     },
   },
   {
@@ -115,8 +115,8 @@ const MENU_ITEMS = [
     icon: View,
     path: "/tutorial-viedos",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "tutorialVideos",
     },
   },
   {
@@ -124,8 +124,8 @@ const MENU_ITEMS = [
     icon: Radius,
     path: "/rashifal",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "rashifal",
     },
   },
    {
@@ -133,8 +133,8 @@ const MENU_ITEMS = [
     icon: Bell,
     path: "/notification",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "notifications",
     },
   },
    {
@@ -142,8 +142,8 @@ const MENU_ITEMS = [
     icon: Database,
     path: "/data-insights",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "dataInsights",
     },
   },
    {
@@ -151,8 +151,8 @@ const MENU_ITEMS = [
     icon: ArrowUpToLine,
     path: "/auto-pay",
     permission: {
-      section: "moderationDashboard",
-      key: "accountManagement",
+      section: "agamiCustomerDashboard",
+      key: "autoPay",
     },
   },
   

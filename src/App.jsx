@@ -70,7 +70,7 @@ function App() {
         <Route
           path={ROUTES.CUSTOMER_SUPPORT}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="customerSupport">
               <CustomerSupport/>
             </ProtectedRoute>
           }
@@ -78,7 +78,7 @@ function App() {
          <Route
           path={ROUTES.ACCOUNT_MANAGEMENT}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="accountManagement">
               <AccountManagement/>
             </ProtectedRoute>
           }
@@ -86,7 +86,7 @@ function App() {
          <Route
           path={ROUTES.CHATBOT_TEMPLATES}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="chatBotTemplate">
               <ChatBot/>
             </ProtectedRoute>
           }
@@ -94,7 +94,7 @@ function App() {
         <Route
           path={ROUTES.TRANSACTIONS}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="transactions">
               <Transactions/>
             </ProtectedRoute>
           }
@@ -102,7 +102,7 @@ function App() {
           <Route
           path={ROUTES.FAQS}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="faqs">
               <Faqs/>
             </ProtectedRoute>
           }
@@ -110,7 +110,7 @@ function App() {
            <Route
             path={ROUTES.FESTIVALS}
             element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="festivals">
               <Festivals/>
             </ProtectedRoute>
           }
@@ -118,7 +118,7 @@ function App() {
           <Route
             path={ROUTES.TUTORIAL_VIEDOS}
             element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="tutorialVideos">
               <TutorialViedos/>
             </ProtectedRoute>
           }
@@ -126,7 +126,7 @@ function App() {
         <Route
             path={ROUTES.RAHIFAL}
             element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="rashifal">
               <Rashifal/>
             </ProtectedRoute>
           }
@@ -134,7 +134,7 @@ function App() {
          <Route
             path={ROUTES.NOTIFICATION}
             element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="notifications">
               <Notification/>
             </ProtectedRoute>
           }
@@ -142,7 +142,7 @@ function App() {
          <Route
             path={ROUTES.DATA_INSIGHTS}
             element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="dataInsights">
               <DataInsights/>
             </ProtectedRoute>
           }
@@ -150,7 +150,7 @@ function App() {
          <Route
             path={ROUTES.AUTO_PAY}
             element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="customerSupport">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <AutoPay/>
             </ProtectedRoute>
           }
