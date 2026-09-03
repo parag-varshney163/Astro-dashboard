@@ -589,6 +589,15 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+         case "/chat-limit":
+        return (
+          <>
+            Chat
+            <span style={{ color: colors.accent }}>
+              Limit
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

@@ -17,6 +17,7 @@ import PublicRoute from "./routes/PublicRoute";
 import WelcomePage from "./pages/WelcomePage";
 import LoginPage from "./pages/LoginPage";
 import Festivals from "./pages/Festivals";
+import ChatLimit from "./pages/ChatLimit";
 import ROUTES from "./constants/Routes";
 import Rashifal from "./pages/Rashifal";
 import ChatBot from "./pages/ChatBot";
@@ -152,6 +153,14 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <AutoPay/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.CHAT_LIMIT}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <ChatLimit/>
             </ProtectedRoute>
           }
         />

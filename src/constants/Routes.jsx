@@ -29,7 +29,8 @@ const ROUTES = {
    RAHIFAL:"/rashifal",
    NOTIFICATION:"/notification",
    DATA_INSIGHTS:"/data-insights",
-   AUTO_PAY:"/auto-pay"
+   AUTO_PAY:"/auto-pay",
+   CHAT_LIMIT:"/chat-limit"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

@@ -1,256 +1,3 @@
-// // import { Link, useNavigate } from "react-router-dom";
-// // import React, { useState } from "react";
-// // import { motion } from "framer-motion";
-// // import { LogIn } from "lucide-react";
-// // import axiosInstance from "../api/axiosInstance";
-// // import ROUTES from "../constants/Routes";
-// // import colors from "../constants/colors";
-// // import logo from "../assets/logo.webp";
-// // const LoginPage = () => {
-// //     const navigate = useNavigate();
-// //     const [email, setEmail] = useState("");
-// //     const [password, setPassword] = useState("");
-// //     const [error, setError] = useState("");
-// //     const [loading, setLoading] = useState(false);
-// //     const handleLogin = async (e) => {
-// //         e.preventDefault();
-// //         setError("");
-// //         setLoading(true);
-// //         try {
-// //             const { data } = await axiosInstance.post("/api/v1/admin/login", {
-// //                 email,
-// //                 password,
-// //             });
-// //             const token = data?.data?.accessToken;
-// //             if (!token) throw new Error("Token missing from response");
-// //             localStorage.setItem("token", token);
-// //             localStorage.setItem("admin", JSON.stringify(data.data.admin));
-// //             navigate(ROUTES.DASHBOARD, { replace: true });
-// //         } catch (err) {
-// //             console.error("❌ Login error:", err);
-// //             setError(err.response?.data?.message || "Invalid email or password");
-// //         } finally {
-// //             setLoading(false);
-// //         }
-// //     };
-// //     return (
-// //         <div
-// //             className="min-h-screen flex items-center justify-center text-white overflow-hidden"
-// //             style={{ background: colors.gradientVertical }}
-// //         >
-// //             <div className="bg-[#0f1424]/70 backdrop-blur-xl rounded-2xl p-10 w-[420px] shadow-2xl">
-// //                 {/* Logo */}
-// //                 <div className="flex justify-center mb-5">
-// //                     <img src={logo} alt="ChatSpark" width={90} height={90} />
-// //                 </div>
-// //                 <h1 className="text-4xl font-bold text-center mb-6">
-// //                     Chat<span style={{ color: colors.accent }}>Spark</span>
-// //                 </h1>
-// //                 <form onSubmit={handleLogin}>
-// //                     {/* Email */}
-// //                     <label className="block mb-2 text-sm text-gray-300">Email</label>
-// //                     <input
-// //                         type="email"
-// //                         className="w-full mb-4 px-4 py-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-// //                         style={{ backgroundColor: colors.inputBg }}
-// //                         placeholder="Enter email"
-// //                         value={email}
-// //                         onChange={(e) => setEmail(e.target.value)}
-// //                         required
-// //                     />
-// //                     {/* Password */}
-// //                     <label className="block mb-2 text-sm text-gray-300">Password</label>
-// //                     <input
-// //                         type="password"
-// //                         className="w-full mb-3 px-4 py-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-// //                         style={{ backgroundColor: colors.inputBg }}
-// //                         placeholder="Enter password"
-// //                         value={password}
-// //                         onChange={(e) => setPassword(e.target.value)}
-// //                         required
-// //                     />
-// //                     {/* Forgot Password */}
-// //                     <div className="mb-4 text-left">
-// //                         <Link
-// //                             to={ROUTES.RESET_PASSWORD}
-// //                             style={{ color: colors.accent }}
-// //                             className="text-sm hover:underline"
-// //                         >
-// //                             Forgot Password?
-// //                         </Link>
-// //                     </div>
-// //                     {/* Error */}
-// //                     {error && <p className="text-red-400 text-center mb-3">{error}</p>}
-// //                     <motion.button
-// //                         whileHover={{ scale: 1.05 }}
-// //                         whileTap={{ scale: 0.95 }}
-// //                         type="submit"
-// //                         disabled={loading}
-// //                         className="w-full flex justify-center items-center gap-2 font-semibold px-8 py-3 rounded-full shadow-lg"
-// //                         style={{
-// //                             backgroundColor: colors.buttonBg,
-// //                             color: colors.textPrimary,
-// //                             opacity: loading ? 0.7 : 1,
-// //                         }}
-// //                     >
-// //                         {loading ? "Logging in..." : (
-// //                             <>
-// //                                 <LogIn size={18} /> Log In
-// //                             </>
-// //                         )}
-// //                     </motion.button>
-// //                 </form>
-// //             </div>
-// //         </div>
-// //     );
-// // };
-// // export default LoginPage;
-// import { Link, useNavigate } from "react-router-dom";
-// import React, { useState } from "react";
-// import { motion } from "framer-motion";
-// import { LogIn } from "lucide-react";
-// import axiosInstance from "../api/axiosInstance";
-// import ROUTES from "../constants/Routes";
-// import colors from "../constants/colors";
-// import logo from "../assets/logo.webp";
-// /** ---------------------------------------
-//  * 🔥 FIRST ACCESSIBLE ROUTE FINDER
-//  * -------------------------------------- */
-// const findFirstAccessibleRoute = (permissions) => {
-//   if (!permissions) return ROUTES.UNAUTHORIZED;
-//   const p = permissions.moderationDashboard || {};
-//   // if (p.report) return ROUTES.DASHBOARD;
-//   // if (p.moderationPanel) return ROUTES.MODERATION_PANEL;
-//   // if (p.activityLog) return ROUTES.ACTIVITY_LOG;
-//   // if (p.qualityReview) return ROUTES.QUALITY_REVIEW;
-//   // if (p.creatorScores) return ROUTES.CREATOR_SCORES;
-//   if (p.customerSupport) return ROUTES.CUSTOMER_SUPPORT;
-//   // if (p.insightsAndMetrices) return ROUTES.INSIGHTS_METRICES;
-//   // if (p.flagged) return ROUTES.FLAGGED;
-//   // if (p.chatbotTemplate) return ROUTES.CHATBOT_TEMPLATES;
-//   return ROUTES.UNAUTHORIZED;
-// };
-// const LoginPage = () => {
-//   const navigate = useNavigate();
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [error, setError] = useState("");
-//   const [loading, setLoading] = useState(false);
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     setError("");
-//     setLoading(true);
-//     try {
-//       const { data } = await axiosInstance.post("/api/v1/admin/login", {
-//         email,
-//         password,
-//       });
-//       const token = data?.data?.accessToken;
-//       if (!token) throw new Error("Token missing");
-//       // Save auth details
-//       localStorage.setItem("token", token);
-//       localStorage.setItem("admin", JSON.stringify(data.data.admin));
-//       localStorage.setItem("roleName", data.data.admin.role);
-//       /** -------------------------------------
-//        * 1️⃣ Fetch role-based permissions immediately
-//        * (We need this BEFORE redirecting)
-//        * ------------------------------------- */
-//       const roleRes = await axiosInstance.get("/api/v1/admin/roles");
-//       const allRoles = roleRes.data?.data || [];
-//       const roleName = data.data.admin.role;
-//       const userRole = allRoles.find((r) => r.roleName === roleName);
-//       const rolePermissions = userRole?.permissions || {};
-//       localStorage.setItem("rolePermissions", JSON.stringify(rolePermissions));
-//       /** -------------------------------------
-//        * 2️⃣ Redirect to first accessible route
-//        * ------------------------------------- */
-//       const firstRoute = findFirstAccessibleRoute(rolePermissions);
-//       navigate(firstRoute, { replace: true });
-//     } catch (err) {
-//       console.error("❌ Login error:", err);
-//       setError(err.response?.data?.message || "Invalid email or password");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-//   return (
-//     <div
-//       className="min-h-screen flex items-center justify-center text-white relative overflow-hidden"
-//       style={{ background: colors.gradientVertical }}
-//     >
-//       <motion.div
-//         initial={{ opacity: 0, y: 40 }}
-//         animate={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 0.6 }}
-//         className="bg-[#0f1424]/70 backdrop-blur-md rounded-2xl p-10 w-[420px] shadow-2xl relative z-10"
-//       >
-//         {/* Logo */}
-//         <div className="flex justify-center mb-5">
-//           <img src={logo} alt="ChatSpark" width={90} height={90} />
-//         </div>
-//         <h1 className="text-3xl font-bold text-center mb-6">
-//           Chat<span style={{ color: colors.accent }}>Spark</span>
-//         </h1>
-//         <form onSubmit={handleLogin}>
-//           {/* Email */}
-//           <label className="block mb-2 text-sm text-gray-300">Email</label>
-//           <input
-//             type="email"
-//             className="w-full mb-4 px-4 py-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-//             style={{ backgroundColor: colors.inputBg }}
-//             placeholder="Enter email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//           {/* Password */}
-//           <label className="block mb-2 text-sm text-gray-300">Password</label>
-//           <input
-//             type="password"
-//             className="w-full mb-2 px-4 py-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-//             style={{ backgroundColor: colors.inputBg }}
-//             placeholder="Enter password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//           {/* Forgot Password */}
-//           <div className="mb-4 text-left">
-//             <Link
-//               to={ROUTES.RESET_PASSWORD}
-//               style={{ color: colors.accent }}
-//               className="text-sm hover:underline"
-//             >
-//               Forgot Password?
-//             </Link>
-//           </div>
-//           {/* Error */}
-//           {error && <p className="text-red-400 text-center mb-3">{error}</p>}
-//           {/* Button */}
-//           <motion.button
-//             whileHover={{ scale: 1.05 }}
-//             whileTap={{ scale: 0.95 }}
-//             type="submit"
-//             disabled={loading}
-//             className="w-full flex justify-center items-center gap-2 font-semibold px-8 py-3 rounded-full shadow-lg"
-//             style={{
-//               backgroundColor: colors.buttonBg,
-//               color: colors.textPrimary,
-//               opacity: loading ? 0.7 : 1,
-//             }}
-//           >
-//             {loading ? "Logging in..." : (
-//               <>
-//                 <LogIn size={18} /> Log In
-//               </>
-//             )}
-//           </motion.button>
-//         </form>
-//       </motion.div>
-//     </div>
-//   );
-// };
-// export default LoginPage;
 import { Link, useNavigate } from "react-router-dom";
 import { LogIn, Mail, Lock } from "lucide-react";
 import React, { useState } from "react";
@@ -266,28 +13,85 @@ import logo from "../assets/logo.webp";
 /** ---------------------------------------
  * FIRST ACCESSIBLE ROUTE FINDER
  * -------------------------------------- */
+// const findFirstAccessibleRoute = (permissions) => {
+//   if (!permissions) return ROUTES.UNAUTHORIZED;
+
+//   const p = permissions.moderationDashboard || {};
+
+//   // if (p.report) return ROUTES.DASHBOARD;
+//   // if (p.moderationPanel) return ROUTES.MODERATION_PANEL;
+//   // if (p.activityLog) return ROUTES.ACTIVITY_LOG;
+//   // if (p.qualityReview) return ROUTES.QUALITY_REVIEW;
+//   // if (p.creatorScores) return ROUTES.CREATOR_SCORES;
+
+//   if (p.customerSupport) {
+//     return ROUTES.CUSTOMER_SUPPORT;
+//   }
+
+//   // if (p.insightsAndMetrices) return ROUTES.INSIGHTS_METRICES;
+//   // if (p.flagged) return ROUTES.FLAGGED;
+//   if (p.chatbotTemplate) return ROUTES.CHATBOT_TEMPLATES;
+
+//   return ROUTES.UNAUTHORIZED;
+// };
+
 const findFirstAccessibleRoute = (permissions) => {
-  if (!permissions) return ROUTES.UNAUTHORIZED;
+  if (!permissions) {
+    return ROUTES.UNAUTHORIZED;
+  }
 
-  const p = permissions.moderationDashboard || {};
+  // ==============================
+  // AGAMI CUSTOMER DASHBOARD
+  // ==============================
+  const agami = permissions.agamiCustomerDashboard || {};
 
-  // if (p.report) return ROUTES.DASHBOARD;
-  // if (p.moderationPanel) return ROUTES.MODERATION_PANEL;
-  // if (p.activityLog) return ROUTES.ACTIVITY_LOG;
-  // if (p.qualityReview) return ROUTES.QUALITY_REVIEW;
-  // if (p.creatorScores) return ROUTES.CREATOR_SCORES;
-
-  if (p.customerSupport) {
+  if (agami.customerSupport) {
     return ROUTES.CUSTOMER_SUPPORT;
   }
 
-  // if (p.insightsAndMetrices) return ROUTES.INSIGHTS_METRICES;
-  // if (p.flagged) return ROUTES.FLAGGED;
-  if (p.chatbotTemplate) return ROUTES.CHATBOT_TEMPLATES;
+  if (agami.chatBotTemplate) {
+    return ROUTES.CHATBOT_TEMPLATES;
+  }
 
+  if (agami.accountManagement) {
+    return ROUTES.ACCOUNT_MANAGEMENT;
+  }
+
+  if (agami.transactions) {
+    return ROUTES.TRANSACTIONS;
+  }
+
+  if (agami.faqs) {
+    return ROUTES.FAQS;
+  }
+
+  if (agami.festivals) {
+    return ROUTES.FESTIVALS;
+  }
+
+  if (agami.tutorialVideos) {
+    return ROUTES.TUTORIAL_VIDEOS;
+  }
+
+  if (agami.rashifal) {
+    return ROUTES.RASHIFAL;
+  }
+
+  if (agami.notifications) {
+    return ROUTES.NOTIFICATIONS;
+  }
+
+  if (agami.dataInsights) {
+    return ROUTES.DATA_INSIGHTS;
+  }
+
+  if (agami.autoPay) {
+    return ROUTES.AUTO_PAY;
+  }
+
+  // No Agami Customer Dashboard permission
   return ROUTES.UNAUTHORIZED;
 };
-
 const LoginPage = () => {
   const navigate = useNavigate();
 
