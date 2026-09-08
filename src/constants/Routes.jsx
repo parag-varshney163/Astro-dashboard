@@ -30,7 +30,8 @@ const ROUTES = {
    NOTIFICATION:"/notification",
    DATA_INSIGHTS:"/data-insights",
    AUTO_PAY:"/auto-pay",
-   CHAT_LIMIT:"/chat-limit"
+   CHAT_LIMIT:"/chat-limit",
+   SUBSCRIPTION:"/subscription"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

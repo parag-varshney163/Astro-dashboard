@@ -598,6 +598,15 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+          case "/subscription":
+        return (
+          <>
+            Subscription Health 
+            <span style={{ color: colors.accent }}>
+              Overview
+            </span>
+          </>
+        );
 
       default:
         if (callName) {
