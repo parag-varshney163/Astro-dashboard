@@ -923,7 +923,7 @@ const CashfreeStats = () => {
           TRANSACTION FILTERS
       ====================================================== */}
 
-      <div
+      {/* <div
         className="rounded-2xl p-5 mt-8"
         style={{
           background: colors.gradientCard,
@@ -947,7 +947,7 @@ const CashfreeStats = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* SEARCH */}
+          
 
           <div>
             <label
@@ -983,7 +983,7 @@ const CashfreeStats = () => {
             </div>
           </div>
 
-          {/* AMOUNT FILTER */}
+        
 
           <div>
             <label
@@ -1022,7 +1022,7 @@ const CashfreeStats = () => {
             </select>
           </div>
 
-          {/* REASON FILTER */}
+          
 
           <div>
             <label
@@ -1062,7 +1062,7 @@ const CashfreeStats = () => {
           </div>
         </div>
 
-        {/* RESULT COUNT */}
+        
 
         <div className="mt-4 flex items-center justify-between">
           <span
@@ -1108,19 +1108,19 @@ const CashfreeStats = () => {
             </button>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* =====================================================
           TRANSACTION TABLE
       ====================================================== */}
 
-      <DataTable
+      {/* <DataTable
         columns={transactionColumns}
         data={filteredTransactions}
         loading={loading}
         error={null}
         paginationMode="client"
-      />
+      /> */}
     </div>
   );
 };
