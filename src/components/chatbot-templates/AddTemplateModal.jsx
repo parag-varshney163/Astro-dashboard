@@ -20,71 +20,78 @@ export default function AddTemplateModal({
   const [status, setStatus] = useState(templateData.status || "Active");
   const [loading, setLoading] = useState(false);
   const [subTopic, setSubTopic] = useState(
-  templateData.subTopic || ""
-);
+    templateData.subTopic || ""
+  );
 
   const handleSubmit = async () => {
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const payload = {
-      category,
-      subTopic,
-      keywords: keywords
-        .split(",")
-        .map((k) => k.trim())
-        .filter(Boolean)
-        .join(", "), // ✅ backend expects string
-      botResponse: response,
-      status: status.toLowerCase(),
-    };
-
-    let res;
-
-    if (isEdit) {
-      res = await axiosInstance.put(
-        `/api/v1/chatbot-template/${templateData.id}`,
-        payload
-      );
-    } else {
-      res = await axiosInstance.post(
-        "/api/v1/chatbot-template",
-        payload
-      );
-    }
-
-    const updated = res.data.data;
-    alert(
-      isEdit
-        ? "Template updated successfully ✅"
-        : "Template created successfully ✅"
-    );
-
-    // ✅ IMPORTANT: send updated data back to parent
-    onSuccess?.({
-      id: updated._id,
-      title: updated.category,
-      category: updated.category,
-      keywords: updated.keywords, // backend may return array or string
-      response: updated.botResponse,
-      subTopic: updated.subTopic,
-      status: updated.status,
-      updated: new Date(updated.updatedAt)
-        .toISOString()
-        .split("T")[0],
-    });
-    onClose();
-  } catch (err) {
-    console.error("Template save failed", err);
-    const apiMessage =
-      err?.response?.data?.message ||
-      "Something went wrong ❌ Please try again.";
-
-    alert(apiMessage);
-  } finally {
-    setLoading(false);
-  }
+      // const payload = {
+      //   category,
+      //   subTopic,
+      //   keywords: keywords
+      //     .split(",")
+      //     .map((k) => k.trim())
+      //     .filter(Boolean)
+      //     .join(", "), // ✅ backend expects string
+      //   botResponse: response,
+      //   status: status.toLowerCase(),
+      // };
+      const payload = {
+    category,
+    subTopic,
+    keywords,
+    botResponse: response, // keeps \n
+    status: status.toLowerCase(),
 };
+
+      let res;
+
+      if (isEdit) {
+        res = await axiosInstance.put(
+          `/api/v1/chatbot-template/${templateData.id}`,
+          payload
+        );
+      } else {
+        res = await axiosInstance.post(
+          "/api/v1/chatbot-template",
+          payload
+        );
+      }
+
+      const updated = res.data.data;
+      alert(
+        isEdit
+          ? "Template updated successfully ✅"
+          : "Template created successfully ✅"
+      );
+
+      // ✅ IMPORTANT: send updated data back to parent
+      onSuccess?.({
+        id: updated._id,
+        title: updated.category,
+        category: updated.category,
+        keywords: updated.keywords, // backend may return array or string
+        response: updated.botResponse,
+        subTopic: updated.subTopic,
+        status: updated.status,
+        updated: new Date(updated.updatedAt)
+          .toISOString()
+          .split("T")[0],
+      });
+      onClose();
+    } catch (err) {
+      console.error("Template save failed", err);
+      const apiMessage =
+        err?.response?.data?.message ||
+        "Something went wrong ❌ Please try again.";
+
+      alert(apiMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
 
@@ -111,7 +118,7 @@ export default function AddTemplateModal({
           border: `1px solid ${colors.cardBorder}`,
         }}
       >
-        <h2 style={{ textAlign: "center",fontSize:"30px",fontWeight:500 }}>
+        <h2 style={{ textAlign: "center", fontSize: "30px", fontWeight: 500 }}>
           {isEdit ? "Edit" : "Add New"}{" "}
           <span style={{ color: colors.accent }}>Template</span>
         </h2>
@@ -126,26 +133,26 @@ export default function AddTemplateModal({
           //   "Refunds",
           //   "Login / Account",
           // ]}
-           options={[
-             "Astrology Chat Related",
-  "Kundali Related",
-  "Horoscope Related",
-  "Subscription Related",
-  "Login Related",
-  "Technical Issues",
-  "Account Deletion",
-  "Other Queries",
+          options={[
+            "Astrology Chat Related",
+            "Kundali Related",
+            "Horoscope Related",
+            "Subscription Related",
+            "Login Related",
+            "Technical Issues",
+            "Account Deletion",
+            "Other Queries",
           ]}
           onSelect={setCategory}
         />
         <label style={labelStyle}>Sub Topic</label>
 
-<input
-  style={inputStyle}
-  value={subTopic}
-  placeholder="Enter sub topic"
-  onChange={(e) => setSubTopic(e.target.value)}
-/>
+        <input
+          style={inputStyle}
+          value={subTopic}
+          placeholder="Enter sub topic"
+          onChange={(e) => setSubTopic(e.target.value)}
+        />
 
         <label style={labelStyle}>Keywords</label>
         <input
@@ -176,8 +183,8 @@ export default function AddTemplateModal({
                 textAlign: "center",
                 background:
                   status === s ? colors.accent : colors.cardBg,
-                  color: status ===s? "#000":colors.textPrimary,
-                border:`1px solid ${colors.cardBorder}`  
+                color: status === s ? "#000" : colors.textPrimary,
+                border: `1px solid ${colors.cardBorder}`
               }}
             >
               {s}

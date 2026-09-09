@@ -848,7 +848,7 @@ const CashfreeStats = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard
-          title="Total Mandates"
+          title="Total Mandates (Attempted)"
           value={totalMandates}
           icon={CreditCard}
           iconColor={colors.accent}
