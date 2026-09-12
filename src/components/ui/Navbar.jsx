@@ -607,6 +607,15 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+          case "/reels":
+        return (
+          <>
+            Ree
+            <span style={{ color: colors.accent }}>
+              ls
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

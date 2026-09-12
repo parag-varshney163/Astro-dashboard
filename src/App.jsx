@@ -23,6 +23,7 @@ import ROUTES from "./constants/Routes";
 import Rashifal from "./pages/Rashifal";
 import ChatBot from "./pages/ChatBot";
 import AutoPay from "./pages/AutoPay";
+import Reels from "./pages/Reels";
 import Faqs from "./pages/Faqs";
 
 
@@ -170,6 +171,14 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <SubscriptionOverview/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+            path={ROUTES.REELS}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <Reels/>
             </ProtectedRoute>
           }
         />
