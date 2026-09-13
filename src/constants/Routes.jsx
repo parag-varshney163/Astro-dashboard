@@ -32,7 +32,8 @@ const ROUTES = {
    AUTO_PAY:"/auto-pay",
    CHAT_LIMIT:"/chat-limit",
    SUBSCRIPTION:"/subscription",
-   REELS:"/reels"
+   REELS:"/reels",
+   DAILY_SPECIAL:"/daily-special"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

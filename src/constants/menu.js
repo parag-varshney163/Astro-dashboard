@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, FileQuestionMark, FerrisWheel, View, Radius, Bell, Database, ArrowUpToLine, ChartArea, SubscriptIcon, VeganIcon, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, FileQuestionMark, FerrisWheel, View, Radius, Bell, Database, ArrowUpToLine, ChartArea, SubscriptIcon, VeganIcon, Diamond, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -177,6 +177,15 @@ const MENU_ITEMS = [
     name: "Reels",
     icon: VeganIcon,
     path: "/reels",
+    permission: {
+      section: "agamiCustomerDashboard",
+      key: "autoPay",
+    },
+  },
+   {
+    name: "Daily Special",
+    icon: Diamond,
+    path: "/daily-special",
     permission: {
       section: "agamiCustomerDashboard",
       key: "autoPay",

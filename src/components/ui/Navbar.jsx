@@ -517,7 +517,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-        case "/transactions":
+      case "/transactions":
         return (
           <>
             Transa
@@ -526,7 +526,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-        case "/faqs":
+      case "/faqs":
         return (
           <>
             FAQ
@@ -535,7 +535,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-         case "/festivals":
+      case "/festivals":
         return (
           <>
             Festi
@@ -544,7 +544,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-         case "/tutorial-viedos":
+      case "/tutorial-viedos":
         return (
           <>
             Tutorial
@@ -553,7 +553,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-         case "/rashifal":
+      case "/rashifal":
         return (
           <>
             Rashi
@@ -562,7 +562,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-         case "/notification":
+      case "/notification":
         return (
           <>
             Noti
@@ -571,7 +571,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-         case "/data-insights":
+      case "/data-insights":
         return (
           <>
             Data
@@ -580,7 +580,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-         case "/auto-pay":
+      case "/auto-pay":
         return (
           <>
             Auto
@@ -589,7 +589,7 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-         case "/chat-limit":
+      case "/chat-limit":
         return (
           <>
             Chat
@@ -598,21 +598,30 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
-          case "/subscription":
+      case "/subscription":
         return (
           <>
-            Subscription Health 
+            Subscription Health
             <span style={{ color: colors.accent }}>
               Overview
             </span>
           </>
         );
-          case "/reels":
+      case "/reels":
         return (
           <>
             Ree
             <span style={{ color: colors.accent }}>
               ls
+            </span>
+          </>
+        );
+      case "/daily-special":
+        return (
+          <>
+            Daily
+            <span style={{ color: colors.accent }}>
+              Special
             </span>
           </>
         );

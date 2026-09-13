@@ -13,6 +13,7 @@ import Unauthorized from "./pages/Unauthorized";
 import Transactions from "./pages/Transactions";
 import Notification from "./pages/Notification";
 import DataInsights from "./pages/DataInsights";
+import DailySpecial from "./pages/DailySpecial";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
@@ -179,6 +180,14 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <Reels/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.DAILY_SPECIAL}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <DailySpecial/>
             </ProtectedRoute>
           }
         />
