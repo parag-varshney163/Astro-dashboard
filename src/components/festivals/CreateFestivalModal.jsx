@@ -1,3 +1,433 @@
+// // import { Calendar, FileText, Image, Tag, X, } from "lucide-react";
+// // import React, { useEffect, useState } from "react";
+// // import axiosInstance from "../../api/axiosInstance";
+// // import colors from "../../constants/colors";
+// // import Button from "../ui/Button";
+// // const initialState = {
+// //   name: "",
+// //   description: "",
+// //   date: "",
+// //   category: "",
+// //   imageUrl: "",
+// // };
+// // const CreateFestivalModal = ({
+// //   isOpen,
+// //   onClose,
+// //   onSuccess,
+// // }) => {
+// //   const [form, setForm] = useState(initialState);
+// //   const [loading, setLoading] = useState(false);
+// //   const [error, setError] = useState("");
+// //   useEffect(() => {
+// //     if (isOpen) {
+// //       setForm(initialState);
+// //       setError("");
+// //     }
+// //   }, [isOpen]);
+// //   if (!isOpen) return null;
+// //   const handleChange = (e) => {
+// //     const { name, value } = e.target;
+// //     setForm((prev) => ({
+// //       ...prev,
+// //       [name]: value,
+// //     }));
+// //   };
+// //   const handleSubmit = async (e) => {
+// //     e.preventDefault();
+// //     if (!form.name.trim()) {
+// //       setError("Festival name is required.");
+// //       return;
+// //     }
+// //     if (!form.description.trim()) {
+// //       setError("Description is required.");
+// //       return;
+// //     }
+// //     if (!form.date) {
+// //       setError("Festival date is required.");
+// //       return;
+// //     }
+// //     if (!form.category) {
+// //       setError("Category is required.");
+// //       return;
+// //     }
+// //     try {
+// //       setLoading(true);
+// //       setError("");
+// //       const response = await axiosInstance.post(
+// //         "/api/v1/festivals",
+// //         {
+// //           name: form.name.trim(),
+// //           description: form.description.trim(),
+// //           date: form.date,
+// //           category: form.category,
+// //           imageUrl: form.imageUrl.trim(),
+// //         }
+// //       );
+// //       if (response.data?.success) {
+// //         setForm(initialState);
+// //         onSuccess?.();
+// //         onClose();
+// //       } else {
+// //         setError(
+// //           response.data?.message ||
+// //             "Failed to create festival."
+// //         );
+// //       }
+// //     } catch (err) {
+// //       console.error(err);
+// //       setError(
+// //         err?.response?.data?.message ||
+// //           err?.message ||
+// //           "Failed to create festival."
+// //       );
+// //     } finally {
+// //       setLoading(false);
+// //     }
+// //   };
+// //   const inputStyle = {
+// //     width: "100%",
+// //     borderRadius: "12px",
+// //     border: `1px solid ${colors.inputBorder}`,
+// //     background: colors.inputBg,
+// //     color: colors.textPrimary,
+// //     outline: "none",
+// //     fontSize: "14px",
+// //     boxSizing: "border-box",
+// //   };
+// //   return (
+// //     <div
+// //       onClick={onClose}
+// //       style={{
+// //         position: "fixed",
+// //         inset: 0,
+// //         zIndex: 9999,
+// //         background: colors.overlay,
+// //         display: "flex",
+// //         justifyContent: "center",
+// //         alignItems: "center",
+// //         padding: "20px",
+// //       }}
+// //     >
+// //       <div
+// //         onClick={(e) => e.stopPropagation()}
+// //         style={{
+// //           width: "100%",
+// //           maxWidth: "700px",
+// //           maxHeight: "90vh",
+// //           overflowY: "auto",
+// //           background: colors.gradientCard,
+// //           border: `1px solid ${colors.cardBorder}`,
+// //           borderRadius: "22px",
+// //           boxShadow: "0 20px 60px rgba(0,0,0,.45)",
+// //         }}
+// //       >
+// //         {/* HEADER */}
+// //         <div
+// //           style={{
+// //             padding: "22px 24px",
+// //             borderBottom: `1px solid ${colors.cardBorder}`,
+// //             display: "flex",
+// //             alignItems: "center",
+// //             justifyContent: "space-between",
+// //           }}
+// //         >
+// //           <div>
+// //             <h2
+// //               style={{
+// //                 margin: 0,
+// //                 color: colors.textPrimary,
+// //                 fontSize: "22px",
+// //                 fontWeight: 700,
+// //               }}
+// //             >
+// //               Create Festival
+// //             </h2>
+// //             <p
+// //               style={{
+// //                 margin: "6px 0 0",
+// //                 color: colors.textSecondary,
+// //                 fontSize: "13px",
+// //               }}
+// //             >
+// //               Add a new festival to the calendar.
+// //             </p>
+// //           </div>
+// //           <button
+// //             type="button"
+// //             onClick={onClose}
+// //             style={{
+// //               width: "36px",
+// //               height: "36px",
+// //               borderRadius: "50%",
+// //               border: `1px solid ${colors.cardBorder}`,
+// //               background: colors.cardBg,
+// //               color: colors.textSecondary,
+// //               display: "flex",
+// //               alignItems: "center",
+// //               justifyContent: "center",
+// //               cursor: "pointer",
+// //             }}
+// //           >
+// //             <X size={18} />
+// //           </button>
+// //         </div>
+// //         {/* FORM */}
+// //         <form onSubmit={handleSubmit}>
+// //           <div style={{ padding: "24px" }}>
+// //             {/* ERROR */}
+// //             {error && (
+// //               <div
+// //                 style={{
+// //                   marginBottom: "20px",
+// //                   padding: "12px 14px",
+// //                   borderRadius: "10px",
+// //                   background: "rgba(224,82,82,.12)",
+// //                   border: `1px solid ${colors.danger}`,
+// //                   color: colors.danger,
+// //                   fontSize: "13px",
+// //                 }}
+// //               >
+// //                 {error}
+// //               </div>
+// //             )}
+// //             {/* NAME */}
+// //             <div style={{ marginBottom: "20px" }}>
+// //               <label
+// //                 style={{
+// //                   display: "block",
+// //                   marginBottom: "8px",
+// //                   color: colors.textSecondary,
+// //                   fontWeight: 600,
+// //                   fontSize: "13px",
+// //                 }}
+// //               >
+// //                 Festival Name *
+// //               </label>
+// //               <div style={{ position: "relative" }}>
+// //                 <Tag
+// //                   size={18}
+// //                   color={colors.textMuted}
+// //                   style={{
+// //                     position: "absolute",
+// //                     left: 14,
+// //                     top: 13,
+// //                   }}
+// //                 />
+// //                 <input
+// //                   type="text"
+// //                   name="name"
+// //                   value={form.name}
+// //                   onChange={handleChange}
+// //                   placeholder="Janmashtami"
+// //                   disabled={loading}
+// //                   style={{
+// //                     ...inputStyle,
+// //                     height: "46px",
+// //                     paddingLeft: "44px",
+// //                     paddingRight: "14px",
+// //                   }}
+// //                 />
+// //               </div>
+// //             </div>
+// //             {/* DESCRIPTION */}
+// //             <div style={{ marginBottom: "20px" }}>
+// //               <label
+// //                 style={{
+// //                   display: "block",
+// //                   marginBottom: "8px",
+// //                   color: colors.textSecondary,
+// //                   fontWeight: 600,
+// //                   fontSize: "13px",
+// //                 }}
+// //               >
+// //                 Description *
+// //               </label>
+// //               <div style={{ position: "relative" }}>
+// //                 <FileText
+// //                   size={18}
+// //                   color={colors.textMuted}
+// //                   style={{
+// //                     position: "absolute",
+// //                     left: 14,
+// //                     top: 14,
+// //                   }}
+// //                 />
+// //                 <textarea
+// //                   rows={4}
+// //                   name="description"
+// //                   value={form.description}
+// //                   onChange={handleChange}
+// //                   placeholder="Enter festival description"
+// //                   disabled={loading}
+// //                   style={{
+// //                     ...inputStyle,
+// //                     padding: "12px 14px 12px 44px",
+// //                     resize: "vertical",
+// //                     fontFamily: "inherit",
+// //                   }}
+// //                 />
+// //               </div>
+// //             </div>
+// //             {/* DATE + CATEGORY */}
+// //             <div
+// //               style={{
+// //                 display: "grid",
+// //                 gridTemplateColumns: "1fr 1fr",
+// //                 gap: "18px",
+// //                 marginBottom: "20px",
+// //               }}
+// //             >
+// //               <div>
+// //                 <label
+// //                   style={{
+// //                     display: "block",
+// //                     marginBottom: "8px",
+// //                     color: colors.textSecondary,
+// //                     fontWeight: 600,
+// //                     fontSize: "13px",
+// //                   }}
+// //                 >
+// //                   Date *
+// //                 </label>
+// //                 <div style={{ position: "relative" }}>
+// //                   <Calendar
+// //                     size={18}
+// //                     color={colors.textMuted}
+// //                     style={{
+// //                       position: "absolute",
+// //                       left: 14,
+// //                       top: 13,
+// //                     }}
+// //                   />
+// //                   <input
+// //                     type="date"
+// //                     name="date"
+// //                     value={form.date}
+// //                     onChange={handleChange}
+// //                     disabled={loading}
+// //                     style={{
+// //                       ...inputStyle,
+// //                       height: "46px",
+// //                       paddingLeft: "44px",
+// //                     }}
+// //                   />
+// //                 </div>
+// //               </div>
+// //               <div>
+// //                 <label
+// //                   style={{
+// //                     display: "block",
+// //                     marginBottom: "8px",
+// //                     color: colors.textSecondary,
+// //                     fontWeight: 600,
+// //                     fontSize: "13px",
+// //                   }}
+// //                 >
+// //                   Category *
+// //                 </label>
+// //                 <select
+// //                   name="category"
+// //                   value={form.category}
+// //                   onChange={handleChange}
+// //                   disabled={loading}
+// //                   style={{
+// //                     ...inputStyle,
+// //                     height: "46px",
+// //                     padding: "0 14px",
+// //                   }}
+// //                 >
+// //                   <option value="">Select Category</option>
+// //                   <option value="religious">
+// //                     Religious
+// //                   </option>
+// //                   <option value="national">
+// //                     National
+// //                   </option>
+// //                   <option value="cultural">
+// //                     Cultural
+// //                   </option>
+// //                   <option value="international">
+// //                     International
+// //                   </option>
+// //                   <option value="other">
+// //                     Other
+// //                   </option>
+// //                 </select>
+// //               </div>
+// //             </div>
+// //             {/* IMAGE URL */}
+// //             <div>
+// //               <label
+// //                 style={{
+// //                   display: "block",
+// //                   marginBottom: "8px",
+// //                   color: colors.textSecondary,
+// //                   fontWeight: 600,
+// //                   fontSize: "13px",
+// //                 }}
+// //               >
+// //                 Image URL
+// //               </label>
+// //               <div style={{ position: "relative" }}>
+// //                 <Image
+// //                   size={18}
+// //                   color={colors.textMuted}
+// //                   style={{
+// //                     position: "absolute",
+// //                     left: 14,
+// //                     top: 13,
+// //                   }}
+// //                 />
+// //                 <input
+// //                   type="text"
+// //                   name="imageUrl"
+// //                   value={form.imageUrl}
+// //                   onChange={handleChange}
+// //                   placeholder="https://example.com/image.png"
+// //                   disabled={loading}
+// //                   style={{
+// //                     ...inputStyle,
+// //                     height: "46px",
+// //                     paddingLeft: "44px",
+// //                     paddingRight: "14px",
+// //                   }}
+// //                 />
+// //               </div>
+// //             </div>
+// //           </div>
+// //           {/* FOOTER */}
+// //           <div
+// //             style={{
+// //               padding: "20px 24px",
+// //               borderTop: `1px solid ${colors.cardBorder}`,
+// //               display: "flex",
+// //               justifyContent: "flex-end",
+// //               gap: "12px",
+// //             }}
+// //           >
+// //             <Button
+// //               type="button"
+// //               variant="secondary"
+// //               onClick={onClose}
+// //               disabled={loading}
+// //             >
+// //               Cancel
+// //             </Button>
+// //             <Button
+// //               type="submit"
+// //               disabled={loading}
+// //             >
+// //               {loading
+// //                 ? "Creating..."
+// //                 : "Create Festival"}
+// //             </Button>
+// //           </div>
+// //         </form>
+// //       </div>
+// //     </div>
+// //   );
+// // };
+// // export default CreateFestivalModal;
 // import { Calendar, FileText, Image, Tag, X, } from "lucide-react";
 // import React, { useEffect, useState } from "react";
 // import axiosInstance from "../../api/axiosInstance";
@@ -14,17 +444,36 @@
 //   isOpen,
 //   onClose,
 //   onSuccess,
+//   festival,
 // }) => {
 //   const [form, setForm] = useState(initialState);
 //   const [loading, setLoading] = useState(false);
 //   const [error, setError] = useState("");
+//   const isEditMode = Boolean(festival);
+//   // =========================
+//   // INITIALIZE FORM
+//   // =========================
 //   useEffect(() => {
-//     if (isOpen) {
+//     if (!isOpen) return;
+//     setError("");
+//     if (festival) {
+//       setForm({
+//         name: festival.name || "",
+//         description: festival.description || "",
+//         date: festival.date
+//           ? festival.date.split("T")[0]
+//           : "",
+//         category: festival.category || "",
+//         imageUrl: festival.imageUrl || "",
+//       });
+//     } else {
 //       setForm(initialState);
-//       setError("");
 //     }
-//   }, [isOpen]);
+//   }, [isOpen, festival]);
 //   if (!isOpen) return null;
+//   // =========================
+//   // INPUT CHANGE
+//   // =========================
 //   const handleChange = (e) => {
 //     const { name, value } = e.target;
 //     setForm((prev) => ({
@@ -32,8 +481,12 @@
 //       [name]: value,
 //     }));
 //   };
+//   // =========================
+//   // SUBMIT
+//   // =========================
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
+//     // Validation
 //     if (!form.name.trim()) {
 //       setError("Festival name is required.");
 //       return;
@@ -53,16 +506,32 @@
 //     try {
 //       setLoading(true);
 //       setError("");
-//       const response = await axiosInstance.post(
-//         "/api/v1/festivals",
-//         {
-//           name: form.name.trim(),
-//           description: form.description.trim(),
-//           date: form.date,
-//           category: form.category,
-//           imageUrl: form.imageUrl.trim(),
-//         }
-//       );
+//       const payload = {
+//         name: form.name.trim(),
+//         description: form.description.trim(),
+//         date: form.date,
+//         category: form.category,
+//         imageUrl: form.imageUrl.trim(),
+//       };
+//       let response;
+//       // =========================
+//       // EDIT
+//       // =========================
+//       if (isEditMode) {
+//         response = await axiosInstance.put(
+//           `/api/v1/festivals/${festival._id}`,
+//           payload
+//         );
+//       }
+//       // =========================
+//       // CREATE
+//       // =========================
+//       else {
+//         response = await axiosInstance.post(
+//           "/api/v1/festivals",
+//           payload
+//         );
+//       }
 //       if (response.data?.success) {
 //         setForm(initialState);
 //         onSuccess?.();
@@ -70,15 +539,22 @@
 //       } else {
 //         setError(
 //           response.data?.message ||
-//             "Failed to create festival."
+//             `Failed to ${
+//               isEditMode ? "update" : "create"
+//             } festival.`
 //         );
 //       }
 //     } catch (err) {
-//       console.error(err);
+//       console.error(
+//         `${isEditMode ? "Update" : "Create"} festival error:`,
+//         err
+//       );
 //       setError(
 //         err?.response?.data?.message ||
 //           err?.message ||
-//           "Failed to create festival."
+//           `Failed to ${
+//             isEditMode ? "update" : "create"
+//           } festival.`
 //       );
 //     } finally {
 //       setLoading(false);
@@ -121,7 +597,9 @@
 //           boxShadow: "0 20px 60px rgba(0,0,0,.45)",
 //         }}
 //       >
-//         {/* HEADER */}
+//         {/* =========================
+//             HEADER
+//         ========================= */}
 //         <div
 //           style={{
 //             padding: "22px 24px",
@@ -140,7 +618,9 @@
 //                 fontWeight: 700,
 //               }}
 //             >
-//               Create Festival
+//               {isEditMode
+//                 ? "Edit Festival"
+//                 : "Create Festival"}
 //             </h2>
 //             <p
 //               style={{
@@ -149,12 +629,15 @@
 //                 fontSize: "13px",
 //               }}
 //             >
-//               Add a new festival to the calendar.
+//               {isEditMode
+//                 ? "Update festival details."
+//                 : "Add a new festival to the calendar."}
 //             </p>
 //           </div>
 //           <button
 //             type="button"
 //             onClick={onClose}
+//             disabled={loading}
 //             style={{
 //               width: "36px",
 //               height: "36px",
@@ -165,13 +648,18 @@
 //               display: "flex",
 //               alignItems: "center",
 //               justifyContent: "center",
-//               cursor: "pointer",
+//               cursor: loading
+//                 ? "not-allowed"
+//                 : "pointer",
+//               opacity: loading ? 0.5 : 1,
 //             }}
 //           >
 //             <X size={18} />
 //           </button>
 //         </div>
-//         {/* FORM */}
+//         {/* =========================
+//             FORM
+//         ========================= */}
 //         <form onSubmit={handleSubmit}>
 //           <div style={{ padding: "24px" }}>
 //             {/* ERROR */}
@@ -190,7 +678,9 @@
 //                 {error}
 //               </div>
 //             )}
-//             {/* NAME */}
+//             {/* =========================
+//                 NAME
+//             ========================= */}
 //             <div style={{ marginBottom: "20px" }}>
 //               <label
 //                 style={{
@@ -229,7 +719,9 @@
 //                 />
 //               </div>
 //             </div>
-//             {/* DESCRIPTION */}
+//             {/* =========================
+//                 DESCRIPTION
+//             ========================= */}
 //             <div style={{ marginBottom: "20px" }}>
 //               <label
 //                 style={{
@@ -268,7 +760,9 @@
 //                 />
 //               </div>
 //             </div>
-//             {/* DATE + CATEGORY */}
+//             {/* =========================
+//                 DATE + CATEGORY
+//             ========================= */}
 //             <div
 //               style={{
 //                 display: "grid",
@@ -277,6 +771,7 @@
 //                 marginBottom: "20px",
 //               }}
 //             >
+//               {/* DATE */}
 //               <div>
 //                 <label
 //                   style={{
@@ -313,6 +808,7 @@
 //                   />
 //                 </div>
 //               </div>
+//               {/* CATEGORY */}
 //               <div>
 //                 <label
 //                   style={{
@@ -336,7 +832,9 @@
 //                     padding: "0 14px",
 //                   }}
 //                 >
-//                   <option value="">Select Category</option>
+//                   <option value="">
+//                     Select Category
+//                   </option>
 //                   <option value="religious">
 //                     Religious
 //                   </option>
@@ -355,7 +853,9 @@
 //                 </select>
 //               </div>
 //             </div>
-//             {/* IMAGE URL */}
+//             {/* =========================
+//                 IMAGE URL
+//             ========================= */}
 //             <div>
 //               <label
 //                 style={{
@@ -395,7 +895,9 @@
 //               </div>
 //             </div>
 //           </div>
-//           {/* FOOTER */}
+//           {/* =========================
+//               FOOTER
+//           ========================= */}
 //           <div
 //             style={{
 //               padding: "20px 24px",
@@ -418,7 +920,11 @@
 //               disabled={loading}
 //             >
 //               {loading
-//                 ? "Creating..."
+//                 ? isEditMode
+//                   ? "Updating..."
+//                   : "Creating..."
+//                 : isEditMode
+//                 ? "Update Festival"
 //                 : "Create Festival"}
 //             </Button>
 //           </div>
@@ -441,7 +947,8 @@ const initialState = {
   description: "",
   date: "",
   category: "",
-  imageUrl: "",
+  image: null,
+  isActive: true,
 };
 
 const CreateFestivalModal = ({
@@ -472,7 +979,11 @@ const CreateFestivalModal = ({
           ? festival.date.split("T")[0]
           : "",
         category: festival.category || "",
-        imageUrl: festival.imageUrl || "",
+        image: null,
+        isActive:
+          festival.isActive !== undefined
+            ? festival.isActive
+            : true,
       });
     } else {
       setForm(initialState);
@@ -484,18 +995,153 @@ const CreateFestivalModal = ({
   // =========================
   // INPUT CHANGE
   // =========================
+  // const handleChange = (e) => {
+  //   const { name, value, type, checked, files } = e.target;
+
+  //   setForm((prev) => ({
+  //     ...prev,
+  //     [name]:
+  //       type === "file"
+  //         ? files?.[0] || null
+  //         : type === "checkbox"
+  //         ? checked
+  //         : value,
+  //   }));
+  // };
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked, files } = e.target;
+
+    if (type === "file") {
+      const file = files?.[0] || null;
+
+      console.log("FILE SELECTED:", file);
+      console.log("FILE NAME:", file?.name);
+      console.log("FILE SIZE:", file?.size);
+      console.log("FILE TYPE:", file?.type);
+
+      setForm((prev) => ({
+        ...prev,
+        image: file,
+      }));
+
+      return;
+    }
 
     setForm((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
-
   // =========================
   // SUBMIT
   // =========================
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   // Validation
+  //   if (!form.name.trim()) {
+  //     setError("Festival name is required.");
+  //     return;
+  //   }
+
+  //   if (!form.description.trim()) {
+  //     setError("Description is required.");
+  //     return;
+  //   }
+
+  //   if (!form.date) {
+  //     setError("Festival date is required.");
+  //     return;
+  //   }
+
+  //   if (!form.category) {
+  //     setError("Category is required.");
+  //     return;
+  //   }
+
+  //   try {
+  //     setLoading(true);
+  //     setError("");
+
+  //     // =========================
+  //     // FORMDATA
+  //     // =========================
+  //     const formData = new FormData();
+
+  //     formData.append("name", form.name.trim());
+  //     formData.append(
+  //       "description",
+  //       form.description.trim()
+  //     );
+  //     formData.append("date", form.date);
+  //     formData.append("category", form.category);
+
+  //     // Image is optional
+  //     if (form.image) {
+  //       formData.append("image", form.image);
+  //     }
+
+  //     // isActive is required for PUT according to Swagger
+  //     if (isEditMode) {
+  //       formData.append(
+  //         "isActive",
+  //         String(form.isActive)
+  //       );
+  //     }
+
+  //     let response;
+
+  //     // =========================
+  //     // UPDATE
+  //     // =========================
+  //     if (isEditMode) {
+  //       response = await axiosInstance.put(
+  //         `/api/v1/festivals/${festival._id}`,
+  //         formData
+  //       );
+  //     }
+
+  //     // =========================
+  //     // CREATE
+  //     // =========================
+  //     else {
+  //       response = await axiosInstance.post(
+  //         "/api/v1/festivals",
+  //         formData
+  //       );
+  //     }
+
+  //     if (response.data?.success) {
+  //       setForm(initialState);
+
+  //       await onSuccess?.();
+  //       onClose();
+  //     } else {
+  //       setError(
+  //         response.data?.message ||
+  //           `Failed to ${
+  //             isEditMode ? "update" : "create"
+  //           } festival.`
+  //       );
+  //     }
+  //   } catch (err) {
+  //     console.error(
+  //       `${isEditMode ? "Update" : "Create"} festival error:`,
+  //       err
+  //     );
+
+  //     setError(
+  //       err?.response?.data?.message ||
+  //         err?.message ||
+  //         `Failed to ${
+  //           isEditMode ? "update" : "create"
+  //         } festival.`
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -524,47 +1170,64 @@ const CreateFestivalModal = ({
       setLoading(true);
       setError("");
 
-      const payload = {
-        name: form.name.trim(),
-        description: form.description.trim(),
-        date: form.date,
-        category: form.category,
-        imageUrl: form.imageUrl.trim(),
-      };
+      const formData = new FormData();
+
+      formData.append("name", form.name.trim());
+      formData.append("description", form.description.trim());
+      formData.append("date", form.date);
+      formData.append("category", form.category);
+
+      // Image
+      if (form.image instanceof File) {
+        formData.append("image", form.image);
+      }
+
+      // Required for update
+      if (isEditMode) {
+        formData.append("isActive", String(form.isActive));
+      }
+
+      // Debug - check what is actually being sent
+      console.log("Selected image:", form.image);
+
+      for (const [key, value] of formData.entries()) {
+        console.log("FormData:", key, value);
+      }
 
       let response;
 
-      // =========================
-      // EDIT
-      // =========================
       if (isEditMode) {
         response = await axiosInstance.put(
           `/api/v1/festivals/${festival._id}`,
-          payload
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
-      }
-
-      // =========================
-      // CREATE
-      // =========================
-      else {
+      } else {
         response = await axiosInstance.post(
           "/api/v1/festivals",
-          payload
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
       }
 
       if (response.data?.success) {
         setForm(initialState);
 
-        onSuccess?.();
+        await onSuccess?.();
         onClose();
       } else {
         setError(
           response.data?.message ||
-            `Failed to ${
-              isEditMode ? "update" : "create"
-            } festival.`
+          `Failed to ${isEditMode ? "update" : "create"
+          } festival.`
         );
       }
     } catch (err) {
@@ -575,16 +1238,14 @@ const CreateFestivalModal = ({
 
       setError(
         err?.response?.data?.message ||
-          err?.message ||
-          `Failed to ${
-            isEditMode ? "update" : "create"
-          } festival.`
+        err?.message ||
+        `Failed to ${isEditMode ? "update" : "create"
+        } festival.`
       );
     } finally {
       setLoading(false);
     }
   };
-
   const inputStyle = {
     width: "100%",
     borderRadius: "12px",
@@ -623,10 +1284,7 @@ const CreateFestivalModal = ({
           boxShadow: "0 20px 60px rgba(0,0,0,.45)",
         }}
       >
-        {/* =========================
-            HEADER
-        ========================= */}
-
+        {/* HEADER */}
         <div
           style={{
             padding: "22px 24px",
@@ -687,14 +1345,10 @@ const CreateFestivalModal = ({
           </button>
         </div>
 
-        {/* =========================
-            FORM
-        ========================= */}
-
+        {/* FORM */}
         <form onSubmit={handleSubmit}>
           <div style={{ padding: "24px" }}>
             {/* ERROR */}
-
             {error && (
               <div
                 style={{
@@ -711,10 +1365,7 @@ const CreateFestivalModal = ({
               </div>
             )}
 
-            {/* =========================
-                NAME
-            ========================= */}
-
+            {/* NAME */}
             <div style={{ marginBottom: "20px" }}>
               <label
                 style={{
@@ -756,10 +1407,7 @@ const CreateFestivalModal = ({
               </div>
             </div>
 
-            {/* =========================
-                DESCRIPTION
-            ========================= */}
-
+            {/* DESCRIPTION */}
             <div style={{ marginBottom: "20px" }}>
               <label
                 style={{
@@ -793,7 +1441,8 @@ const CreateFestivalModal = ({
                   disabled={loading}
                   style={{
                     ...inputStyle,
-                    padding: "12px 14px 12px 44px",
+                    padding:
+                      "12px 14px 12px 44px",
                     resize: "vertical",
                     fontFamily: "inherit",
                   }}
@@ -801,20 +1450,17 @@ const CreateFestivalModal = ({
               </div>
             </div>
 
-            {/* =========================
-                DATE + CATEGORY
-            ========================= */}
-
+            {/* DATE + CATEGORY */}
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr",
+                gridTemplateColumns:
+                  "1fr 1fr",
                 gap: "18px",
                 marginBottom: "20px",
               }}
             >
               {/* DATE */}
-
               <div>
                 <label
                   style={{
@@ -828,7 +1474,11 @@ const CreateFestivalModal = ({
                   Date *
                 </label>
 
-                <div style={{ position: "relative" }}>
+                <div
+                  style={{
+                    position: "relative",
+                  }}
+                >
                   <Calendar
                     size={18}
                     color={colors.textMuted}
@@ -855,7 +1505,6 @@ const CreateFestivalModal = ({
               </div>
 
               {/* CATEGORY */}
-
               <div>
                 <label
                   style={{
@@ -907,10 +1556,53 @@ const CreateFestivalModal = ({
               </div>
             </div>
 
-            {/* =========================
-                IMAGE URL
-            ========================= */}
+            {/* IS ACTIVE - EDIT ONLY */}
+            {isEditMode && (
+              <div
+                style={{
+                  marginBottom: "20px",
+                }}
+              >
+                <label
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    color: colors.textSecondary,
+                    fontWeight: 600,
+                    fontSize: "13px",
+                  }}
+                >
+                  Status
+                </label>
 
+                <select
+                  name="isActive"
+                  value={String(form.isActive)}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      isActive:
+                        e.target.value === "true",
+                    }))
+                  }
+                  disabled={loading}
+                  style={{
+                    ...inputStyle,
+                    height: "46px",
+                    padding: "0 14px",
+                  }}
+                >
+                  <option value="true">
+                    Active
+                  </option>
+                  <option value="false">
+                    Inactive
+                  </option>
+                </select>
+              </div>
+            )}
+
+            {/* IMAGE */}
             <div>
               <label
                 style={{
@@ -921,7 +1613,7 @@ const CreateFestivalModal = ({
                   fontSize: "13px",
                 }}
               >
-                Image URL
+                Festival Image
               </label>
 
               <div style={{ position: "relative" }}>
@@ -932,31 +1624,64 @@ const CreateFestivalModal = ({
                     position: "absolute",
                     left: 14,
                     top: 13,
+                    zIndex: 1,
                   }}
                 />
 
                 <input
-                  type="text"
-                  name="imageUrl"
-                  value={form.imageUrl}
+                  type="file"
+                  name="image"
+                  accept="image/*"
                   onChange={handleChange}
-                  placeholder="https://example.com/image.png"
                   disabled={loading}
                   style={{
                     ...inputStyle,
-                    height: "46px",
-                    paddingLeft: "44px",
-                    paddingRight: "14px",
+                    minHeight: "46px",
+                    padding:
+                      "10px 14px 10px 44px",
                   }}
                 />
               </div>
+
+              {/* Existing image */}
+              {isEditMode &&
+                festival?.imageUrl && (
+                  <div
+                    style={{
+                      marginTop: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "12px",
+                    }}
+                  >
+                    <img
+                      src={festival.imageUrl}
+                      alt={festival.name}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        objectFit: "cover",
+                        borderRadius: "10px",
+                        border: `1px solid ${colors.cardBorder}`,
+                      }}
+                    />
+
+                    <span
+                      style={{
+                        color:
+                          colors.textSecondary,
+                        fontSize: "12px",
+                      }}
+                    >
+                      Select a new image to
+                      replace the current one.
+                    </span>
+                  </div>
+                )}
             </div>
           </div>
 
-          {/* =========================
-              FOOTER
-          ========================= */}
-
+          {/* FOOTER */}
           <div
             style={{
               padding: "20px 24px",
@@ -984,8 +1709,8 @@ const CreateFestivalModal = ({
                   ? "Updating..."
                   : "Creating..."
                 : isEditMode
-                ? "Update Festival"
-                : "Create Festival"}
+                  ? "Update Festival"
+                  : "Create Festival"}
             </Button>
           </div>
         </form>
