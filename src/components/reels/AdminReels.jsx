@@ -11,6 +11,7 @@ import ReelModal from "./ReelModal";
 const AdminReels = () => {
 
     const [reels, setReels] = useState([]);
+    const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -41,6 +42,7 @@ const AdminReels = () => {
 
 
             setReels(data.data.items || []);
+            setCount(data.data.total);
 
             setTotalPages(
                 Math.ceil(
@@ -134,7 +136,7 @@ const AdminReels = () => {
             width: "1.5fr",
 
             render: (value, row) => (
-                <div className="flex flex-col text-left" style={{width:"100%"}}>
+                <div className="flex flex-col text-left" style={{ width: "100%" }}>
 
                     <span
                         style={{
@@ -276,16 +278,100 @@ const AdminReels = () => {
                 </span>
             )
         },
+        // {
+        //     key: "actions",
+        //     label: "Actions",
+        //     width: "160px",
+
+        //     render: (_, row) => (
+        //         <div
+        //             className="flex gap-3"
+        //             onClick={(e) => e.stopPropagation()}
+        //         >
+        //             {/* EDIT */}
+        //             <button
+        //                 onClick={() => {
+        //                     setSelectedReel(row);
+        //                     setShowModal(true);
+        //                 }}
+        //                 style={{
+        //                     width: 38,
+        //                     height: 38,
+        //                     borderRadius: 10,
+        //                     border: `1px solid ${colors.cardBorder}`,
+        //                     background: colors.hover,
+        //                     color: colors.accent,
+        //                     cursor: "pointer",
+
+        //                     // center icon
+        //                     display: "flex",
+        //                     alignItems: "center",
+        //                     justifyContent: "center",
+        //                 }}
+        //             >
+        //                 <Pencil size={17} />
+        //             </button>
+
+        //             {/* DELETE */}
+        //             <button
+        //                 onClick={() => handleDelete(row._id)}
+        //                 style={{
+        //                     width: 38,
+        //                     height: 38,
+        //                     borderRadius: 10,
+        //                     border: `1px solid ${colors.danger}`,
+        //                     background: "transparent",
+        //                     color: colors.danger,
+        //                     cursor: "pointer",
+
+        //                     // center icon
+        //                     display: "flex",
+        //                     alignItems: "center",
+        //                     justifyContent: "center",
+        //                 }}
+        //             >
+        //                 <Trash2 size={17} />
+        //             </button>
+        //         </div>
+        //     ),
+        // }
         {
             key: "actions",
             label: "Actions",
-            width: "160px",
+            width: "210px",
 
             render: (_, row) => (
                 <div
                     className="flex gap-3"
                     onClick={(e) => e.stopPropagation()}
                 >
+
+                    {/* PLAY VIDEO */}
+                    <button
+                        onClick={() => {
+                            window.open(
+                                row.videoUrl,
+                                "_blank"
+                            );
+                        }}
+                        style={{
+                            width: 38,
+                            height: 38,
+                            borderRadius: 10,
+                            border: `1px solid ${colors.cardBorder}`,
+                            background: colors.hover,
+                            color: colors.accent,
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                        title="Play Video"
+                    >
+                        <Play size={17} />
+                    </button>
+
+
                     {/* EDIT */}
                     <button
                         onClick={() => {
@@ -300,15 +386,15 @@ const AdminReels = () => {
                             background: colors.hover,
                             color: colors.accent,
                             cursor: "pointer",
-
-                            // center icon
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                         }}
+                        title="Edit"
                     >
                         <Pencil size={17} />
                     </button>
+
 
                     {/* DELETE */}
                     <button
@@ -321,15 +407,15 @@ const AdminReels = () => {
                             background: "transparent",
                             color: colors.danger,
                             cursor: "pointer",
-
-                            // center icon
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                         }}
+                        title="Delete"
                     >
                         <Trash2 size={17} />
                     </button>
+
                 </div>
             ),
         }
@@ -425,7 +511,7 @@ const AdminReels = () => {
                             marginLeft: 8
                         }}
                     >
-                        {reels.length}
+                        {count}
                     </b>
 
                 </div>
