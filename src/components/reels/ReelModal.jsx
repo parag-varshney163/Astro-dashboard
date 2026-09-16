@@ -19,15 +19,15 @@ const ReelModal = ({ reel, onClose, refresh }) => {
     });
 
     const [video, setVideo] = useState(null);
-    const [thumbnail, setThumbnail] = useState(null);
+    // const [thumbnail, setThumbnail] = useState(null);
 
     const [videoPreview, setVideoPreview] = useState(
         reel?.videoUrl || reel?.video || ""
     );
 
-    const [thumbnailPreview, setThumbnailPreview] = useState(
-        reel?.thumbnailUrl || reel?.thumbnail || ""
-    );
+    // const [thumbnailPreview, setThumbnailPreview] = useState(
+    //     reel?.thumbnailUrl || reel?.thumbnail || ""
+    // );
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -45,14 +45,14 @@ const ReelModal = ({ reel, onClose, refresh }) => {
         return () => URL.revokeObjectURL(url);
     }, [video]);
 
-    useEffect(() => {
-        if (!thumbnail) return;
+    // useEffect(() => {
+    //     if (!thumbnail) return;
 
-        const url = URL.createObjectURL(thumbnail);
-        setThumbnailPreview(url);
+    //     const url = URL.createObjectURL(thumbnail);
+    //     setThumbnailPreview(url);
 
-        return () => URL.revokeObjectURL(url);
-    }, [thumbnail]);
+    //     return () => URL.revokeObjectURL(url);
+    // }, [thumbnail]);
 
     /* -----------------------------------------
        INPUT CHANGE
@@ -147,10 +147,10 @@ const ReelModal = ({ reel, onClose, refresh }) => {
             return false;
         }
 
-        if (!isEdit && !thumbnail) {
-            setError("Please upload a thumbnail.");
-            return false;
-        }
+        // if (!isEdit && !thumbnail) {
+        //     setError("Please upload a thumbnail.");
+        //     return false;
+        // }
         if (!form.durationSeconds || Number(form.durationSeconds) <= 0) {
             setError("Duration must be greater than 0 seconds.");
             return false;
@@ -257,9 +257,9 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                     body.append("video", video);
                 }
 
-                if (thumbnail) {
-                    body.append("thumbnail", thumbnail);
-                }
+                // if (thumbnail) {
+                //     body.append("thumbnail", thumbnail);
+                // }
 
                 body.append("title", form.title.trim());
                 body.append("description", form.description.trim());
@@ -669,7 +669,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                     )}
 
                     {/* MEDIA */}
-                    <div
+                    {/* <div
                         style={{
                             display: "grid",
                             gridTemplateColumns:
@@ -692,6 +692,15 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                             preview={thumbnailPreview}
                             onChange={handleThumbnailChange}
                             onRemove={removeThumbnail}
+                        />
+                    </div> */}
+                    <div style={{ marginBottom: 20 }}>
+                        <UploadBox
+                            type="video"
+                            file={video}
+                            preview={videoPreview}
+                            onChange={handleVideoChange}
+                            onRemove={removeVideo}
                         />
                     </div>
 
