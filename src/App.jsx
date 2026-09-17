@@ -17,6 +17,7 @@ import DailySpecial from "./pages/DailySpecial";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
+import Experiments from "./pages/Experiments";
 import LoginPage from "./pages/LoginPage";
 import Festivals from "./pages/Festivals";
 import ChatLimit from "./pages/ChatLimit";
@@ -188,6 +189,14 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <DailySpecial/>
+            </ProtectedRoute>
+          }
+        />
+           <Route
+            path={ROUTES.EXPERIMENTS}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <Experiments/>
             </ProtectedRoute>
           }
         />

@@ -198,7 +198,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         hide-scrollbar
       "
       style={{
-        width: isOpen ? "220px" : "70px",
+        width: isOpen ? "220px" : "78px",
         backgroundColor: colors.secondary,
         zIndex: 50,
         overflowY: "auto",

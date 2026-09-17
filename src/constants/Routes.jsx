@@ -33,7 +33,8 @@ const ROUTES = {
    CHAT_LIMIT:"/chat-limit",
    SUBSCRIPTION:"/subscription",
    REELS:"/reels",
-   DAILY_SPECIAL:"/daily-special"
+   DAILY_SPECIAL:"/daily-special",
+   EXPERIMENTS:"/experiments"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",
