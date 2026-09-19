@@ -794,11 +794,11 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                                 <option value="mantras">
                                     Mantras
                                 </option>
-                                <option value="aarti">
-                                    Aarti
+                                <option value="motivation">
+                                    Motivation
                                 </option>
-                                <option value="stories">
-                                    Stories
+                                <option value="trending">
+                                    Trending
                                 </option>
                             </select>
                         </div>
