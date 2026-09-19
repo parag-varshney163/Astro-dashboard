@@ -17,7 +17,7 @@ const DailySpecialTable = () => {
   const limit = 10;
   const [total, setTotal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-const [selectedDailySpecial, setSelectedDailySpecial] = useState(null);
+  const [selectedDailySpecial, setSelectedDailySpecial] = useState(null);
 
   const fetchDailySpecials = async () => {
     try {
@@ -45,34 +45,34 @@ const [selectedDailySpecial, setSelectedDailySpecial] = useState(null);
     fetchDailySpecials();
   }, [page]);
   const handleAdd = () => {
-  setSelectedDailySpecial(null);
-  setModalOpen(true);
-};
-const handleEdit = (row) => {
-  setSelectedDailySpecial(row);
-  setModalOpen(true);
-};
-const handleModalSuccess = () => {
-  fetchDailySpecials();
-};
-const handleDelete = async (row) => {
-  try {
-    const { data } = await axiosInstance.delete(
-      `/api/v1/daily-special/${row._id}`
-    );
+    setSelectedDailySpecial(null);
+    setModalOpen(true);
+  };
+  const handleEdit = (row) => {
+    setSelectedDailySpecial(row);
+    setModalOpen(true);
+  };
+  const handleModalSuccess = () => {
+    fetchDailySpecials();
+  };
+  const handleDelete = async (row) => {
+    try {
+      const { data } = await axiosInstance.delete(
+        `/api/v1/daily-special/${row._id}`
+      );
 
-    if (data.success) {
-      // If deleting the last item on the current page
-      if (dailySpecials.length === 1 && page > 1) {
-        setPage((prev) => prev - 1);
-      } else {
-        fetchDailySpecials();
+      if (data.success) {
+        // If deleting the last item on the current page
+        if (dailySpecials.length === 1 && page > 1) {
+          setPage((prev) => prev - 1);
+        } else {
+          fetchDailySpecials();
+        }
       }
+    } catch (error) {
+      console.error("Error deleting Daily Special", error);
     }
-  } catch (error) {
-    console.error("Error deleting Daily Special", error);
-  }
-};
+  };
 
   const columns = [
     {
@@ -153,10 +153,10 @@ const handleDelete = async (row) => {
       render: (value) =>
         value
           ? new Date(value).toLocaleDateString("en-IN", {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            })
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
           : "-",
     },
 
@@ -288,11 +288,11 @@ const handleDelete = async (row) => {
         onPageChange={setPage}
       />
       <DailySpecialModal
-  isOpen={modalOpen}
-  onClose={() => setModalOpen(false)}
-  editData={selectedDailySpecial}
-  onSuccess={handleModalSuccess}
-/>
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        editData={selectedDailySpecial}
+        onSuccess={handleModalSuccess}
+      />
     </div>
   );
 };

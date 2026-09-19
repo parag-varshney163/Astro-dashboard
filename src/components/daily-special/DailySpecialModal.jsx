@@ -45,7 +45,7 @@ const DailySpecialModal = ({
           : "",
         dayOfWeek:
           editData.dayOfWeek !== undefined &&
-          editData.dayOfWeek !== null
+            editData.dayOfWeek !== null
             ? String(editData.dayOfWeek)
             : "",
       });
@@ -221,10 +221,10 @@ const DailySpecialModal = ({
           key,
           value instanceof File
             ? {
-                name: value.name,
-                type: value.type,
-                size: value.size,
-              }
+              name: value.name,
+              type: value.type,
+              size: value.size,
+            }
             : value
         );
       }
@@ -267,8 +267,7 @@ const DailySpecialModal = ({
         setErrors({
           submit:
             response.data?.message ||
-            `Failed to ${
-              isEdit ? "update" : "create"
+            `Failed to ${isEdit ? "update" : "create"
             } daily special.`,
         });
       }
@@ -282,8 +281,7 @@ const DailySpecialModal = ({
         submit:
           err?.response?.data?.message ||
           err?.message ||
-          `Failed to ${
-            isEdit ? "update" : "create"
+          `Failed to ${isEdit ? "update" : "create"
           } daily special.`,
       });
     } finally {
@@ -294,9 +292,8 @@ const DailySpecialModal = ({
   const inputStyle = (field) => ({
     width: "100%",
     background: colors.inputBg,
-    border: `1px solid ${
-      errors[field] ? colors.danger : colors.inputBorder
-    }`,
+    border: `1px solid ${errors[field] ? colors.danger : colors.inputBorder
+      }`,
     color: colors.textPrimary,
     borderRadius: 10,
     padding: "11px 13px",
@@ -517,6 +514,15 @@ const DailySpecialModal = ({
                 >
                   Weekday
                 </option>
+                <option
+                  value="generic"
+                  style={{
+                    background: colors.cardBg,
+                    color: colors.textPrimary,
+                  }}
+                >
+                  Generic
+                </option>
               </select>
 
               {errors.recurrence && (
@@ -525,7 +531,7 @@ const DailySpecialModal = ({
             </div>
 
             {/* Date */}
-            {formData.recurrence === "date" && (
+            {/* {formData.recurrence === "date" && (
               <div>
                 <label style={labelStyle}>
                   Date{" "}
@@ -548,7 +554,34 @@ const DailySpecialModal = ({
                   <p style={errorStyle}>{errors.date}</p>
                 )}
               </div>
-            )}
+            )} */}
+            {(formData.recurrence === "date" ||
+              formData.recurrence === "generic") && (
+                <div>
+                  <label style={labelStyle}>
+                    Date{" "}
+                    {formData.recurrence === "date" && (
+                      <span style={{ color: colors.danger }}>*</span>
+                    )}
+                  </label>
+
+                  <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    style={{
+                      ...inputStyle("date"),
+                      colorScheme: "dark",
+                    }}
+                    disabled={submitting}
+                  />
+
+                  {errors.date && (
+                    <p style={errorStyle}>{errors.date}</p>
+                  )}
+                </div>
+              )}
 
             {/* Weekday */}
             {formData.recurrence === "weekday" && (
@@ -619,11 +652,10 @@ const DailySpecialModal = ({
                 style={{
                   minHeight: 100,
                   background: colors.inputBg,
-                  border: `1px dashed ${
-                    errors.image
+                  border: `1px dashed ${errors.image
                       ? colors.danger
                       : colors.inputBorder
-                  }`,
+                    }`,
                   color: colors.textSecondary,
                 }}
               >
@@ -643,8 +675,8 @@ const DailySpecialModal = ({
                     {image
                       ? "Change image"
                       : isEdit
-                      ? "Click to replace image"
-                      : "Click to upload image"}
+                        ? "Click to replace image"
+                        : "Click to upload image"}
                   </span>
 
                   <span
@@ -652,6 +684,12 @@ const DailySpecialModal = ({
                     style={{ color: colors.textMuted }}
                   >
                     PNG, JPG, WEBP
+                  </span>
+                  <span
+                    className="text-[11px]"
+                    style={{ color: colors.textMuted }}
+                  >
+                    Maximum image size: 100 MB
                   </span>
                 </div>
               </label>
@@ -734,8 +772,8 @@ const DailySpecialModal = ({
                   ? "Updating..."
                   : "Creating..."
                 : isEdit
-                ? "Update Daily Special"
-                : "Create Daily Special"}
+                  ? "Update Daily Special"
+                  : "Create Daily Special"}
             </button>
           </div>
         </form>

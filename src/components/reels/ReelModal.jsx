@@ -13,8 +13,8 @@ const ReelModal = ({ reel, onClose, refresh }) => {
         title: reel?.title || "",
         description: reel?.description || "",
         category: reel?.category || "for_you",
-        order: reel?.order ?? 0,
-        durationSeconds: reel?.durationSeconds ?? "",
+       // order: reel?.order ?? 0,
+        //durationSeconds: reel?.durationSeconds ?? "",
         status: reel?.status || "processing",
     });
 
@@ -151,15 +151,15 @@ const ReelModal = ({ reel, onClose, refresh }) => {
         //     setError("Please upload a thumbnail.");
         //     return false;
         // }
-        if (!form.durationSeconds || Number(form.durationSeconds) <= 0) {
-            setError("Duration must be greater than 0 seconds.");
-            return false;
-        }
+        // if (!form.durationSeconds || Number(form.durationSeconds) <= 0) {
+        //     setError("Duration must be greater than 0 seconds.");
+        //     return false;
+        // }
 
-        if (Number(form.order) < 0) {
-            setError("Order cannot be negative.");
-            return false;
-        }
+        // if (Number(form.order) < 0) {
+        //     setError("Order cannot be negative.");
+        //     return false;
+        // }
 
         return true;
     };
@@ -241,7 +241,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                     title: form.title.trim(),
                     description: form.description.trim(),
                     category: form.category,
-                    order: Number(form.order),
+                    //order: Number(form.order),
                     status: form.status,
                 };
 
@@ -265,15 +265,15 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                 body.append("description", form.description.trim());
                 body.append("category", form.category);
 
-                body.append(
-                    "durationSeconds",
-                    Number(form.durationSeconds)
-                );
+                // body.append(
+                //     "durationSeconds",
+                //     Number(form.durationSeconds)
+                // );
 
-                body.append(
-                    "order",
-                    Number(form.order)
-                );
+                // body.append(
+                //     "order",
+                //     Number(form.order)
+                // );
 
                 body.append("status", form.status);
 
@@ -832,7 +832,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                         </div>
                     </div>
                     {/* DURATION */}
-                    <div style={{ marginBottom: 16 }}>
+                    {/* <div style={{ marginBottom: 16 }}>
                         <label style={labelStyle}>
                             Duration (Seconds)
                             <span style={{ color: colors.danger }}> *</span>
@@ -863,10 +863,10 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                         >
                             Enter the reel duration in seconds.
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* ORDER */}
-                    <div style={{ marginBottom: 20 }}>
+                    {/* <div style={{ marginBottom: 20 }}>
                         <label style={labelStyle}>
                             Display Order
                         </label>
@@ -880,7 +880,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                             placeholder="0"
                             style={inputStyle}
                         />
-                    </div>
+                    </div> */}
 
                     {/* FOOTER BUTTONS */}
                     <div
