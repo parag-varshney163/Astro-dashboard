@@ -209,15 +209,15 @@ const MENU_ITEMS = [
       key: "autoPay",
     },
   },
-  //  {
-  //   name: "Reels stats",
-  //   icon: Stamp,
-  //   path: "/reels-stats",
-  //   permission: {
-  //     section: "agamiCustomerDashboard",
-  //     key: "autoPay",
-  //   },
-  // },
+   {
+    name: "Reels stats",
+    icon: Stamp,
+    path: "/reels-stats",
+    permission: {
+      section: "agamiCustomerDashboard",
+      key: "autoPay",
+    },
+  },
   {
     name: "Experiments Stats",
     icon: Expand,
