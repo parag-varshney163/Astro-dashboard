@@ -34,7 +34,10 @@ const ROUTES = {
    SUBSCRIPTION:"/subscription",
    REELS:"/reels",
    DAILY_SPECIAL:"/daily-special",
-   EXPERIMENTS:"/experiments"
+   EXPERIMENTS:"/experiments",
+   REELS_CATEGORY:"/reels-category",
+   REELS_STATS:"/reels-stats",
+   EX_STATS:"/ex-stats"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

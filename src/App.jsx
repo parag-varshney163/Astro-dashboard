@@ -9,6 +9,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
 import TutorialViedos from "./pages/TutorialViedos";
 import ResetPassword from "./pages/ResetPassword";
+import ReelsCategory from "./pages/ReelsCategory";
 import Unauthorized from "./pages/Unauthorized";
 import Transactions from "./pages/Transactions";
 import Notification from "./pages/Notification";
@@ -18,11 +19,13 @@ import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
 import Experiments from "./pages/Experiments";
+import ReelsStats from "./pages/ReelsStats";
 import LoginPage from "./pages/LoginPage";
 import Festivals from "./pages/Festivals";
 import ChatLimit from "./pages/ChatLimit";
 import ROUTES from "./constants/Routes";
 import Rashifal from "./pages/Rashifal";
+import ExStats from "./pages/ExStats";
 import ChatBot from "./pages/ChatBot";
 import AutoPay from "./pages/AutoPay";
 import Reels from "./pages/Reels";
@@ -197,6 +200,30 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <Experiments/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+            path={ROUTES.REELS_CATEGORY}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <ReelsCategory/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.REELS_STATS}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <ReelsStats/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.EX_STATS}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <ExStats/>
             </ProtectedRoute>
           }
         />

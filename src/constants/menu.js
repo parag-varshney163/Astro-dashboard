@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, FileQuestionMark, FerrisWheel, View, Radius, Bell, Database, ArrowUpToLine, ChartArea, SubscriptIcon, VeganIcon, Diamond, ExternalLink, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, VolumeX, DivideIcon, ClipboardCheck, Coins, FileQuestionMark, FerrisWheel, View, Radius, Bell, Database, ArrowUpToLine, ChartArea, SubscriptIcon, VeganIcon, Diamond, ExternalLink, CarTaxiFront, Stamp, Expand, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -195,6 +195,33 @@ const MENU_ITEMS = [
     name: "Experiments",
     icon: ExternalLink,
     path: "/experiments",
+    permission: {
+      section: "agamiCustomerDashboard",
+      key: "autoPay",
+    },
+  },
+    {
+    name: "Reels Category",
+    icon: CarTaxiFront,
+    path: "/reels-category",
+    permission: {
+      section: "agamiCustomerDashboard",
+      key: "autoPay",
+    },
+  },
+  //  {
+  //   name: "Reels stats",
+  //   icon: Stamp,
+  //   path: "/reels-stats",
+  //   permission: {
+  //     section: "agamiCustomerDashboard",
+  //     key: "autoPay",
+  //   },
+  // },
+  {
+    name: "Experiments Stats",
+    icon: Expand,
+    path: "/ex-stats",
     permission: {
       section: "agamiCustomerDashboard",
       key: "autoPay",

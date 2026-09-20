@@ -634,6 +634,33 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+         case "/reels-category":
+        return (
+          <>
+            Reels
+            <span style={{ color: colors.accent }}>
+              Category
+            </span>
+          </>
+        );
+         case "/reels-stats":
+        return (
+          <>
+            Reels
+            <span style={{ color: colors.accent }}>
+              Stats
+            </span>
+          </>
+        );
+         case "/ex-stats":
+        return (
+          <>
+            Experiments
+            <span style={{ color: colors.accent }}>
+              Stats
+            </span>
+          </>
+        );
 
       default:
         if (callName) {
