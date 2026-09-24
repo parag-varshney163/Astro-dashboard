@@ -11,6 +11,12 @@ const EXPERIMENT_KEYS = [
   "onboarding_flow",
   "subscription_price",
 ];
+const DATE_FILTERS = [
+  "today",
+  "yesterday",
+  "last7days",
+  "last30days",
+];
 
 const ExperimentStats = () => {
   const [experimentKey, setExperimentKey] = useState("onboarding_flow");
@@ -20,10 +26,57 @@ const ExperimentStats = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
 
   // -----------------------------------------
   // Fetch Experiment Stats
   // -----------------------------------------
+  // const fetchStats = async () => {
+  //   try {
+  //     setLoading(true);
+  //     setError("");
+
+  //     const params = {
+  //       experimentKey,
+  //     };
+
+  //     if (from) {
+  //       params.from = from;
+  //     }
+
+  //     if (to) {
+  //       params.to = to;
+  //     }
+
+  //     const response = await axiosInstance.get(
+  //       "/api/v1/experiments/stats",
+  //       {
+  //         params,
+  //       }
+  //     );
+
+  //     if (response?.data?.success) {
+  //       setStats(response.data.data);
+  //     } else {
+  //       setStats(null);
+  //       setError(
+  //         response?.data?.message || "Failed to fetch experiment stats"
+  //       );
+  //     }
+  //   } catch (err) {
+  //     console.error("Experiment stats error:", err);
+
+  //     setStats(null);
+
+  //     setError(
+  //       err?.response?.data?.message ||
+  //         err?.message ||
+  //         "Something went wrong while fetching experiment stats"
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const fetchStats = async () => {
     try {
       setLoading(true);
@@ -33,12 +86,16 @@ const ExperimentStats = () => {
         experimentKey,
       };
 
-      if (from) {
-        params.from = from;
-      }
+      if (dateFilter) {
+        params.filter = dateFilter;
+      } else {
+        if (from) {
+          params.from = from;
+        }
 
-      if (to) {
-        params.to = to;
+        if (to) {
+          params.to = to;
+        }
       }
 
       const response = await axiosInstance.get(
@@ -63,13 +120,61 @@ const ExperimentStats = () => {
 
       setError(
         err?.response?.data?.message ||
-          err?.message ||
-          "Something went wrong while fetching experiment stats"
+        err?.message ||
+        "Something went wrong while fetching experiment stats"
       );
     } finally {
       setLoading(false);
     }
   };
+  //   const applyDateFilter = (filter) => {
+  //   const today = new Date();
+
+  //   const formatDate = (date) => {
+  //     return date.toISOString().split("T")[0];
+  //   };
+
+  //   let fromDate = "";
+  //   let toDate = formatDate(today);
+
+  //   switch (filter) {
+  //     case "Today":
+  //       fromDate = toDate;
+  //       break;
+
+  //     case "Yesterday": {
+  //       const yesterday = new Date();
+  //       yesterday.setDate(today.getDate() - 1);
+
+  //       fromDate = formatDate(yesterday);
+  //       toDate = formatDate(yesterday);
+  //       break;
+  //     }
+
+  //     case "Last 7 Days": {
+  //       const last7 = new Date();
+  //       last7.setDate(today.getDate() - 6);
+
+  //       fromDate = formatDate(last7);
+  //       break;
+  //     }
+
+  //     case "Last 30 Days": {
+  //       const last30 = new Date();
+  //       last30.setDate(today.getDate() - 29);
+
+  //       fromDate = formatDate(last30);
+  //       break;
+  //     }
+
+  //     default:
+  //       fromDate = "";
+  //       toDate = "";
+  //   }
+
+  //   setFrom(fromDate);
+  //   setTo(toDate);
+  // };
 
   // -----------------------------------------
   // Reset Filters
@@ -80,6 +185,7 @@ const ExperimentStats = () => {
     setTo("");
     setStats(null);
     setError("");
+    setDateFilter("");
   };
 
   // -----------------------------------------
@@ -358,9 +464,45 @@ const ExperimentStats = () => {
               }}
             />
           </div>
+          {/* Date Filter */}
+          <div style={{ minWidth: 220 }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: 8,
+                color: colors.textSecondary,
+                fontSize: 13,
+                fontWeight: 600,
+              }}
+            >
+              Date Range
+            </label>
+
+            {/* <FilterDropDown
+    options={DATE_FILTERS}
+    defaultLabel={dateFilter || "Select Range"}
+    width={220}
+    onSelect={(value) => {
+      setDateFilter(value);
+      applyDateFilter(value);
+    }}
+  /> */}
+            <FilterDropDown
+              options={DATE_FILTERS}
+              defaultLabel={dateFilter || "Select Range"}
+              width={220}
+              onSelect={(value) => {
+                setDateFilter(value);
+
+                // clear manual dates when preset selected
+                setFrom("");
+                setTo("");
+              }}
+            />
+          </div>
 
           {/* From */}
-          <div style={{ minWidth: 200 }}>
+          {/* <div style={{ minWidth: 200 }}>
             <label
               style={{
                 display: "block",
@@ -397,10 +539,10 @@ const ExperimentStats = () => {
                 e.target.style.borderColor = colors.inputBorder;
               }}
             />
-          </div>
+          </div> */}
 
           {/* To */}
-          <div style={{ minWidth: 200 }}>
+          {/* <div style={{ minWidth: 200 }}>
             <label
               style={{
                 display: "block",
@@ -437,7 +579,7 @@ const ExperimentStats = () => {
                 e.target.style.borderColor = colors.inputBorder;
               }}
             />
-          </div>
+          </div> */}
 
           {/* Apply */}
           <button
@@ -565,9 +707,8 @@ const ExperimentStats = () => {
                 background: stats.isActive
                   ? "rgba(61,190,108,0.12)"
                   : "rgba(224,82,82,0.12)",
-                border: `1px solid ${
-                  stats.isActive ? colors.success : colors.danger
-                }`,
+                border: `1px solid ${stats.isActive ? colors.success : colors.danger
+                  }`,
                 color: stats.isActive
                   ? colors.success
                   : colors.danger,

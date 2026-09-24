@@ -112,7 +112,7 @@ const ReelsOverview = () => {
       } else {
         setError(
           response?.data?.message ||
-            "Failed to fetch reel statistics."
+          "Failed to fetch reel statistics."
         );
       }
     } catch (err) {
@@ -120,8 +120,8 @@ const ReelsOverview = () => {
 
       setError(
         err?.response?.data?.message ||
-          err?.message ||
-          "Failed to fetch reel statistics."
+        err?.message ||
+        "Failed to fetch reel statistics."
       );
     } finally {
       setLoading(false);
@@ -452,11 +452,10 @@ const ReelsOverview = () => {
               background: isActive
                 ? "rgba(34,197,94,0.12)"
                 : "rgba(239,68,68,0.12)",
-              border: `1px solid ${
-                isActive
+              border: `1px solid ${isActive
                   ? "rgba(34,197,94,0.30)"
                   : "rgba(239,68,68,0.30)"
-              }`,
+                }`,
               color: isActive
                 ? colors.success
                 : colors.danger,
@@ -1017,150 +1016,150 @@ const ReelsOverview = () => {
     STATUS BREAKDOWN COLLAPSIBLE
 ====================================================== */}
 
-<div
-  className="rounded-2xl p-5 mb-6"
-  style={{
-    background: colors.cardBg,
-    border: `1px solid ${colors.cardBorder}`,
-  }}
->
-  {/* HEADER */}
-
-  <div
-    className="flex items-center justify-between"
-    style={{
-      cursor: "pointer",
-    }}
-    onClick={() =>
-      setShowStatusBreakdown((prev) => !prev)
-    }
-  >
-    <div className="flex items-center gap-2">
-      <Activity
-        size={17}
-        color={colors.accent}
-      />
-
-      <div>
-        <div
-          style={{
-            color: colors.textPrimary,
-            fontSize: 15,
-            fontWeight: 600,
-          }}
-        >
-          Reel Status Breakdown
-        </div>
+      <div
+        className="rounded-2xl p-5 mb-6"
+        style={{
+          background: colors.cardBg,
+          border: `1px solid ${colors.cardBorder}`,
+        }}
+      >
+        {/* HEADER */}
 
         <div
+          className="flex items-center justify-between"
           style={{
-            marginTop: 3,
-            color: colors.textMuted,
-            fontSize: 11,
+            cursor: "pointer",
           }}
+          onClick={() =>
+            setShowStatusBreakdown((prev) => !prev)
+          }
         >
-          Active, inactive and processing reel count
-        </div>
-      </div>
-    </div>
-
-
-    {/* EXPAND BUTTON */}
-
-    <button
-      type="button"
-      onClick={(e) => {
-        e.stopPropagation();
-
-        setShowStatusBreakdown(
-          (prev) => !prev
-        );
-      }}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 7,
-        padding: "8px 12px",
-        borderRadius: 9,
-        border: `1px solid ${colors.cardBorder}`,
-        background: colors.secondary,
-        color: colors.accent,
-        cursor: "pointer",
-        fontSize: 11,
-        fontWeight: 600,
-      }}
-    >
-      {showStatusBreakdown ? (
-        <>
-          <ChevronUp size={15} />
-          Collapse
-        </>
-      ) : (
-        <>
-          <ChevronDown size={15} />
-          Expand
-        </>
-      )}
-    </button>
-  </div>
-
-
-  {/* CONTENT */}
-
-  {showStatusBreakdown && (
-    <div
-      className="grid grid-cols-2 md:grid-cols-4 gap-3"
-      style={{
-        marginTop: 20,
-      }}
-    >
-      {statusBreakdown.map((status) => (
-        <div
-          key={status.label}
-          className="rounded-xl px-4 py-3"
-          style={{
-            background: colors.secondary,
-            border: `1px solid ${colors.cardBorder}`,
-          }}
-        >
-          <div
-            className="flex items-center justify-between"
-          >
-            <span
-              style={{
-                color: colors.textSecondary,
-                fontSize: 12,
-              }}
-            >
-              {status.label}
-            </span>
-
-            <span
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: status.color,
-              }}
+          <div className="flex items-center gap-2">
+            <Activity
+              size={17}
+              color={colors.accent}
             />
+
+            <div>
+              <div
+                style={{
+                  color: colors.textPrimary,
+                  fontSize: 15,
+                  fontWeight: 600,
+                }}
+              >
+                Reel Status Breakdown
+              </div>
+
+              <div
+                style={{
+                  marginTop: 3,
+                  color: colors.textMuted,
+                  fontSize: 11,
+                }}
+              >
+                Active, inactive and processing reel count
+              </div>
+            </div>
           </div>
 
 
-          <div
+          {/* EXPAND BUTTON */}
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+
+              setShowStatusBreakdown(
+                (prev) => !prev
+              );
+            }}
             style={{
-              marginTop: 6,
-              color: colors.textPrimary,
-              fontSize: 18,
-              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              gap: 7,
+              padding: "8px 12px",
+              borderRadius: 9,
+              border: `1px solid ${colors.cardBorder}`,
+              background: colors.secondary,
+              color: colors.accent,
+              cursor: "pointer",
+              fontSize: 11,
+              fontWeight: 600,
             }}
           >
-            {formatNumber(status.value)}
-          </div>
+            {showStatusBreakdown ? (
+              <>
+                <ChevronUp size={15} />
+                Collapse
+              </>
+            ) : (
+              <>
+                <ChevronDown size={15} />
+                Expand
+              </>
+            )}
+          </button>
         </div>
-      ))}
-    </div>
-  )}
-</div>
+
+
+        {/* CONTENT */}
+
+        {showStatusBreakdown && (
+          <div
+            className="grid grid-cols-2 md:grid-cols-4 gap-3"
+            style={{
+              marginTop: 20,
+            }}
+          >
+            {statusBreakdown.map((status) => (
+              <div
+                key={status.label}
+                className="rounded-xl px-4 py-3"
+                style={{
+                  background: colors.secondary,
+                  border: `1px solid ${colors.cardBorder}`,
+                }}
+              >
+                <div
+                  className="flex items-center justify-between"
+                >
+                  <span
+                    style={{
+                      color: colors.textSecondary,
+                      fontSize: 12,
+                    }}
+                  >
+                    {status.label}
+                  </span>
+
+                  <span
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      background: status.color,
+                    }}
+                  />
+                </div>
+
+
+                <div
+                  style={{
+                    marginTop: 6,
+                    color: colors.textPrimary,
+                    fontSize: 18,
+                    fontWeight: 700,
+                  }}
+                >
+                  {formatNumber(status.value)}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* ======================================================
           TOP PERFORMING SECTION
@@ -1262,11 +1261,10 @@ const ReelsOverview = () => {
                   gap: 7,
                   padding: "9px 14px",
                   borderRadius: 9,
-                  border: `1px solid ${
-                    active
+                  border: `1px solid ${active
                       ? colors.accent
                       : colors.cardBorder
-                  }`,
+                    }`,
                   background: active
                     ? colors.accent
                     : colors.secondary,
@@ -1669,7 +1667,7 @@ const ReelsOverview = () => {
                       marginTop: 8,
                       color:
                         selectedReel.status ===
-                        "active"
+                          "active"
                           ? colors.success
                           : colors.danger,
                       fontSize: 12,
@@ -1719,10 +1717,10 @@ const ReelsOverview = () => {
                     value:
                       selectedReel.viewCount
                         ? `${(
-                            (selectedReel.likeCount /
-                              selectedReel.viewCount) *
-                            100
-                          ).toFixed(2)}%`
+                          (selectedReel.likeCount /
+                            selectedReel.viewCount) *
+                          100
+                        ).toFixed(2)}%`
                         : "0%",
                     icon: TrendingUp,
                     color:
@@ -1769,11 +1767,11 @@ const ReelsOverview = () => {
                         }}
                       >
                         {metric.label ===
-                        "Like Rate"
+                          "Like Rate"
                           ? metric.value
                           : formatNumber(
-                              metric.value
-                            )}
+                            metric.value
+                          )}
                       </div>
                     </div>
                   );
