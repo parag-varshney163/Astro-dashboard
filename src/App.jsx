@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 
 import NotificationManager from "./components/customer-support/NotificationManager";
+import SubscriptionAnalytics from "./pages/SubscriptionAnaytics";
 import SubscriptionOverview from "./pages/SubscriptionOverview";
 import AccountManagement from "./pages/AccountManagement";
 import CustomerSupport from "./pages/CustomerSupport";
@@ -227,6 +228,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+         {/* <Route
+            path={ROUTES.SUBSCRIPTION_ANALYTICS}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <SubscriptionAnalytics/>
+            </ProtectedRoute>
+          }
+        /> */}
         
       </Routes>
     </Router>

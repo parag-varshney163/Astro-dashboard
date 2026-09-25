@@ -37,7 +37,8 @@ const ROUTES = {
    EXPERIMENTS:"/experiments",
    REELS_CATEGORY:"/reels-category",
    REELS_STATS:"/reels-stats",
-   EX_STATS:"/ex-stats"
+   EX_STATS:"/ex-stats",
+   SUBSCRIPTION_ANALYTICS:"/subscribe"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",
