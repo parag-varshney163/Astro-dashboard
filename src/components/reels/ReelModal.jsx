@@ -34,6 +34,8 @@ const ReelModal = ({ reel, onClose, refresh }) => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [categories, setCategories] = useState([]);
+    const [categoryLoading, setCategoryLoading] = useState(false);
 
     /* -----------------------------------------
        FILE PREVIEW
@@ -47,6 +49,47 @@ const ReelModal = ({ reel, onClose, refresh }) => {
 
         return () => URL.revokeObjectURL(url);
     }, [video]);
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                setCategoryLoading(true);
+
+                const res = await axiosInstance.get(
+                    "/api/v1/home-banners"
+                );
+
+                const items = res?.data?.data?.items || [];
+
+                const activeCategories = items
+                    .filter((item) => item.isActive)
+                    .sort((a, b) => a.sortOrder - b.sortOrder)
+                    .map((item) => ({
+                        value: item.key,
+                        label: item.title,
+                    }));
+
+                setCategories(activeCategories);
+
+                // default category
+                if (!isEdit && activeCategories.length) {
+                    setForm((prev) => ({
+                        ...prev,
+                        categories: [activeCategories[0].value],
+                    }));
+                }
+
+            } catch (error) {
+                console.error(
+                    "Failed to fetch categories:",
+                    error
+                );
+            } finally {
+                setCategoryLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     // useEffect(() => {
     //     if (!thumbnail) return;
@@ -839,18 +882,30 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                                 name="categories"
                                 value={form.categories}
                                 onChange={handleChange}
+                                disabled={categoryLoading}
                                 style={{
                                     ...inputStyle,
                                     height: 170,
-                                    cursor: "pointer",
+                                    cursor: categoryLoading
+                                        ? "not-allowed"
+                                        : "pointer",
+                                    opacity: categoryLoading ? 0.6 : 1,
                                 }}
                             >
-                                <option value="for_you">For You</option>
-                                <option value="mantras">Mantras</option>
-                                {/* <option value="aarti">Aarti</option>
-    <option value="stories">Stories</option> */}
-                                <option value="motivation">Motivation</option>
-                                <option value="trending">Trending</option>
+                                {categoryLoading ? (
+                                    <option>
+                                        Loading categories...
+                                    </option>
+                                ) : (
+                                    categories.map((category) => (
+                                        <option
+                                            key={category.value}
+                                            value={category.value}
+                                        >
+                                            {category.label}
+                                        </option>
+                                    ))
+                                )}
                             </select>
                             <div
                                 style={{
