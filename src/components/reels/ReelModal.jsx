@@ -12,9 +12,12 @@ const ReelModal = ({ reel, onClose, refresh }) => {
     const [form, setForm] = useState({
         title: reel?.title || "",
         description: reel?.description || "",
-        category: reel?.category || "for_you",
-       // order: reel?.order ?? 0,
+        // category: reel?.category || "for_you",
+        // order: reel?.order ?? 0,
         //durationSeconds: reel?.durationSeconds ?? "",
+        categories:
+            reel?.categories ||
+            (reel?.category ? [reel.category] : ["for_you"]),
         status: reel?.status || "processing",
     });
 
@@ -58,13 +61,34 @@ const ReelModal = ({ reel, onClose, refresh }) => {
        INPUT CHANGE
     ----------------------------------------- */
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
 
-        setForm((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+    //     setForm((prev) => ({
+    //         ...prev,
+    //         [name]: value,
+    //     }));
+
+    //     setError("");
+    // };
+    const handleChange = (e) => {
+        const { name, value, options } = e.target;
+
+        if (name === "categories") {
+            const values = Array.from(options)
+                .filter((option) => option.selected)
+                .map((option) => option.value);
+
+            setForm((prev) => ({
+                ...prev,
+                categories: values,
+            }));
+        } else {
+            setForm((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
 
         setError("");
     };
@@ -144,6 +168,10 @@ const ReelModal = ({ reel, onClose, refresh }) => {
 
         if (!isEdit && !video) {
             setError("Please upload a video.");
+            return false;
+        }
+        if (!form.categories.length) {
+            setError("Please select at least one category.");
             return false;
         }
 
@@ -240,7 +268,8 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                 const payload = {
                     title: form.title.trim(),
                     description: form.description.trim(),
-                    category: form.category,
+                    // category: form.category,
+                    categories: form.categories,
                     //order: Number(form.order),
                     status: form.status,
                 };
@@ -263,7 +292,11 @@ const ReelModal = ({ reel, onClose, refresh }) => {
 
                 body.append("title", form.title.trim());
                 body.append("description", form.description.trim());
-                body.append("category", form.category);
+                // body.append("category", form.category);
+                body.append(
+                    "categories",
+                    JSON.stringify(form.categories)
+                );
 
                 // body.append(
                 //     "durationSeconds",
@@ -778,7 +811,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                                 Category
                             </label>
 
-                            <select
+                            {/* <select
                                 name="category"
                                 value={form.category}
                                 onChange={handleChange}
@@ -800,8 +833,36 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                                 <option value="trending">
                                     Trending
                                 </option>
+                            </select> */}
+                            <select
+                                multiple
+                                name="categories"
+                                value={form.categories}
+                                onChange={handleChange}
+                                style={{
+                                    ...inputStyle,
+                                    height: 170,
+                                    cursor: "pointer",
+                                }}
+                            >
+                                <option value="for_you">For You</option>
+                                <option value="mantras">Mantras</option>
+                                {/* <option value="aarti">Aarti</option>
+    <option value="stories">Stories</option> */}
+                                <option value="motivation">Motivation</option>
+                                <option value="trending">Trending</option>
                             </select>
+                            <div
+                                style={{
+                                    marginTop: 6,
+                                    fontSize: 12,
+                                    color: colors.textMuted,
+                                }}
+                            >
+                                Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories.
+                            </div>
                         </div>
+
 
                         <div>
                             <label style={labelStyle}>

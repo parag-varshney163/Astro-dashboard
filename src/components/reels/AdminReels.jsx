@@ -161,23 +161,56 @@ const AdminReels = () => {
         },
 
 
-        {
-            key: "category",
-            label: "Category",
+        // {
+        //     key: "category",
+        //     label: "Category",
 
-            render: (value) => (
-                <span
-                    style={{
-                        padding: "5px 12px",
-                        borderRadius: 20,
-                        background: colors.hover,
-                        color: colors.accentLight,
-                        fontSize: 12
-                    }}
-                >
-                    {value}
-                </span>
-            )
+        //     render: (value) => (
+        //         <span
+        //             style={{
+        //                 padding: "5px 12px",
+        //                 borderRadius: 20,
+        //                 background: colors.hover,
+        //                 color: colors.accentLight,
+        //                 fontSize: 12
+        //             }}
+        //         >
+        //             {value}
+        //         </span>
+        //     )
+        // },
+        {
+            key: "categories",
+            label: "Categories",
+
+            render: (value, row) => {
+                const categories = row.categories || (row.category ? [row.category] : []);
+
+                return (
+                    <div
+                        style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: 6,
+                        }}
+                    >
+                        {categories.map((category) => (
+                            <span
+                                key={category}
+                                style={{
+                                    padding: "5px 10px",
+                                    borderRadius: 20,
+                                    background: colors.hover,
+                                    color: colors.accentLight,
+                                    fontSize: 12,
+                                }}
+                            >
+                                {category}
+                            </span>
+                        ))}
+                    </div>
+                );
+            },
         },
 
 
