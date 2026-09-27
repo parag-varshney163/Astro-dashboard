@@ -2,13 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 
 import NotificationManager from "./components/customer-support/NotificationManager";
-import SubscriptionAnalytics from "./pages/SubscriptionAnaytics";
 import SubscriptionOverview from "./pages/SubscriptionOverview";
 import AccountManagement from "./pages/AccountManagement";
 import CustomerSupport from "./pages/CustomerSupport";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
 import TutorialViedos from "./pages/TutorialViedos";
+import JuspayMandates from "./pages/JuspayMandates";
 import ResetPassword from "./pages/ResetPassword";
 import ReelsCategory from "./pages/ReelsCategory";
 import Unauthorized from "./pages/Unauthorized";
@@ -228,14 +228,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-         {/* <Route
-            path={ROUTES.SUBSCRIPTION_ANALYTICS}
+         <Route
+            path={ROUTES.JUSPAY_MANDATES}
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
-              <SubscriptionAnalytics/>
+              <JuspayMandates/>
             </ProtectedRoute>
           }
-        /> */}
+        />
         
       </Routes>
     </Router>

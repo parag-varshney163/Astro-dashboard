@@ -661,6 +661,15 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+          case "/juspay-mandates":
+        return (
+          <>
+            Juspay
+            <span style={{ color: colors.accent }}>
+              Mandates
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

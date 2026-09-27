@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import React from "react";
 
+import JuspayMandatesTable from "../components/juspay-mandates/JuspayMandatesTable";
 import Sidebar from "../components/ui/Sidebar";
 import Navbar from "../components/ui/Navbar";
 import colors from "../constants/colors";
 
 
-const SubscriptionAnalytics = () => {
+const JuspayMandates = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -51,13 +52,13 @@ const SubscriptionAnalytics = () => {
             color: colors.textPrimary,
           }}
         >
-          
+          <JuspayMandatesTable/>
         </div>
       </motion.main>
     </div>
   );
 };
 
-export default SubscriptionAnalytics;
+export default JuspayMandates;
 
 

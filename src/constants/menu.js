@@ -227,15 +227,15 @@ const MENU_ITEMS = [
       key: "autoPay",
     },
   },
-  //  {
-  //   name: "Subscription Analytics",
-  //   icon: Subscript,
-  //   path: "/subscribe",
-  //   permission: {
-  //     section: "agamiCustomerDashboard",
-  //     key: "autoPay",
-  //   },
-  // },
+   {
+    name: "Jaspay Mandates",
+    icon: Subscript,
+    path: "/juspay-mandates",
+    permission: {
+      section: "agamiCustomerDashboard",
+      key: "autoPay",
+    },
+  },
   
   // {
   //   name: "Insights & Metrics",
