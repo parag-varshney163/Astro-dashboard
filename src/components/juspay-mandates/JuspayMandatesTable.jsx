@@ -491,14 +491,14 @@ const JuspayMandatesTable = () => {
             value: `${page} / ${totalPages}`,
             icon: CalendarDays,
         },
-        {
-            title: "API Response",
-            value:
-                lastResponseTime !== null
-                    ? `${lastResponseTime} ms`
-                    : "-",
-            icon: Clock3,
-        },
+        // {
+        //     title: "API Response",
+        //     value:
+        //         lastResponseTime !== null
+        //             ? `${lastResponseTime} ms`
+        //             : "-",
+        //     icon: Clock3,
+        // },
     ];
 
 
