@@ -670,6 +670,15 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+         case "/debit":
+        return (
+          <>
+            Debit
+            <span style={{ color: colors.accent }}>
+              Failures
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

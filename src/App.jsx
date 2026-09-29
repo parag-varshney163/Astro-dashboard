@@ -11,6 +11,7 @@ import TutorialViedos from "./pages/TutorialViedos";
 import JuspayMandates from "./pages/JuspayMandates";
 import ResetPassword from "./pages/ResetPassword";
 import ReelsCategory from "./pages/ReelsCategory";
+import Debitfailures from "./pages/DebitFailures";
 import Unauthorized from "./pages/Unauthorized";
 import Transactions from "./pages/Transactions";
 import Notification from "./pages/Notification";
@@ -233,6 +234,14 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <JuspayMandates/>
+            </ProtectedRoute>
+          }
+        />
+           <Route
+            path={ROUTES.DEBIT_FAILURES}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <Debitfailures/>
             </ProtectedRoute>
           }
         />

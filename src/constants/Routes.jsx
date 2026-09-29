@@ -38,7 +38,8 @@ const ROUTES = {
    REELS_CATEGORY:"/reels-category",
    REELS_STATS:"/reels-stats",
    EX_STATS:"/ex-stats",
-   JUSPAY_MANDATES:"/juspay-mandates"
+   JUSPAY_MANDATES:"/juspay-mandates",
+   DEBIT_FAILURES:"/debit"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",

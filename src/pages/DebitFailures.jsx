@@ -2,17 +2,13 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import React from "react";
 
-import JuspayOverviewCards from "../components/juspay-mandates/JuspayOverviewCards";
-import JuspayMandatesTable from "../components/juspay-mandates/JuspayMandatesTable";
-import JuspayMandateHeader from "../components/juspay-mandates/JuspayMandateHeader";
-import MandateExecution from "../components/juspay-mandates/MandateExecution";
-import MandateInsights from "../components/juspay-mandates/MandateInsights";
+import JuspayFailedDebitsTable from "../components/debit-failures/JuspayFailedDebitsTable";
 import Sidebar from "../components/ui/Sidebar";
 import Navbar from "../components/ui/Navbar";
 import colors from "../constants/colors";
 
 
-const JuspayMandates = () => {
+const Debitfailures = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -56,17 +52,13 @@ const JuspayMandates = () => {
             color: colors.textPrimary,
           }}
         >
-          {/* <JuspayMandatesTable/> */}
-          <JuspayMandateHeader/>
-          <JuspayOverviewCards/>
-          <MandateExecution/>
-          {/* <MandateInsights/> */}
+          <JuspayFailedDebitsTable/>
         </div>
       </motion.main>
     </div>
   );
 };
 
-export default JuspayMandates;
+export default Debitfailures;
 
 
