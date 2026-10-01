@@ -500,12 +500,12 @@ const JuspayFailedDebitsTable = () => {
                 render: (value) => renderId(value, CreditCard),
             },
 
-            {
-                key: "customerId",
-                label: "Customer ID",
-                width: "190px",
-                render: (value) => renderId(value, User),
-            },
+            // {
+            //     key: "customerId",
+            //     label: "Customer ID",
+            //     width: "190px",
+            //     render: (value) => renderId(value, User),
+            // },
 
             {
                 key: "subscriptionStatus",
@@ -528,44 +528,44 @@ const JuspayFailedDebitsTable = () => {
                 render: (value) => renderAmount(value),
             },
 
-            {
-                key: "failureReason",
-                label: "Failure Reason",
-                width: "2fr",
-                render: (value) => renderFailureReason(value),
-            },
+            // {
+            //     key: "failureReason",
+            //     label: "Failure Reason",
+            //     width: "2fr",
+            //     render: (value) => renderFailureReason(value),
+            // },
 
-            {
-                key: "failedAt",
-                label: "Failed At",
-                width: "1.2fr",
-                render: (_, row) =>
-                    renderDate(row.failedAtIST, row.failedAt),
-            },
+            // {
+            //     key: "failedAt",
+            //     label: "Failed At",
+            //     width: "1.2fr",
+            //     render: (_, row) =>
+            //         renderDate(row.failedAtIST, row.failedAt),
+            // },
 
-            {
-                key: "attemptNumber",
-                label: "Attempt",
-                width: "100px",
-                render: (value) => renderAttempt(value),
-            },
+            // {
+            //     key: "attemptNumber",
+            //     label: "Attempt",
+            //     width: "100px",
+            //     render: (value) => renderAttempt(value),
+            // },
 
-            {
-                key: "retryRound",
-                label: "Retry Round",
-                width: "110px",
-                render: (value) => (
-                    <span
-                        style={{
-                            fontSize: 13,
-                            color: colors.textSecondary,
-                            fontWeight: 600,
-                        }}
-                    >
-                        {value ?? 0}
-                    </span>
-                ),
-            },
+            // {
+            //     key: "retryRound",
+            //     label: "Retry Round",
+            //     width: "110px",
+            //     render: (value) => (
+            //         <span
+            //             style={{
+            //                 fontSize: 13,
+            //                 color: colors.textSecondary,
+            //                 fontWeight: 600,
+            //             }}
+            //         >
+            //             {value ?? 0}
+            //         </span>
+            //     ),
+            // },
 
             {
                 key: "billingRetryStage",
@@ -1104,7 +1104,7 @@ const JuspayFailedDebitsTable = () => {
             >
                 <div
                     style={{
-                        minWidth: "2500px",
+                        minWidth: "1400px",
                     }}
                 >
                     <DataTable
