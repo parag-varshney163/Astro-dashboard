@@ -19,7 +19,7 @@ const DailySpecialModal = ({
     ctaText: "",
     recurrence: "date",
     date: "",
-    dayOfWeek: "",
+    //dayOfWeek: "",
   });
 
   // Selected image File
@@ -43,11 +43,11 @@ const DailySpecialModal = ({
         date: editData.date
           ? new Date(editData.date).toISOString().split("T")[0]
           : "",
-        dayOfWeek:
-          editData.dayOfWeek !== undefined &&
-            editData.dayOfWeek !== null
-            ? String(editData.dayOfWeek)
-            : "",
+        // dayOfWeek:
+        //   editData.dayOfWeek !== undefined &&
+        //     editData.dayOfWeek !== null
+        //     ? String(editData.dayOfWeek)
+        //     : "",
       });
 
       // Existing image is only for preview.
@@ -61,7 +61,7 @@ const DailySpecialModal = ({
         ctaText: "",
         recurrence: "date",
         date: "",
-        dayOfWeek: "",
+        //dayOfWeek: "",
       });
 
       setImage(null);
@@ -95,14 +95,14 @@ const DailySpecialModal = ({
       ...prev,
       recurrence: value,
       date: value === "date" ? prev.date : "",
-      dayOfWeek: value === "weekday" ? prev.dayOfWeek : "",
+      //dayOfWeek: value === "weekday" ? prev.dayOfWeek : "",
     }));
 
     setErrors((prev) => ({
       ...prev,
       recurrence: "",
       date: "",
-      dayOfWeek: "",
+      //dayOfWeek: "",
       submit: "",
     }));
   };
@@ -158,12 +158,12 @@ const DailySpecialModal = ({
       newErrors.date = "Date is required.";
     }
 
-    if (
-      formData.recurrence === "weekday" &&
-      formData.dayOfWeek === ""
-    ) {
-      newErrors.dayOfWeek = "Day of week is required.";
-    }
+    // if (
+    //   formData.recurrence === "weekday" &&
+    //   formData.dayOfWeek === ""
+    // ) {
+    //   newErrors.dayOfWeek = "Day of week is required.";
+    // }
 
     // Image is required only while creating
     if (!isEdit && !image) {
@@ -203,9 +203,9 @@ const DailySpecialModal = ({
         payload.append("date", formData.date);
       }
 
-      if (formData.recurrence === "weekday") {
-        payload.append("dayOfWeek", String(formData.dayOfWeek));
-      }
+      // if (formData.recurrence === "weekday") {
+      //   payload.append("dayOfWeek", String(formData.dayOfWeek));
+      // }
 
       // Append actual File object
       if (image instanceof File) {
@@ -213,7 +213,7 @@ const DailySpecialModal = ({
       }
 
       // Debug
-      console.log("Selected image:", image);
+      // console.log("Selected image:", image);
 
       for (const [key, value] of payload.entries()) {
         console.log(
@@ -258,7 +258,7 @@ const DailySpecialModal = ({
         );
       }
 
-      console.log("Daily Special response:", response.data);
+      //console.log("Daily Special response:", response.data);
 
       if (response.data?.success) {
         await onSuccess?.(response.data);
@@ -505,7 +505,7 @@ const DailySpecialModal = ({
                   Date
                 </option>
 
-                <option
+                {/* <option
                   value="weekday"
                   style={{
                     background: colors.cardBg,
@@ -513,7 +513,7 @@ const DailySpecialModal = ({
                   }}
                 >
                   Weekday
-                </option>
+                </option> */}
                 <option
                   value="generic"
                   style={{
@@ -555,7 +555,7 @@ const DailySpecialModal = ({
                 )}
               </div>
             )} */}
-            {(formData.recurrence === "date" ||
+            {/* {(formData.recurrence === "date" ||
               formData.recurrence === "generic") && (
                 <div>
                   <label style={labelStyle}>
@@ -581,10 +581,33 @@ const DailySpecialModal = ({
                     <p style={errorStyle}>{errors.date}</p>
                   )}
                 </div>
-              )}
+              )} */}
+            {formData.recurrence === "date" && (
+              <div>
+                <label style={labelStyle}>
+                  Date <span style={{ color: colors.danger }}>*</span>
+                </label>
+
+                <input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  style={{
+                    ...inputStyle("date"),
+                    colorScheme: "dark",
+                  }}
+                  disabled={submitting}
+                />
+
+                {errors.date && (
+                  <p style={errorStyle}>{errors.date}</p>
+                )}
+              </div>
+            )}
 
             {/* Weekday */}
-            {formData.recurrence === "weekday" && (
+            {/* {formData.recurrence === "weekday" && (
               <div>
                 <label style={labelStyle}>
                   Day of Week{" "}
@@ -636,7 +659,60 @@ const DailySpecialModal = ({
                   <p style={errorStyle}>{errors.dayOfWeek}</p>
                 )}
               </div>
-            )}
+            )} */}
+            {/* {formData.recurrence === "weekday" && (
+  <div>
+    <label style={labelStyle}>
+      Day of Week{" "}
+      <span style={{ color: colors.danger }}>*</span>
+    </label>
+
+    <select
+      name="dayOfWeek"
+      value={formData.dayOfWeek}
+      onChange={handleChange}
+      style={{
+        ...inputStyle("dayOfWeek"),
+        cursor: "pointer",
+      }}
+      disabled={submitting}
+    >
+      <option
+        value=""
+        style={{
+          background: colors.cardBg,
+          color: colors.textMuted,
+        }}
+      >
+        Select day
+      </option>
+
+      {weekdays.map((day) => (
+        <option
+          key={day.value}
+          value={day.value}
+          style={{
+            background: colors.cardBg,
+            color: colors.textPrimary,
+          }}
+        >
+          {day.label}
+        </option>
+      ))}
+    </select>
+
+    <p
+      className="text-xs mt-1"
+      style={{ color: colors.textMuted }}
+    >
+      Sunday = 0, Monday = 1 ... Saturday = 6
+    </p>
+
+    {errors.dayOfWeek && (
+      <p style={errorStyle}>{errors.dayOfWeek}</p>
+    )}
+  </div>
+)} */}
 
             {/* Image */}
             <div>
@@ -653,8 +729,8 @@ const DailySpecialModal = ({
                   minHeight: 100,
                   background: colors.inputBg,
                   border: `1px dashed ${errors.image
-                      ? colors.danger
-                      : colors.inputBorder
+                    ? colors.danger
+                    : colors.inputBorder
                     }`,
                   color: colors.textSecondary,
                 }}
