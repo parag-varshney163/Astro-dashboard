@@ -458,30 +458,69 @@ const TransactionsTable = () => {
         };
 
 
+        // const handleDownloadInvoice = async (e) => {
+        //   e.stopPropagation();
+
+        //   try {
+        //     const response = await agamiastroinstance.get(value, {
+        //       responseType: "blob",
+        //     });
+
+        //     const blob = new Blob([response.data], {
+        //       type: "application/pdf",
+        //     });
+
+        //     const url = window.URL.createObjectURL(blob);
+
+        //     const link = document.createElement("a");
+        //     link.href = url;
+        //     link.download = "invoice.pdf";
+
+        //     document.body.appendChild(link);
+        //     link.click();
+
+        //     link.remove();
+        //     window.URL.revokeObjectURL(url);
+
+        //   } catch (error) {
+        //     console.error("Download Invoice error:", error);
+
+        //     alert(
+        //       error?.response?.data?.message ||
+        //       "Failed to download invoice."
+        //     );
+        //   }
+        // };
+
         const handleDownloadInvoice = async (e) => {
           e.stopPropagation();
 
           try {
-            const response = await agamiastroinstance.get(value, {
+            const separator = value.includes("?") ? "&" : "?";
+            const url = `${value}${separator}format=pdf`;
+
+            const response = await agamiastroinstance.get(url, {
               responseType: "blob",
+              headers: {
+                Accept: "application/pdf",
+              },
             });
 
             const blob = new Blob([response.data], {
               type: "application/pdf",
             });
 
-            const url = window.URL.createObjectURL(blob);
+            const blobUrl = window.URL.createObjectURL(blob);
 
             const link = document.createElement("a");
-            link.href = url;
+            link.href = blobUrl;
             link.download = "invoice.pdf";
 
             document.body.appendChild(link);
             link.click();
-
             link.remove();
-            window.URL.revokeObjectURL(url);
 
+            window.URL.revokeObjectURL(blobUrl);
           } catch (error) {
             console.error("Download Invoice error:", error);
 
@@ -491,7 +530,6 @@ const TransactionsTable = () => {
             );
           }
         };
-
 
         return (
           <div style={{ display: "flex", gap: "8px" }}>
