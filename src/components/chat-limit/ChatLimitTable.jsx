@@ -17,6 +17,8 @@ export default function ChatLimitTable() {
   const [formData, setFormData] = useState({
     dailyMessageLimit: "",
     isActive: true,
+    voiceLimit: "",
+    maxVoiceDuration: "",
     notes: "",
   });
 
@@ -38,7 +40,7 @@ export default function ChatLimitTable() {
 
       setError(
         err?.response?.data?.message ||
-          "Failed to fetch chat limit configuration"
+        "Failed to fetch chat limit configuration"
       );
     } finally {
       setLoading(false);
@@ -55,6 +57,9 @@ export default function ChatLimitTable() {
   const handleEdit = (row) => {
     setFormData({
       dailyMessageLimit: row?.dailyMessageLimit ?? "",
+      voiceLimit: row?.voiceLimit ?? "",
+      maxVoiceDuration: row?.maxVoiceDuration ?? "",
+
       isActive: row?.isActive ?? false,
       notes: row?.notes ?? "",
     });
@@ -77,13 +82,62 @@ export default function ChatLimitTable() {
   // =========================
   // UPDATE CHAT LIMIT
   // =========================
+  // const handleUpdate = async (e) => {
+  //   e.preventDefault();
+
+  //   if (
+  //     formData.dailyMessageLimit === "" ||
+  //     Number(formData.dailyMessageLimit) < 0
+  //   ) {
+  //     return;
+  //   }
+
+  //   setSaving(true);
+
+  //   try {
+  //     const payload = {
+  //       dailyMessageLimit: Number(formData.dailyMessageLimit),
+  //       isActive: formData.isActive,
+  //       notes: formData.notes,
+  //     };
+
+  //     const res = await axiosInstance.put(
+  //       "/api/v1/chat-limits",
+  //       payload
+  //     );
+
+  //     const updatedData = res.data?.data;
+
+  //     if (updatedData) {
+  //       setChatLimit(updatedData);
+  //     } else {
+  //       await fetchChatLimit();
+  //     }
+
+  //     setEditModalOpen(false);
+  //   } catch (err) {
+  //     console.error("Update chat limit error:", err);
+
+  //     alert(
+  //       err?.response?.data?.message ||
+  //         "Failed to update chat limit"
+  //     );
+  //   } finally {
+  //     setSaving(false);
+  //   }
+  // };
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     if (
       formData.dailyMessageLimit === "" ||
-      Number(formData.dailyMessageLimit) < 0
+      formData.voiceLimit === "" ||
+      formData.maxVoiceDuration === "" ||
+      Number(formData.dailyMessageLimit) < 0 ||
+      Number(formData.voiceLimit) < 0 ||
+      Number(formData.maxVoiceDuration) < 0
     ) {
+      alert("Please enter valid non-negative limits.");
       return;
     }
 
@@ -92,6 +146,8 @@ export default function ChatLimitTable() {
     try {
       const payload = {
         dailyMessageLimit: Number(formData.dailyMessageLimit),
+        voiceLimit: Number(formData.voiceLimit),
+        maxVoiceDuration: Number(formData.maxVoiceDuration),
         isActive: formData.isActive,
         notes: formData.notes,
       };
@@ -101,21 +157,23 @@ export default function ChatLimitTable() {
         payload
       );
 
-      const updatedData = res.data?.data;
-
-      if (updatedData) {
-        setChatLimit(updatedData);
-      } else {
-        await fetchChatLimit();
+      if (res.data?.success === false) {
+        throw new Error(
+          res.data?.message || "Failed to update chat limits"
+        );
       }
 
+      await fetchChatLimit();
       setEditModalOpen(false);
+
+      alert(res.data?.message || "Chat limits updated successfully");
     } catch (err) {
-      console.error("Update chat limit error:", err);
+      console.error("Update chat limits error:", err);
 
       alert(
         err?.response?.data?.message ||
-          "Failed to update chat limit"
+        err.message ||
+        "Failed to update chat limits"
       );
     } finally {
       setSaving(false);
@@ -189,6 +247,32 @@ export default function ChatLimitTable() {
         </div>
       ),
     },
+    {
+      key: "voiceLimit",
+      label: "Voice Limit",
+      width: "1fr",
+      render: (value) => (
+        <span
+          style={{
+            color: colors.accentLight,
+            fontSize: 16,
+            fontWeight: 700,
+          }}
+        >
+          {value ?? 0}
+        </span>
+      ),
+    },
+    {
+      key: "maxVoiceDuration",
+      label: "Max Voice Duration",
+      width: "1.2fr",
+      render: (value) => (
+        <span style={{ color: colors.textSecondary }}>
+          {value ?? 0} sec
+        </span>
+      ),
+    },
 
     {
       key: "isActive",
@@ -208,9 +292,8 @@ export default function ChatLimitTable() {
               ? "rgba(61,190,108,0.12)"
               : "rgba(224,82,82,0.12)",
             color: value ? colors.success : colors.danger,
-            border: `1px solid ${
-              value ? colors.success : colors.danger
-            }`,
+            border: `1px solid ${value ? colors.success : colors.danger
+              }`,
           }}
         >
           <span
@@ -389,11 +472,10 @@ export default function ChatLimitTable() {
               color: chatLimit.isActive
                 ? colors.success
                 : colors.danger,
-              border: `1px solid ${
-                chatLimit.isActive
+              border: `1px solid ${chatLimit.isActive
                   ? colors.success
                   : colors.danger
-              }`,
+                }`,
               fontSize: 13,
               fontWeight: 600,
             }}
@@ -544,6 +626,87 @@ export default function ChatLimitTable() {
                     onBlur={(e) => {
                       e.currentTarget.style.borderColor =
                         colors.inputBorder;
+                    }}
+                  />
+                </div>
+                {/* VOICE LIMIT */}
+                <div>
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: 8,
+                      color: colors.textSecondary,
+                      fontSize: 14,
+                      fontWeight: 600,
+                    }}
+                  >
+                    Voice Limit
+                  </label>
+
+                  <input
+                    type="number"
+                    name="voiceLimit"
+                    min="0"
+                    value={formData.voiceLimit}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: "100%",
+                      boxSizing: "border-box",
+                      padding: "12px 14px",
+                      borderRadius: 10,
+                      border: `1px solid ${colors.inputBorder}`,
+                      background: colors.inputBg,
+                      color: colors.textPrimary,
+                      outline: "none",
+                      fontSize: 14,
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = colors.inputFocus;
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = colors.inputBorder;
+                    }}
+                  />
+                </div>
+
+                {/* MAX VOICE DURATION */}
+                <div>
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: 8,
+                      color: colors.textSecondary,
+                      fontSize: 14,
+                      fontWeight: 600,
+                    }}
+                  >
+                    Max Voice Duration (seconds)
+                  </label>
+
+                  <input
+                    type="number"
+                    name="maxVoiceDuration"
+                    min="0"
+                    value={formData.maxVoiceDuration}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: "100%",
+                      boxSizing: "border-box",
+                      padding: "12px 14px",
+                      borderRadius: 10,
+                      border: `1px solid ${colors.inputBorder}`,
+                      background: colors.inputBg,
+                      color: colors.textPrimary,
+                      outline: "none",
+                      fontSize: 14,
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = colors.inputFocus;
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = colors.inputBorder;
                     }}
                   />
                 </div>
