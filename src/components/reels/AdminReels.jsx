@@ -1,9 +1,10 @@
-import { Pencil, Trash2, Plus } from "lucide-react";
+import { Pencil, Trash2, Plus, PinOff, Pin } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Play, Eye, Heart, } from "lucide-react";
 
 import axiosInstance from "../../api/axiosInstance";
 import colors from "../../constants/colors";
+import ReelPinModal from "./ReelPinModal";
 import DataTable from "../ui/DataTable";
 import ReelModal from "./ReelModal";
 
@@ -22,6 +23,11 @@ const AdminReels = () => {
     const [showModal, setShowModal] = useState(false);
 
     const [selectedReel, setSelectedReel] = useState(null);
+    const [pinModal, setPinModal] = useState({
+        open: false,
+        mode: "pin",
+        reel: null,
+    });
 
 
     const fetchReels = async () => {
@@ -212,6 +218,84 @@ const AdminReels = () => {
                 );
             },
         },
+
+        {
+            key: "pins",
+            label: "Pins",
+
+            render: (value, row) => {
+                const pins = row.pins || [];
+
+                if (pins.length === 0) {
+                    return (
+                        <span
+                            style={{
+                                padding: "5px 10px",
+                                borderRadius: 20,
+                                background: colors.hover,
+                                color: colors.textMuted,
+                                fontSize: 12,
+                                whiteSpace: "nowrap",
+                            }}
+                        >
+                            Not Pinned
+                        </span>
+                    );
+                }
+
+                return (
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 6,
+                            alignItems: "flex-start",
+                        }}
+                    >
+                        {pins.map((pin, index) => (
+                            <div
+                                key={`${pin.category}-${index}`}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                    padding: "6px 10px",
+                                    borderRadius: 10,
+                                    background: `${colors.accent}15`,
+                                    border: `1px solid ${colors.accent}50`,
+                                }}
+                            >
+                                <Pin
+                                    size={14}
+                                    color={colors.accent}
+                                />
+
+                                <span
+                                    style={{
+                                        color: colors.textPrimary,
+                                        fontSize: 12,
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    {pin.category}
+                                </span>
+
+                                <span
+                                    style={{
+                                        color: colors.accent,
+                                        fontSize: 11,
+                                        fontWeight: 700,
+                                    }}
+                                >
+                                    #{pin.order}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                );
+            },
+        },
+
 
 
         {
@@ -449,6 +533,61 @@ const AdminReels = () => {
                         <Trash2 size={17} />
                     </button>
 
+                    {/* PIN REEL */}
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setPinModal({
+                                open: true,
+                                mode: "pin",
+                                reel: row,
+                            });
+                        }}
+                        style={{
+                            width: 38,
+                            height: 38,
+                            borderRadius: 10,
+                            border: `1px solid ${colors.accent}`,
+                            background: colors.hover,
+                            color: colors.accent,
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                        title="Pin Reel"
+                    >
+                        <Pin size={17} />
+                    </button>
+
+                    {/* UNPIN REEL */}
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setPinModal({
+                                open: true,
+                                mode: "unpin",
+                                reel: row,
+                            });
+                        }}
+                        style={{
+                            width: 38,
+                            height: 38,
+                            borderRadius: 10,
+                            border: `1px solid ${colors.danger}`,
+                            background: "transparent",
+                            color: colors.danger,
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                        title="Unpin Reel"
+                    >
+                        <PinOff size={17} />
+                    </button>
+
+
                 </div>
             ),
         }
@@ -668,6 +807,20 @@ const AdminReels = () => {
                 />
 
             }
+            {pinModal.open && (
+                <ReelPinModal
+                    reel={pinModal.reel}
+                    mode={pinModal.mode}
+                    onClose={() =>
+                        setPinModal({
+                            open: false,
+                            mode: "pin",
+                            reel: null,
+                        })
+                    }
+                    refresh={fetchReels}
+                />
+            )}
 
 
         </div>
