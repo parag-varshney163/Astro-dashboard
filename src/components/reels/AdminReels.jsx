@@ -47,7 +47,12 @@ const AdminReels = () => {
             );
 
 
-            setReels(data.data.items || []);
+            //setReels(data.data.items || []);
+            setReels(
+    (data.data.items || []).filter(
+        (reel) => !reel.isDeleted
+    )
+);
             setCount(data.data.total);
 
             setTotalPages(
