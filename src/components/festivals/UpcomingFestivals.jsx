@@ -262,28 +262,36 @@ const UpcomingFestivals = () => {
   //     setLoading(false);
   //   }
   // };
-  const fetchFestivals = async () => {
-  try {
-    setLoading(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-    const { data } = await axiosInstance.get(
-      "/api/v1/festivals/upcoming",
-      {
-        params: {
-          limit: 20,
-        },
+  const limit = 10;
+
+  const fetchFestivals = async (pageNumber = 1) => {
+    try {
+      setLoading(true);
+
+      const { data } = await axiosInstance.get(
+        "/api/v1/festivals/upcoming",
+        {
+          params: {
+            page: pageNumber,
+            limit,
+          },
+        }
+      );
+
+      if (data.success) {
+        setFestivals(data.data || []);
+        setPage(data.page || pageNumber);
+        setTotalPages(data.totalPages || 1);
       }
-    );
-
-    if (data.success) {
-      setFestivals(data.data || []);
+    } catch (error) {
+      console.error("Error fetching upcoming festivals:", error);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error("Error fetching upcoming festivals:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   useEffect(() => {
     fetchFestivals();
@@ -327,7 +335,7 @@ const UpcomingFestivals = () => {
       } else {
         alert(
           response.data?.message ||
-            "Failed to delete festival."
+          "Failed to delete festival."
         );
       }
     } catch (error) {
@@ -335,8 +343,8 @@ const UpcomingFestivals = () => {
 
       alert(
         error?.response?.data?.message ||
-          error?.message ||
-          "Failed to delete festival."
+        error?.message ||
+        "Failed to delete festival."
       );
     } finally {
       setDeleteLoading(false);
@@ -626,6 +634,10 @@ const UpcomingFestivals = () => {
         <DataTable
           columns={columns}
           data={festivals}
+          paginationMode="server"
+          page={page}
+          totalPages={totalPages}
+          onPageChange={fetchFestivals}
         />
       )}
 
