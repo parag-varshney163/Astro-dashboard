@@ -159,6 +159,19 @@ const DailySpecialTable = () => {
           })
           : "-",
     },
+    {
+      key: "dayOfWeek",
+      label: "Day of Week",
+      width: "150px",
+      render: (value) => (
+        <span
+          className="capitalize"
+          style={{ color: colors.accent }}
+        >
+          {value || "-"}
+        </span>
+      ),
+    },
 
     {
       key: "isActive",

@@ -245,23 +245,45 @@ const UpcomingFestivals = () => {
 
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  // const fetchFestivals = async () => {
+  //   try {
+  //     setLoading(true);
+
+  //     const { data } = await axiosInstance.get(
+  //       "/api/v1/festivals/upcoming"
+  //     );
+
+  //     if (data.success) {
+  //       setFestivals(data.data || []);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching upcoming festivals:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const fetchFestivals = async () => {
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const { data } = await axiosInstance.get(
-        "/api/v1/festivals/upcoming"
-      );
-
-      if (data.success) {
-        setFestivals(data.data || []);
+    const { data } = await axiosInstance.get(
+      "/api/v1/festivals/upcoming",
+      {
+        params: {
+          limit: 20,
+        },
       }
-    } catch (error) {
-      console.error("Error fetching upcoming festivals:", error);
-    } finally {
-      setLoading(false);
+    );
+
+    if (data.success) {
+      setFestivals(data.data || []);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching upcoming festivals:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchFestivals();
