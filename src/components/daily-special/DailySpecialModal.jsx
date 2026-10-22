@@ -19,7 +19,7 @@ const DailySpecialModal = ({
     ctaText: "",
     recurrence: "date",
     date: "",
-    //dayOfWeek: "",
+    dayOfWeek: "",
   });
 
   // Selected image File
@@ -48,6 +48,7 @@ const DailySpecialModal = ({
         //     editData.dayOfWeek !== null
         //     ? String(editData.dayOfWeek)
         //     : "",
+         dayOfWeek: editData.dayOfWeek || "wednesday",
       });
 
       // Existing image is only for preview.
@@ -202,6 +203,10 @@ const DailySpecialModal = ({
       if (formData.recurrence === "date") {
         payload.append("date", formData.date);
       }
+      payload.append(
+  "dayOfWeek",
+  formData.recurrence === "day" ? formData.dayOfWeek : ""
+);
 
       // if (formData.recurrence === "weekday") {
       //   payload.append("dayOfWeek", String(formData.dayOfWeek));
@@ -316,15 +321,24 @@ const DailySpecialModal = ({
     marginTop: 5,
   };
 
+  // const weekdays = [
+  //   { value: "0", label: "Sunday" },
+  //   { value: "1", label: "Monday" },
+  //   { value: "2", label: "Tuesday" },
+  //   { value: "3", label: "Wednesday" },
+  //   { value: "4", label: "Thursday" },
+  //   { value: "5", label: "Friday" },
+  //   { value: "6", label: "Saturday" },
+  // ];
   const weekdays = [
-    { value: "0", label: "Sunday" },
-    { value: "1", label: "Monday" },
-    { value: "2", label: "Tuesday" },
-    { value: "3", label: "Wednesday" },
-    { value: "4", label: "Thursday" },
-    { value: "5", label: "Friday" },
-    { value: "6", label: "Saturday" },
-  ];
+  { value: "sunday", label: "Sunday" },
+  { value: "monday", label: "Monday" },
+  { value: "tuesday", label: "Tuesday" },
+  { value: "wednesday", label: "Wednesday" },
+  { value: "thursday", label: "Thursday" },
+  { value: "friday", label: "Friday" },
+  { value: "saturday", label: "Saturday" },
+];
 
   return (
     <div
@@ -514,6 +528,7 @@ const DailySpecialModal = ({
                 >
                   Weekday
                 </option> */}
+                <option value="day">Day</option>
                 <option
                   value="generic"
                   style={{
@@ -582,6 +597,27 @@ const DailySpecialModal = ({
                   )}
                 </div>
               )} */}
+              {formData.recurrence === "day" && (
+  <div>
+    <label style={labelStyle}>
+      Day of Week
+    </label>
+
+    <select
+      name="dayOfWeek"
+      value={formData.dayOfWeek}
+      onChange={handleChange}
+      style={inputStyle("dayOfWeek")}
+      disabled={submitting}
+    >
+      {weekdays.map((day) => (
+        <option key={day.value} value={day.value}>
+          {day.label}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
             {formData.recurrence === "date" && (
               <div>
                 <label style={labelStyle}>
