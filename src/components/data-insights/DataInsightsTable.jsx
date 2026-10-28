@@ -1811,6 +1811,13 @@ const TREND_OPTIONS = [
     value: "totalPaidSubscriptions",
     label: "Total Paid Subscriptions",
   },
+  { value: "subscriptionFirstCharge", label: "First Charge Success" },
+{ value: "subscriptionRenewal", label: "Renewal Success" },
+{ value: "firstChargeAttempt1", label: "First Charge — Attempt 1" },
+{ value: "firstChargeAttempt2", label: "First Charge — Attempt 2" },
+{ value: "firstChargeAttempt3", label: "First Charge — Attempt 3" },
+{ value: "firstChargeAttempt4", label: "First Charge — Attempt 4" },
+{ value: "firstChargeAttempt5Plus", label: "First Charge — Attempt 5+" },
 ];
 
 const METRICS = [
@@ -1843,6 +1850,41 @@ const METRICS = [
     label: "Paid Subscriptions",
     group: "Subscription Snapshot",
   },
+  {
+  key: "subscriptionFirstCharge",
+  label: "First Charge Success",
+  group: "Subscriptions",
+},
+{
+  key: "subscriptionRenewal",
+  label: "Renewal Success",
+  group: "Subscriptions",
+},
+{
+  key: "firstChargeAttempt1",
+  label: "First Charge — Attempt 1",
+  group: "Subscription Attempts",
+},
+{
+  key: "firstChargeAttempt2",
+  label: "First Charge — Attempt 2",
+  group: "Subscription Attempts",
+},
+{
+  key: "firstChargeAttempt3",
+  label: "First Charge — Attempt 3",
+  group: "Subscription Attempts",
+},
+{
+  key: "firstChargeAttempt4",
+  label: "First Charge — Attempt 4",
+  group: "Subscription Attempts",
+},
+{
+  key: "firstChargeAttempt5Plus",
+  label: "First Charge — Attempt 5+",
+  group: "Subscription Attempts",
+},
 ];
 
 const getISTDate = () =>
@@ -1916,20 +1958,62 @@ const getPayload = (response) => {
   return payload || {};
 };
 
+// const getMetricValue = (row, key) => {
+//   if (!row) return null;
+
+//   if (key === "subscriptionSuccess") {
+//     return row.subscriptionSuccess?.total ?? row.subscriptionSuccess ?? null;
+//   }
+
+//   if (key === "subscriptionRetry") {
+//     return row.subscriptionRetry?.total ?? row.subscriptionRetry ?? null;
+//   }
+
+//   return row[key] ?? null;
+// };
+
 const getMetricValue = (row, key) => {
   if (!row) return null;
 
-  if (key === "subscriptionSuccess") {
-    return row.subscriptionSuccess?.total ?? row.subscriptionSuccess ?? null;
-  }
+  switch (key) {
+    case "subscriptionSuccess":
+      return row.subscriptionSuccess?.total ??
+        row.subscriptionSuccess ??
+        null;
 
-  if (key === "subscriptionRetry") {
-    return row.subscriptionRetry?.total ?? row.subscriptionRetry ?? null;
-  }
+    case "subscriptionFirstCharge":
+      return row.subscriptionSuccess?.firstCharge ?? null;
 
-  return row[key] ?? null;
+    case "subscriptionRenewal":
+      return row.subscriptionSuccess?.renewal ?? null;
+
+    case "subscriptionRetry":
+      return row.subscriptionRetry?.total ??
+        row.subscriptionRetry ??
+        null;
+
+    case "firstChargeAttempt1":
+    case "firstChargeAttempt2":
+    case "firstChargeAttempt3":
+    case "firstChargeAttempt4":
+    case "firstChargeAttempt5Plus": {
+      const attemptKey = {
+        firstChargeAttempt1: "1",
+        firstChargeAttempt2: "2",
+        firstChargeAttempt3: "3",
+        firstChargeAttempt4: "4",
+        firstChargeAttempt5Plus: "5+",
+      }[key];
+
+      return row.subscriptionSuccess?.firstChargeByAttempt?.[
+        attemptKey
+      ] ?? null;
+    }
+
+    default:
+      return row[key] ?? null;
+  }
 };
-
 const getChangeStyle = (value) => {
   if (
     value === null ||
