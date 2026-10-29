@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Play, Eye, Heart, } from "lucide-react";
 
 import axiosInstance from "../../api/axiosInstance";
+import FilterDropDown from "../ui/FilterDropDown";
 import colors from "../../constants/colors";
 import ReelPinModal from "./ReelPinModal";
 import DataTable from "../ui/DataTable";
@@ -28,63 +29,207 @@ const AdminReels = () => {
         mode: "pin",
         reel: null,
     });
-
-
-    const fetchReels = async () => {
+    const [categoryOptions, setCategoryOptions] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("All Categories");
+    const [selectedReelIds, setSelectedReelIds] = useState([]);
+    const [bulkDeleting, setBulkDeleting] = useState(false);
+    const fetchCategories = async () => {
         try {
-
-            setLoading(true);
-            setError(null);
-
             const { data } = await axiosInstance.get(
-                "/api/v1/admin-reels",
-                {
-                    params: {
-                        page,
-                        limit: 10
-                    }
-                }
+                "/api/v1/home-banners"
             );
 
+            const items = data?.data?.items || [];
 
-            //setReels(data.data.items || []);
-            setReels(
-    (data.data.items || []).filter(
-        (reel) => !reel.isDeleted
-    )
-);
-            setCount(data.data.total);
-
-            setTotalPages(
-                Math.ceil(
-                    data.data.total / data.data.limit
-                )
+            setCategoryOptions(
+                items.map((item) => ({
+                    label: item.title,
+                    value: item.key,
+                }))
             );
-
-
         } catch (err) {
-
-            setError(
-                err?.response?.data?.message ||
-                "Failed to fetch reels"
-            );
-
-        } finally {
-
-            setLoading(false);
-
+            console.error("Failed to fetch categories:", err);
         }
     };
 
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    //     const fetchReels = async () => {
+    //         try {
+
+    //             setLoading(true);
+    //             setError(null);
+
+    //             const { data } = await axiosInstance.get(
+    //                 "/api/v1/admin-reels",
+    //                 {
+    //                     params: {
+    //                         page,
+    //                         limit: 10
+    //                     }
+    //                 }
+    //             );
+
+
+    //             //setReels(data.data.items || []);
+    //             setReels(
+    //     (data.data.items || []).filter(
+    //         (reel) => !reel.isDeleted
+    //     )
+    // );
+    //             setCount(data.data.total);
+
+    //             setTotalPages(
+    //                 Math.ceil(
+    //                     data.data.total / data.data.limit
+    //                 )
+    //             );
+
+
+    //         } catch (err) {
+
+    //             setError(
+    //                 err?.response?.data?.message ||
+    //                 "Failed to fetch reels"
+    //             );
+
+    //         } finally {
+
+    //             setLoading(false);
+
+    //         }
+    //     };
+
+    const fetchReels = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const params = {
+                page,
+                limit: 10,
+            };
+
+            if (selectedCategory !== "All Categories") {
+                const category = categoryOptions.find(
+                    (item) => item.label === selectedCategory
+                );
+
+                if (category) {
+                    params.categories = category.value;
+                }
+            }
+
+            const { data } = await axiosInstance.get(
+                "/api/v1/admin-reels",
+                { params }
+            );
+
+            const items = (data?.data?.items || []).filter(
+                (reel) => !reel.isDeleted
+            );
+
+            setReels(items);
+            setCount(data?.data?.total || 0);
+
+            setTotalPages(
+                Math.ceil((data?.data?.total || 0) / (data?.data?.limit || 10))
+            );
+        } catch (err) {
+            setError(
+                err?.response?.data?.message || "Failed to fetch reels"
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchReels();
-    }, [page]);
+    }, [page, selectedCategory]);
 
+    const toggleReelSelection = (id) => {
+        setSelectedReelIds((prev) =>
+            prev.includes(id)
+                ? prev.filter((selectedId) => selectedId !== id)
+                : [...prev, id]
+        );
+    };
 
+    const toggleSelectAll = () => {
+        const currentPageIds = reels.map((reel) => reel._id);
+
+        const allSelected =
+            currentPageIds.length > 0 &&
+            currentPageIds.every((id) => selectedReelIds.includes(id));
+
+        if (allSelected) {
+            // Deselect reels on the current page only
+            setSelectedReelIds((prev) =>
+                prev.filter((id) => !currentPageIds.includes(id))
+            );
+        } else {
+            // Select all reels on the current page
+            setSelectedReelIds((prev) =>
+                [...new Set([...prev, ...currentPageIds])]
+            );
+        }
+    };
+    const handleBulkDelete = async () => {
+        if (selectedReelIds.length === 0) return;
+
+        const confirmed = window.confirm(
+            `Are you sure you want to delete ${selectedReelIds.length} selected reel(s)?`
+        );
+
+        if (!confirmed) return;
+
+        try {
+            setBulkDeleting(true);
+            setError(null);
+
+            await axiosInstance.delete("/api/v1/admin-reels/bulk", {
+                data: {
+                    ids: selectedReelIds,
+                },
+            });
+
+            setSelectedReelIds([]);
+            await fetchReels();
+        } catch (err) {
+            setError(
+                err?.response?.data?.message ||
+                "Failed to delete selected reels"
+            );
+        } finally {
+            setBulkDeleting(false);
+        }
+    };
 
     const columns = [
+        {
+            key: "selection",
+            label: "Select",
+            width: "80px",
 
+            render: (_, row) => (
+                <input
+                    type="checkbox"
+                    checked={selectedReelIds.includes(row._id)}
+                    onChange={() => toggleReelSelection(row._id)}
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                        width: 17,
+                        height: 17,
+                        accentColor: colors.accent,
+                        cursor: "pointer",
+                    }}
+                    aria-label={`Select ${row.title || "reel"}`}
+                />
+            ),
+        },
         {
             key: "thumbnailUrl",
             label: "Preview",
@@ -692,6 +837,18 @@ const AdminReels = () => {
                     </b>
 
                 </div>
+                <FilterDropDown
+                    options={[
+                        "All Categories",
+                        ...categoryOptions.map((item) => item.label),
+                    ]}
+                    defaultLabel="All Categories"
+                    width={200}
+                    onSelect={(category) => {
+                        setSelectedCategory(category);
+                        setPage(1);
+                    }}
+                />
                 <button
                     onClick={() => {
                         setSelectedReel(null);
@@ -717,6 +874,76 @@ const AdminReels = () => {
 
             </div>
 
+
+            <div
+                className="flex items-center justify-between gap-4 flex-wrap mb-4"
+            >
+                <div className="flex items-center gap-3">
+                    <input
+                        type="checkbox"
+                        checked={
+                            reels.length > 0 &&
+                            reels.every((reel) =>
+                                selectedReelIds.includes(reel._id)
+                            )
+                        }
+                        onChange={toggleSelectAll}
+                        style={{
+                            width: 17,
+                            height: 17,
+                            accentColor: colors.accent,
+                            cursor: "pointer",
+                        }}
+                        aria-label="Select all reels on current page"
+                    />
+
+                    <span style={{ color: colors.textSecondary }}>
+                        Select all on this page
+                    </span>
+
+                    <span
+                        style={{
+                            color: colors.accent,
+                            fontWeight: 600,
+                        }}
+                    >
+                        {selectedReelIds.length} selected
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    onClick={handleBulkDelete}
+                    disabled={
+                        selectedReelIds.length === 0 || bulkDeleting
+                    }
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        padding: "10px 16px",
+                        borderRadius: 10,
+                        border: "none",
+                        background:
+                            selectedReelIds.length === 0 || bulkDeleting
+                                ? colors.cardBorder
+                                : colors.danger,
+                        color: "#fff",
+                        fontWeight: 600,
+                        cursor:
+                            selectedReelIds.length === 0 || bulkDeleting
+                                ? "not-allowed"
+                                : "pointer",
+                        opacity: bulkDeleting ? 0.7 : 1,
+                    }}
+                >
+                    <Trash2 size={16} />
+
+                    {bulkDeleting
+                        ? "Deleting..."
+                        : `Delete Selected (${selectedReelIds.length})`}
+                </button>
+            </div>
 
 
             <DataTable
