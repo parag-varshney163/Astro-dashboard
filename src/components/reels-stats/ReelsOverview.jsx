@@ -322,28 +322,65 @@ const ReelsOverview = () => {
       ),
     },
 
-    {
-      key: "category",
-      label: "Category",
+    // {
+    //   key: "category",
+    //   label: "Category",
 
-      render: (value) => (
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            padding: "6px 10px",
-            borderRadius: 8,
-            background: colors.secondary,
-            border: `1px solid ${colors.cardBorder}`,
-            color: colors.accent,
-            fontSize: 11,
-            fontWeight: 600,
-            whiteSpace: "nowrap",
-          }}
-        >
-          {capitalize(value)}
-        </span>
-      ),
+    //   render: (value) => (
+    //     <span
+    //       style={{
+    //         display: "inline-flex",
+    //         alignItems: "center",
+    //         padding: "6px 10px",
+    //         borderRadius: 8,
+    //         background: colors.secondary,
+    //         border: `1px solid ${colors.cardBorder}`,
+    //         color: colors.accent,
+    //         fontSize: 11,
+    //         fontWeight: 600,
+    //         whiteSpace: "nowrap",
+    //       }}
+    //     >
+    //       {capitalize(value)}
+    //     </span>
+    //   ),
+    // },
+    {
+      key: "categories",
+      label: "Categories",
+      width: "1.5fr",
+
+      render: (value, row) => {
+        const categories = row.categories || [];
+
+        return (
+          <div className="flex flex-wrap gap-1.5">
+            {categories.length > 0 ? (
+              categories.map((category) => (
+                <span
+                  key={category}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    padding: "5px 9px",
+                    borderRadius: 8,
+                    background: colors.secondary,
+                    border: `1px solid ${colors.cardBorder}`,
+                    color: colors.accent,
+                    fontSize: 11,
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {capitalize(category.replaceAll("_", " "))}
+                </span>
+              ))
+            ) : (
+              <span style={{ color: colors.textMuted }}>-</span>
+            )}
+          </div>
+        );
+      },
     },
 
     {
@@ -453,8 +490,8 @@ const ReelsOverview = () => {
                 ? "rgba(34,197,94,0.12)"
                 : "rgba(239,68,68,0.12)",
               border: `1px solid ${isActive
-                  ? "rgba(34,197,94,0.30)"
-                  : "rgba(239,68,68,0.30)"
+                ? "rgba(34,197,94,0.30)"
+                : "rgba(239,68,68,0.30)"
                 }`,
               color: isActive
                 ? colors.success
@@ -1262,8 +1299,8 @@ const ReelsOverview = () => {
                   padding: "9px 14px",
                   borderRadius: 9,
                   border: `1px solid ${active
-                      ? colors.accent
-                      : colors.cardBorder
+                    ? colors.accent
+                    : colors.cardBorder
                     }`,
                   background: active
                     ? colors.accent
