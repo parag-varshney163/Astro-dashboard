@@ -364,7 +364,7 @@ const LoginPage = () => {
                     color: colors.textPrimary,
                   }}
                 >
-                  Chat
+                  Agami
                 </span>
 
                 <span
@@ -372,7 +372,7 @@ const LoginPage = () => {
                     color: colors.accent,
                   }}
                 >
-                  Spark
+                  Astro
                 </span>
               </h1>
 

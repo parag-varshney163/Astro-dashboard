@@ -265,7 +265,7 @@ const WelcomePage = () => {
                   color: colors.textPrimary,
                 }}
               >
-                Chat
+                Agami
               </span>
 
               <span
@@ -273,7 +273,7 @@ const WelcomePage = () => {
                   color: colors.accent,
                 }}
               >
-                Spark
+                Astro
               </span>
             </motion.h1>
 

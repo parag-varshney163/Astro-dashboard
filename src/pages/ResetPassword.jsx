@@ -296,11 +296,11 @@ const ResetPassword = () => {
 
           <h1 className="text-3xl sm:text-4xl font-bold text-center tracking-tight">
             <span style={{ color: colors.textPrimary }}>
-              Chat
+              Agami
             </span>
 
             <span style={{ color: colors.accent }}>
-              Spark
+              Astro
             </span>
           </h1>
 
