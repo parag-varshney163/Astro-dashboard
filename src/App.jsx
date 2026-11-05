@@ -4,6 +4,7 @@ import React from "react";
 import NotificationManager from "./components/customer-support/NotificationManager";
 import SubscriptionOverview from "./pages/SubscriptionOverview";
 import AccountManagement from "./pages/AccountManagement";
+import RequestTracking from "./pages/RequestTracking";
 import CustomerSupport from "./pages/CustomerSupport";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
@@ -242,6 +243,14 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
               <Debitfailures/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+            path={ROUTES.REQUEST_TRACKING}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+              <RequestTracking/>
             </ProtectedRoute>
           }
         />

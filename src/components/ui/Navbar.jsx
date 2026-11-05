@@ -679,6 +679,15 @@ const Navbar = ({ callName }) => {
             </span>
           </>
         );
+        case "/request-tracking":
+        return (
+          <>
+            Request
+            <span style={{ color: colors.accent }}>
+              Tracking
+            </span>
+          </>
+        );
 
       default:
         if (callName) {

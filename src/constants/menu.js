@@ -197,7 +197,7 @@
 //   },
 // ];
 // export default MENU_ITEMS;
-import { MessageSquare, Bot, Trash2, Coins, FileQuestionMark, FerrisWheel, View, Radius, Bell, Database, ArrowUpToLine, ChartArea, SubscriptIcon, VeganIcon, Diamond, ExternalLink, CarTaxiFront, Stamp, Expand, Subscript, BedDoubleIcon, LogOut, Users, LayoutDashboard, BarChart3, CreditCard, } from "lucide-react";
+import { MessageSquare, Bot, Trash2, Coins, FileQuestionMark, FerrisWheel, View, Radius, Bell, Database, ArrowUpToLine, ChartArea, SubscriptIcon, VeganIcon, Diamond, ExternalLink, CarTaxiFront, Stamp, Expand, Subscript, BedDoubleIcon, LogOut, Users, LayoutDashboard, BarChart3, CreditCard, GitPullRequest, } from "lucide-react";
 
 
 const permission = (key) => ({
@@ -349,6 +349,12 @@ const MENU_ITEMS = [
         icon: Expand,
         path: "/ex-stats",
         permission: permission("autoPay"),
+      },
+      {
+        name: "Request Tracking",
+        icon: GitPullRequest,
+        path: "/request-tracking",
+        permission: permission("dataInsights"),
       },
     ],
   },
