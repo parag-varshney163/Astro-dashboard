@@ -423,6 +423,39 @@ const RequestTrackingTable = () => {
 
   const totalPages = dashboardData?.pagination?.totalPages || 1;
   const totalRecords = dashboardData?.pagination?.total || 0;
+  const requestTypes = [
+  { key: "kundali", label: "Kundali" },
+  { key: "horoscope", label: "Horoscope" },
+  { key: "palm_reading", label: "Palm" },
+  { key: "chat", label: "Chat" },
+];
+
+const formatReportDate = (date) => {
+  if (!date) return "-";
+
+  const [year, month, day] = date.split("-");
+  return `${day}/${month}/${year}`;
+};
+
+const getDailyValue = (item, type, field) => {
+  return item?.[type]?.[field] ?? 0;
+};
+
+const getSuccessPercentage = (item, type) => {
+  const total = getDailyValue(item, type, "total");
+  const success = getDailyValue(item, type, "success");
+
+  return total
+    ? `${((success / total) * 100).toFixed(1)}%`
+    : "0.0%";
+};
+
+const visibleTypes =
+  requestType === "All Types"
+    ? requestTypes
+    : requestTypes.filter((item) => item.key === requestType);
+
+const dailyData = dashboardData?.daily || [];
 
   return (
     <div
@@ -752,7 +785,7 @@ const RequestTrackingTable = () => {
       </div>
 
       {/* REQUEST LOGS */}
-      <div
+      {/* <div
         style={{
           background: colors.cardBg,
           border: `1px solid ${colors.cardBorder}`,
@@ -799,7 +832,7 @@ const RequestTrackingTable = () => {
               flexWrap: "wrap",
             }}
           >
-            {/* SEARCH */}
+            
             <div
               style={{
                 display: "flex",
@@ -829,7 +862,7 @@ const RequestTrackingTable = () => {
               />
             </div>
 
-            {/* LIMIT */}
+            
             <FilterDropDown
               key={`limit-${limit}`}
               width={110}
@@ -890,7 +923,285 @@ const RequestTrackingTable = () => {
             onPageChange={setPage}
           />
         </div>
-      </div>
+      </div> */}
+      {/* DAILY REQUEST REPORT */}
+
+<div
+  style={{
+    background: colors.cardBg,
+    border: `1px solid ${colors.cardBorder}`,
+    borderRadius: 16,
+    padding: 20,
+  }}
+>
+  {/* HEADER */}
+
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 20,
+      flexWrap: "wrap",
+      gap: 12,
+    }}
+  >
+    <div>
+      <h3
+        style={{
+          fontSize: 18,
+          fontWeight: 800,
+          color: colors.textPrimary,
+        }}
+      >
+        Daily Request Report
+      </h3>
+
+      <p
+        style={{
+          fontSize: 12,
+          color: colors.textMuted,
+          marginTop: 5,
+        }}
+      >
+        Date-wise request statistics by category
+      </p>
+    </div>
+
+    <span
+      style={{
+        fontSize: 12,
+        color: colors.textSecondary,
+        background: colors.inputBg,
+        padding: "8px 12px",
+        borderRadius: 8,
+      }}
+    >
+      {dailyData.length} Days
+    </span>
+  </div>
+
+  {/* REPORT TABLE */}
+
+  <div
+    style={{
+      width: "100%",
+      overflowX: "auto",
+      border: `1px solid ${colors.cardBorder}`,
+      borderRadius: 10,
+    }}
+  >
+    <table
+      style={{
+        width: "100%",
+        minWidth: 1100,
+        borderCollapse: "collapse",
+        textAlign: "center",
+        fontSize: 12,
+      }}
+    >
+      <thead>
+        {/* CATEGORY HEADERS */}
+
+        <tr>
+          <th
+            rowSpan={2}
+            style={{
+              ...reportHeaderStyle,
+              minWidth: 110,
+              background: "#DCE6FA",
+              position: "sticky",
+              left: 0,
+              zIndex: 3,
+            }}
+          >
+            Date
+          </th>
+
+          {visibleTypes.map((type) => (
+            <th
+              key={type.key}
+              colSpan={4}
+              style={{
+                ...reportHeaderStyle,
+                background: "#DCE6FA",
+                fontSize: 13,
+                fontWeight: 700,
+              }}
+            >
+              {type.label}
+            </th>
+          ))}
+        </tr>
+
+        {/* SUB HEADERS */}
+
+        <tr>
+          {visibleTypes.map((type) => (
+            <React.Fragment key={type.key}>
+              {["Req Reci", "Success", "Failed", "Success%"].map(
+                (heading) => (
+                  <th
+                    key={`${type.key}-${heading}`}
+                    style={{
+                      ...reportHeaderStyle,
+                      background: "#EEF2FC",
+                      fontWeight: 600,
+                      minWidth: 85,
+                    }}
+                  >
+                    {heading}
+                  </th>
+                )
+              )}
+            </React.Fragment>
+          ))}
+        </tr>
+      </thead>
+
+      <tbody>
+        {loading ? (
+          <tr>
+            <td
+              colSpan={1 + visibleTypes.length * 4}
+              style={reportCellStyle}
+            >
+              Loading report...
+            </td>
+          </tr>
+        ) : error ? (
+          <tr>
+            <td
+              colSpan={1 + visibleTypes.length * 4}
+              style={{
+                ...reportCellStyle,
+                color: colors.danger,
+              }}
+            >
+              {error}
+            </td>
+          </tr>
+        ) : dailyData.length === 0 ? (
+          <tr>
+            <td
+              colSpan={1 + visibleTypes.length * 4}
+              style={reportCellStyle}
+            >
+              No request data available for this period.
+            </td>
+          </tr>
+        ) : (
+          dailyData.map((item) => (
+            <tr key={item.date}>
+              {/* DATE */}
+
+              <td
+                style={{
+                  ...reportCellStyle,
+                  fontWeight: 600,
+                  background: "#F4F6FC",
+                  position: "sticky",
+                  left: 0,
+                  zIndex: 1,
+                }}
+              >
+                {formatReportDate(item.date)}
+              </td>
+
+              {/* CATEGORY DATA */}
+
+              {visibleTypes.map((type) => {
+                const total = getDailyValue(
+                  item,
+                  type.key,
+                  "total"
+                );
+
+                const success = getDailyValue(
+                  item,
+                  type.key,
+                  "success"
+                );
+
+                const failed = getDailyValue(
+                  item,
+                  type.key,
+                  "failure"
+                );
+
+                const percentage = getSuccessPercentage(
+                  item,
+                  type.key
+                );
+
+                return (
+                  <React.Fragment key={type.key}>
+                    <td style={reportCellStyle}>
+                      {total.toLocaleString("en-IN")}
+                    </td>
+
+                    <td
+                      style={{
+                        ...reportCellStyle,
+                        color: "#16A34A",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {success.toLocaleString("en-IN")}
+                    </td>
+
+                    <td
+                      style={{
+                        ...reportCellStyle,
+                        color: "#DC2626",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {failed.toLocaleString("en-IN")}
+                    </td>
+
+                    <td
+                      style={{
+                        ...reportCellStyle,
+                        color: "#2563EB",
+                        fontWeight: 700,
+                      }}
+                    >
+                      {percentage}
+                    </td>
+                  </React.Fragment>
+                );
+              })}
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  {/* FOOTER */}
+
+  <div
+    style={{
+      marginTop: 14,
+      display: "flex",
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+      gap: 10,
+      fontSize: 11,
+      color: colors.textMuted,
+    }}
+  >
+    <span>
+      Timezone: {dashboardData?.range?.timezone || "Asia/Kolkata"}
+    </span>
+
+    <span>
+      {dashboardData?.range?.from || "-"} to{" "}
+      {dashboardData?.range?.to || "-"}
+    </span>
+  </div>
+</div>
 
       {/* REQUEST DETAILS MODAL */}
       {selectedRequest && (
@@ -1144,6 +1455,20 @@ const jsonStyle = {
   whiteSpace: "pre-wrap",
   overflowWrap: "anywhere",
   lineHeight: 1.7,
+};
+const reportHeaderStyle = {
+  padding: "12px 10px",
+  border: "1px solid #C9D4EA",
+  color: "#263653",
+  whiteSpace: "nowrap",
+};
+
+const reportCellStyle = {
+  padding: "12px 10px",
+  border: "1px solid #DCE2EF",
+  color: "#334155",
+  whiteSpace: "nowrap",
+  background: "#FFFFFF",
 };
 
 export default RequestTrackingTable;
