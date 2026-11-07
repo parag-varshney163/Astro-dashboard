@@ -371,7 +371,7 @@ const ReelPinModal = ({ reel, mode, onClose, refresh }) => {
 
         setError(
           err?.response?.data?.message ||
-            "Failed to fetch categories."
+          "Failed to fetch categories."
         );
       } finally {
         setCategoryLoading(false);
@@ -452,7 +452,7 @@ const ReelPinModal = ({ reel, mode, onClose, refresh }) => {
 
       setError(
         err?.response?.data?.message ||
-          `Failed to ${mode === "pin" ? "pin" : "unpin"} reel.`
+        `Failed to ${mode === "pin" ? "pin" : "unpin"} reel.`
       );
     } finally {
       setLoading(false);
@@ -615,6 +615,78 @@ const ReelPinModal = ({ reel, mode, onClose, refresh }) => {
             }}
           >
             {error}
+          </div>
+        )}
+        {/* CURRENT PINNED CATEGORIES */}
+        {reel?.pins?.length > 0 && (
+          <div
+            style={{
+              background: `${colors.accent}10`,
+              border: `1px solid ${colors.accent}50`,
+              borderRadius: 10,
+              padding: 12,
+              marginBottom: 20,
+            }}
+          >
+            <label
+              style={{
+                display: "block",
+                color: colors.textSecondary,
+                fontSize: 13,
+                fontWeight: 600,
+                marginBottom: 10,
+              }}
+            >
+              Currently Pinned Categories
+            </label>
+
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 8,
+              }}
+            >
+              {reel.pins.map((pin, index) => (
+                <div
+                  key={`${pin.category}-${index}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "6px 10px",
+                    borderRadius: 20,
+                    background: colors.hover,
+                    border: `1px solid ${colors.accent}`,
+                  }}
+                >
+                  <Pin
+                    size={14}
+                    color={colors.accent}
+                  />
+
+                  <span
+                    style={{
+                      color: colors.textPrimary,
+                      fontSize: 12,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {pin.category}
+                  </span>
+
+                  <span
+                    style={{
+                      color: colors.accent,
+                      fontSize: 12,
+                      fontWeight: 700,
+                    }}
+                  >
+                    #{pin.order}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

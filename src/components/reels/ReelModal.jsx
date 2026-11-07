@@ -19,6 +19,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
             reel?.categories ||
             (reel?.category ? [reel.category] : ["for_you"]),
         status: reel?.status || "processing",
+
     });
 
     const [video, setVideo] = useState(null);
@@ -36,6 +37,8 @@ const ReelModal = ({ reel, onClose, refresh }) => {
     const [error, setError] = useState("");
     const [categories, setCategories] = useState([]);
     const [categoryLoading, setCategoryLoading] = useState(false);
+    const showDescription =
+        isEdit && form.description?.trim().length > 0;
 
     /* -----------------------------------------
        FILE PREVIEW
@@ -204,7 +207,14 @@ const ReelModal = ({ reel, onClose, refresh }) => {
             return false;
         }
 
-        if (!form.description.trim()) {
+        // if (!form.description.trim()) {
+        //     setError("Description is required.");
+        //     return false;
+        // }
+        if (
+            showDescription &&
+            !form.description.trim()
+        ) {
             setError("Description is required.");
             return false;
         }
@@ -299,6 +309,85 @@ const ReelModal = ({ reel, onClose, refresh }) => {
     //     }
     // };
 
+    // const submit = async () => {
+    //     if (!validate()) return;
+
+    //     try {
+    //         setLoading(true);
+    //         setError("");
+
+    //         if (isEdit) {
+    //             // PUT API expects JSON
+    //             const payload = {
+    //                 title: form.title.trim(),
+    //                 //description: form.description.trim(),
+    //                 // category: form.category,
+    //                 categories: form.categories,
+    //                 //order: Number(form.order),
+    //                 status: form.status,
+    //             };
+
+    //             await axiosInstance.put(
+    //                 `/api/v1/admin-reels/${reel._id}`,
+    //                 payload
+    //             );
+    //         } else {
+    //             // POST API expects multipart/form-data
+    //             const body = new FormData();
+
+    //             if (video) {
+    //                 body.append("video", video);
+    //             }
+
+    //             // if (thumbnail) {
+    //             //     body.append("thumbnail", thumbnail);
+    //             // }
+
+    //             body.append("title", form.title.trim());
+    //             body.append("description", form.description.trim());
+    //             // body.append("category", form.category);
+    //             body.append(
+    //                 "categories",
+    //                 JSON.stringify(form.categories)
+    //             );
+
+    //             // body.append(
+    //             //     "durationSeconds",
+    //             //     Number(form.durationSeconds)
+    //             // );
+
+    //             // body.append(
+    //             //     "order",
+    //             //     Number(form.order)
+    //             // );
+
+    //             body.append("status", form.status);
+
+    //             await axiosInstance.post(
+    //                 "/api/v1/admin-reels",
+    //                 body,
+    //                 {
+    //                     headers: {
+    //                         "Content-Type": "multipart/form-data",
+    //                     },
+    //                 }
+    //             );
+    //         }
+
+    //         refresh();
+    //         onClose();
+
+    //     } catch (err) {
+    //         console.error("Reel submit error:", err);
+
+    //         setError(
+    //             err?.response?.data?.message ||
+    //             `Failed to ${isEdit ? "update" : "create"} reel.`
+    //         );
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
     const submit = async () => {
         if (!validate()) return;
 
@@ -310,12 +399,14 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                 // PUT API expects JSON
                 const payload = {
                     title: form.title.trim(),
-                    description: form.description.trim(),
-                    // category: form.category,
                     categories: form.categories,
-                    //order: Number(form.order),
                     status: form.status,
                 };
+
+                // Send description only if the reel already has one
+                if (reel?.description !== undefined) {
+                    payload.description = form.description.trim();
+                }
 
                 await axiosInstance.put(
                     `/api/v1/admin-reels/${reel._id}`,
@@ -329,27 +420,15 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                     body.append("video", video);
                 }
 
-                // if (thumbnail) {
-                //     body.append("thumbnail", thumbnail);
-                // }
-
                 body.append("title", form.title.trim());
-                body.append("description", form.description.trim());
-                // body.append("category", form.category);
+
+                // Do NOT send description while creating
+                // body.append("description", form.description.trim());
+
                 body.append(
                     "categories",
                     JSON.stringify(form.categories)
                 );
-
-                // body.append(
-                //     "durationSeconds",
-                //     Number(form.durationSeconds)
-                // );
-
-                // body.append(
-                //     "order",
-                //     Number(form.order)
-                // );
 
                 body.append("status", form.status);
 
@@ -366,7 +445,6 @@ const ReelModal = ({ reel, onClose, refresh }) => {
 
             refresh();
             onClose();
-
         } catch (err) {
             console.error("Reel submit error:", err);
 
@@ -808,7 +886,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                     </div>
 
                     {/* DESCRIPTION */}
-                    <div style={{ marginBottom: 16 }}>
+                    {showDescription && <div style={{ marginBottom: 16 }}>
                         <label style={labelStyle}>
                             Description
                             <span style={{ color: colors.danger }}>
@@ -837,7 +915,7 @@ const ReelModal = ({ reel, onClose, refresh }) => {
                                 colors.inputBorder)
                             }
                         />
-                    </div>
+                    </div>}
 
                     {/* CATEGORY + STATUS */}
                     <div
