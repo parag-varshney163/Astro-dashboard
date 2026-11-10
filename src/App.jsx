@@ -177,7 +177,7 @@ function App() {
          <Route
             path={ROUTES.SUBSCRIPTION}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="subscriptionOverview">
               <SubscriptionOverview/>
             </ProtectedRoute>
           }
@@ -185,7 +185,7 @@ function App() {
         <Route
             path={ROUTES.REELS}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="reels">
               <Reels/>
             </ProtectedRoute>
           }
@@ -193,7 +193,7 @@ function App() {
          <Route
             path={ROUTES.DAILY_SPECIAL}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="dailySpecial">
               <DailySpecial/>
             </ProtectedRoute>
           }
@@ -201,7 +201,7 @@ function App() {
            <Route
             path={ROUTES.EXPERIMENTS}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="experiments">
               <Experiments/>
             </ProtectedRoute>
           }
@@ -209,7 +209,7 @@ function App() {
           <Route
             path={ROUTES.REELS_CATEGORY}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="reelsCategory">
               <ReelsCategory/>
             </ProtectedRoute>
           }
@@ -217,7 +217,7 @@ function App() {
          <Route
             path={ROUTES.REELS_STATS}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="reelsStats">
               <ReelsStats/>
             </ProtectedRoute>
           }
@@ -225,7 +225,7 @@ function App() {
          <Route
             path={ROUTES.EX_STATS}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="experimentsStats">
               <ExStats/>
             </ProtectedRoute>
           }
@@ -233,7 +233,7 @@ function App() {
          <Route
             path={ROUTES.JUSPAY_MANDATES}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="juspay">
               <JuspayMandates/>
             </ProtectedRoute>
           }
@@ -241,7 +241,7 @@ function App() {
            <Route
             path={ROUTES.DEBIT_FAILURES}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="debitFailures">
               <Debitfailures/>
             </ProtectedRoute>
           }
@@ -249,7 +249,7 @@ function App() {
           <Route
             path={ROUTES.REQUEST_TRACKING}
             element={
-            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="autoPay">
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="requestTracking">
               <RequestTracking/>
             </ProtectedRoute>
           }
