@@ -335,35 +335,148 @@ const AdminReels = () => {
         //         </span>
         //     )
         // },
+        // {
+        //     key: "categories",
+        //     label: "Categories",
+
+        //     render: (value, row) => {
+        //         const categories = row.categories || (row.category ? [row.category] : []);
+
+        //         return (
+        //             <div
+        //                 style={{
+        //                     display: "flex",
+        //                     flexWrap: "wrap",
+        //                     gap: 6,
+        //                 }}
+        //             >
+        //                 {categories.map((category) => (
+        //                     <span
+        //                         key={category}
+        //                         style={{
+        //                             padding: "5px 10px",
+        //                             borderRadius: 20,
+        //                             background: colors.hover,
+        //                             color: colors.accentLight,
+        //                             fontSize: 12,
+        //                         }}
+        //                     >
+        //                         {category}
+        //                     </span>
+        //                 ))}
+        //             </div>
+        //         );
+        //     },
+        // },
+
         {
             key: "categories",
             label: "Categories",
-
             render: (value, row) => {
-                const categories = row.categories || (row.category ? [row.category] : []);
+                // Primary category
+                const primaryCategory =
+                    row.mainCategory ||
+                    row.categories?.[0] ||
+                    row.category ||
+                    "";
+
+                // Secondary categories
+                const secondaryCategories =
+                    row.secondaryCategories?.length
+                        ? row.secondaryCategories
+                        : (row.categories || []).filter(
+                            (category) => category !== primaryCategory
+                        );
 
                 return (
                     <div
                         style={{
                             display: "flex",
-                            flexWrap: "wrap",
-                            gap: 6,
+                            flexDirection: "column",
+                            gap: 8,
+                            minWidth: 150,
                         }}
                     >
-                        {categories.map((category) => (
-                            <span
-                                key={category}
+                        {/* PRIMARY CATEGORY */}
+                        <div>
+                            <div
                                 style={{
-                                    padding: "5px 10px",
-                                    borderRadius: 20,
-                                    background: colors.hover,
-                                    color: colors.accentLight,
-                                    fontSize: 12,
+                                    fontSize: 10,
+                                    fontWeight: 700,
+                                    color: colors.textMuted,
+                                    marginBottom: 5,
+                                    textTransform: "uppercase",
+                                    letterSpacing: "0.5px",
                                 }}
                             >
-                                {category}
-                            </span>
-                        ))}
+                                Primary
+                            </div>
+
+                            {primaryCategory ? (
+                                <span
+                                    style={{
+                                        display: "inline-flex",
+                                        padding: "5px 11px",
+                                        borderRadius: 20,
+                                        background: "rgba(212,175,55,0.16)",
+                                        color: colors.accentLight,
+                                        border: "1px solid rgba(212,175,55,0.35)",
+                                        fontSize: 12,
+                                        fontWeight: 700,
+                                    }}
+                                >
+                                    {primaryCategory.replace(/_/g, " ")}
+                                </span>
+                            ) : (
+                                <span style={{ fontSize: 12, color: colors.textMuted }}>
+                                    -
+                                </span>
+                            )}
+                        </div>
+
+                        {/* SECONDARY CATEGORIES */}
+                        {secondaryCategories.length > 0 && (
+                            <div>
+                                <div
+                                    style={{
+                                        fontSize: 10,
+                                        fontWeight: 700,
+                                        color: colors.textMuted,
+                                        marginBottom: 5,
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.5px",
+                                    }}
+                                >
+                                    Secondary
+                                </div>
+
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: 5,
+                                    }}
+                                >
+                                    {secondaryCategories.map((category) => (
+                                        <span
+                                            key={category}
+                                            style={{
+                                                padding: "4px 9px",
+                                                borderRadius: 20,
+                                                background: colors.hover,
+                                                color: colors.textSecondary,
+                                                border: `1px solid ${colors.cardBorder}`,
+                                                fontSize: 11,
+                                                fontWeight: 500,
+                                                textTransform: "capitalize",
+                                            }}
+                                        >
+                                            {category.replace(/_/g, " ")}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 );
             },
