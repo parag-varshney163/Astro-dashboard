@@ -1491,6 +1491,12 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
   const [reelCategory, setReelCategory] = useState("");
   const [selectedReel, setSelectedReel] = useState(null);
 
+  const [reelPage, setReelPage] = useState(1);
+  const [reelLimit] = useState(50);
+  const [hasMoreReels, setHasMoreReels] = useState(false);
+  const [reelCategories, setReelCategories] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(false);
+
   // --------------------------------------------------
   // STYLES
   // --------------------------------------------------
@@ -1511,6 +1517,64 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
   // FETCH REELS
   // --------------------------------------------------
 
+  // useEffect(() => {
+  //   if (!isOpen) return;
+
+  //   let isMounted = true;
+
+  //   const fetchReels = async () => {
+  //     try {
+  //       setReelsLoading(true);
+
+  //       const token = localStorage.getItem("token");
+
+  //       const response = await axios.get(
+  //         `${BASE_URL}/admin-reels`,
+  //         {
+  //           params: {
+  //             page: 1,
+  //             limit: 50,
+  //           },
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+
+  //       const items = response.data?.data?.items || [];
+
+  //       if (!isMounted) return;
+
+  //       // Only published / active reels
+  //       const activeReels = items.filter(
+  //         (reel) => reel.status === "active"
+  //       );
+
+  //       setReels(activeReels);
+  //     } catch (error) {
+  //       console.error("Failed to fetch reels:", error);
+
+  //       if (isMounted) {
+  //         toast.error(
+  //           error.response?.data?.message ||
+  //             "Failed to load reels"
+  //         );
+
+  //         setReels([]);
+  //       }
+  //     } finally {
+  //       if (isMounted) {
+  //         setReelsLoading(false);
+  //       }
+  //     }
+  //   };
+
+  //   fetchReels();
+
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [isOpen]);
   useEffect(() => {
     if (!isOpen) return;
 
@@ -1526,8 +1590,11 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
           `${BASE_URL}/admin-reels`,
           {
             params: {
-              page: 1,
-              limit: 50,
+              page: reelPage,
+              limit: reelLimit,
+              ...(reelCategory
+                ? { categories: reelCategory }
+                : {}),
             },
             headers: {
               Authorization: `Bearer ${token}`,
@@ -1535,26 +1602,34 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
           }
         );
 
-        const items = response.data?.data?.items || [];
+        const data = response.data?.data;
+        const items = data?.items || [];
 
         if (!isMounted) return;
 
-        // Only published / active reels
         const activeReels = items.filter(
           (reel) => reel.status === "active"
         );
 
-        setReels(activeReels);
+        setReels((prev) =>
+          reelPage === 1
+            ? activeReels
+            : [...prev, ...activeReels]
+        );
+
+        setHasMoreReels(
+          data?.pagination?.hasNextPage ??
+          data?.hasNextPage ??
+          (items.length === reelLimit)
+        );
       } catch (error) {
         console.error("Failed to fetch reels:", error);
 
         if (isMounted) {
           toast.error(
             error.response?.data?.message ||
-              "Failed to load reels"
+            "Failed to load reels"
           );
-
-          setReels([]);
         }
       } finally {
         if (isMounted) {
@@ -1568,12 +1643,52 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
     return () => {
       isMounted = false;
     };
-  }, [isOpen]);
+  }, [isOpen, reelPage, reelCategory, reelLimit]);
 
   // --------------------------------------------------
   // REEL SEARCH
   // --------------------------------------------------
+  useEffect(() => {
+    if (!isOpen) return;
 
+    const fetchReelCategories = async () => {
+      try {
+        setCategoriesLoading(true);
+
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          `${BASE_URL}/home-banners`,
+          {
+            params: {
+              page: 1,
+              limit: 100,
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const items = response.data?.data?.items || [];
+
+        setReelCategories(
+          items.filter((item) => item.isActive)
+        );
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+
+        toast.error(
+          error.response?.data?.message ||
+          "Failed to load reel categories"
+        );
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+
+    fetchReelCategories();
+  }, [isOpen]);
   const filteredReels = useMemo(() => {
     return reels.filter((reel) => {
       const matchesSearch = reel.title
@@ -1597,17 +1712,17 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
   // REEL CATEGORIES
   // --------------------------------------------------
 
-  const reelCategories = useMemo(() => {
-    const categories = reels.flatMap((reel) =>
-      Array.isArray(reel.categories)
-        ? reel.categories
-        : reel.categories
-          ? [reel.categories]
-          : []
-    );
+  // const reelCategories = useMemo(() => {
+  //   const categories = reels.flatMap((reel) =>
+  //     Array.isArray(reel.categories)
+  //       ? reel.categories
+  //       : reel.categories
+  //         ? [reel.categories]
+  //         : []
+  //   );
 
-    return [...new Set(categories)];
-  }, [reels]);
+  //   return [...new Set(categories)];
+  // }, [reels]);
 
   // --------------------------------------------------
   // FORM VALIDATION
@@ -1767,15 +1882,15 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
       const audience =
         formData.audienceType === "custom"
           ? {
-              type: "custom",
-              userIds: formData.userIds
-                .split(",")
-                .map((id) => id.trim())
-                .filter(Boolean),
-            }
+            type: "custom",
+            userIds: formData.userIds
+              .split(",")
+              .map((id) => id.trim())
+              .filter(Boolean),
+          }
           : {
-              type: formData.audienceType,
-            };
+            type: formData.audienceType,
+          };
 
       formPayload.append(
         "audience",
@@ -1862,8 +1977,8 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
       } else {
         toast.error(
           errorMessage ||
-            error.message ||
-            "Failed to send notification"
+          error.message ||
+          "Failed to send notification"
         );
       }
     } finally {
@@ -1885,8 +2000,8 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
     formData.destination === "reel"
       ? selectedReel?.title || "Select a reel"
       : DESTINATION_OPTIONS.find(
-          (item) => item.value === formData.destination
-        )?.label || "";
+        (item) => item.value === formData.destination
+      )?.label || "";
 
   if (!isOpen) return null;
 
@@ -2117,7 +2232,7 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
                         Filter by Category
                       </label>
 
-                      <select
+                      {/* <select
                         value={reelCategory}
                         onChange={(e) =>
                           setReelCategory(e.target.value)
@@ -2139,6 +2254,32 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
                             value={category}
                           >
                             {category}
+                          </option>
+                        ))}
+                      </select> */}
+                      <select
+                        value={reelCategory}
+                        onChange={(e) => {
+                          setReelCategory(e.target.value);
+                          setReelPage(1);
+                          setReels([]);
+                          setSelectedReel(null);
+                        }}
+                        disabled={categoriesLoading}
+                        className="w-full rounded-xl px-3 py-3 border outline-none text-sm"
+                        style={{
+                          backgroundColor: colors.inputBg,
+                          borderColor: colors.inputBorder,
+                          color: colors.textPrimary,
+                        }}
+                      >
+                        <option value="">
+                          {categoriesLoading ? "Loading categories..." : "All Categories"}
+                        </option>
+
+                        {reelCategories.map((category) => (
+                          <option key={category._id} value={category.key}>
+                            {category.title}
                           </option>
                         ))}
                       </select>
@@ -2274,6 +2415,21 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
                         })
                       )}
                     </div>
+                    {hasMoreReels && (
+                      <button
+                        type="button"
+                        disabled={reelsLoading}
+                        onClick={() => setReelPage((prev) => prev + 1)}
+                        className="w-full mt-3 py-2.5 rounded-xl border text-sm font-semibold"
+                        style={{
+                          backgroundColor: colors.hover,
+                          borderColor: colors.inputBorder,
+                          color: colors.accent,
+                        }}
+                      >
+                        {reelsLoading ? "Loading..." : "Load More Reels"}
+                      </button>
+                    )}
 
                     {/* SELECTED REEL */}
 
@@ -2740,16 +2896,16 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
 
                     {formData.audienceType ===
                       "start_vibe_call_users" && (
-                      <button
-                        type="button"
-                        className="mt-4 w-full py-3 rounded-full font-bold text-white text-sm shadow-lg"
-                        style={{
-                          background: colors.gradientButton,
-                        }}
-                      >
-                        Connect Now
-                      </button>
-                    )}
+                        <button
+                          type="button"
+                          className="mt-4 w-full py-3 rounded-full font-bold text-white text-sm shadow-lg"
+                          style={{
+                            background: colors.gradientButton,
+                          }}
+                        >
+                          Connect Now
+                        </button>
+                      )}
 
                     {/* GLOSSY EFFECT */}
 
@@ -2825,11 +2981,10 @@ const CreateNotificationModal = ({ isOpen, onClose }) => {
 
             <Button
               variant="accent"
-              className={`px-8 py-2 rounded-xl flex items-center gap-2 ${
-                !isFormValid || isSubmitting
+              className={`px-8 py-2 rounded-xl flex items-center gap-2 ${!isFormValid || isSubmitting
                   ? "opacity-60 cursor-not-allowed"
                   : ""
-              }`}
+                }`}
               onClick={handleScheduleNotification}
               disabled={!isFormValid || isSubmitting}
             >
