@@ -88,6 +88,19 @@ const findFirstAccessibleRoute = (permissions) => {
   if (agami.autoPay) {
     return ROUTES.AUTO_PAY;
   }
+  if (agami.reels) {
+    return ROUTES.REELS; // Use your actual Reels route constant
+  }
+  if (agami.dailySpecial) return ROUTES.DAILY_SPECIAL;
+  //if (agami.reels) return ROUTES.REELS;
+  if (agami.reelsCategory) return ROUTES.REELS_CATEGORY;
+  if (agami.reelsStats) return ROUTES.REELS_STATS;
+  if (agami.experiments) return ROUTES.EXPERIMENTS;
+  if (agami.experimentsStats) return ROUTES.EX_STATS;
+  if (agami.requestTracking) return ROUTES.REQUEST_TRACKING;
+  if (agami.subscriptionOverview) return ROUTES.SUBSCRIPTION;
+  if (agami.juspay) return ROUTES.JUSPAY_MANDATES;
+  if (agami.debitFailures) return ROUTES.DEBIT_FAILURES;
 
   // No Agami Customer Dashboard permission
   return ROUTES.UNAUTHORIZED;
@@ -194,8 +207,8 @@ const LoginPage = () => {
 
       setError(
         err?.response?.data?.message ||
-          err?.message ||
-          "Invalid email or password"
+        err?.message ||
+        "Invalid email or password"
       );
     } finally {
       setLoading(false);
