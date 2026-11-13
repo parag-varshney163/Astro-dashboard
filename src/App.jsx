@@ -12,6 +12,7 @@ import TutorialViedos from "./pages/TutorialViedos";
 import JuspayMandates from "./pages/JuspayMandates";
 import ResetPassword from "./pages/ResetPassword";
 import ReelsCategory from "./pages/ReelsCategory";
+import Notifications from "./pages/Notifications";
 import Debitfailures from "./pages/DebitFailures";
 import Unauthorized from "./pages/Unauthorized";
 import Transactions from "./pages/Transactions";
@@ -147,6 +148,14 @@ function App() {
             element={
             <ProtectedRoute section="agamiCustomerDashboard" permissionKey="notifications">
               <Notification/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+            path={ROUTES.NOTIFICATION_DATA}
+            element={
+            <ProtectedRoute section="agamiCustomerDashboard" permissionKey="notifications">
+              <Notifications/>
             </ProtectedRoute>
           }
         />

@@ -280,6 +280,12 @@ const MENU_ITEMS = [
         path: "/notification",
         permission: permission("notifications"),
       },
+      {
+        name: "Notification Data",
+        icon: Bell,
+        path: "/notification-data",
+        permission: permission("notifications"),
+      },
 
       {
         name: "Daily Special",

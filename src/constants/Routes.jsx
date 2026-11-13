@@ -40,7 +40,8 @@ const ROUTES = {
    EX_STATS:"/ex-stats",
    JUSPAY_MANDATES:"/juspay-mandates",
    DEBIT_FAILURES:"/debit",
-   REQUEST_TRACKING:"/request-tracking"
+   REQUEST_TRACKING:"/request-tracking",
+   NOTIFICATION_DATA:"/notification-data"
   // UNAUTHORIZED:"/unauthorized",
   // LIVE_FEED:"/live-feed",
   // USER_CREATOR_GRAPH:"/graph",
