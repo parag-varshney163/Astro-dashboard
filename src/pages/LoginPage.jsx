@@ -81,9 +81,9 @@ const findFirstAccessibleRoute = (permissions) => {
     return ROUTES.NOTIFICATIONS;
   }
 
-  if (agami.dataInsights) {
-    return ROUTES.DATA_INSIGHTS;
-  }
+  // if (agami.dataInsights) {
+  //   return ROUTES.DATA_INSIGHTS;
+  // }
 
   if (agami.autoPay) {
     return ROUTES.AUTO_PAY;
@@ -95,9 +95,9 @@ const findFirstAccessibleRoute = (permissions) => {
   //if (agami.reels) return ROUTES.REELS;
   if (agami.reelsCategory) return ROUTES.REELS_CATEGORY;
   if (agami.reelsStats) return ROUTES.REELS_STATS;
-  if (agami.experiments) return ROUTES.EXPERIMENTS;
-  if (agami.experimentsStats) return ROUTES.EX_STATS;
-  if (agami.requestTracking) return ROUTES.REQUEST_TRACKING;
+  // if (agami.experiments) return ROUTES.EXPERIMENTS;
+  // if (agami.experimentsStats) return ROUTES.EX_STATS;
+  // if (agami.requestTracking) return ROUTES.REQUEST_TRACKING;
   if (agami.subscriptionOverview) return ROUTES.SUBSCRIPTION;
   if (agami.juspay) return ROUTES.JUSPAY_MANDATES;
   if (agami.debitFailures) return ROUTES.DEBIT_FAILURES;

@@ -324,46 +324,46 @@ const MENU_ITEMS = [
     ],
   },
 
-  {
-    name: "Analytics",
-    icon: BarChart3,
+  // {
+  //   name: "Analytics",
+  //   icon: BarChart3,
 
-    children: [
-      {
-        name: "Data Insights",
-        icon: Database,
-        path: "/data-insights",
-        permission: permission("dataInsights"),
-      },
+  //   children: [
+  //     {
+  //       name: "Data Insights",
+  //       icon: Database,
+  //       path: "/data-insights",
+  //       permission: permission("dataInsights"),
+  //     },
 
-      {
-        name: "Chat Limit",
-        icon: ChartArea,
-        path: "/chat-limit",
-        permission: permission("autoPay"),
-      },
+  //     {
+  //       name: "Chat Limit",
+  //       icon: ChartArea,
+  //       path: "/chat-limit",
+  //       permission: permission("autoPay"),
+  //     },
 
-      {
-        name: "Experiments",
-        icon: ExternalLink,
-        path: "/experiments",
-        permission: permission("experiments"),
-      },
+  //     {
+  //       name: "Experiments",
+  //       icon: ExternalLink,
+  //       path: "/experiments",
+  //       permission: permission("experiments"),
+  //     },
 
-      {
-        name: "Experiments Stats",
-        icon: Expand,
-        path: "/ex-stats",
-        permission: permission("experimentsStats"),
-      },
-      {
-        name: "Request Tracking",
-        icon: GitPullRequest,
-        path: "/request-tracking",
-        permission: permission("requestTracking"),
-      },
-    ],
-  },
+  //     {
+  //       name: "Experiments Stats",
+  //       icon: Expand,
+  //       path: "/ex-stats",
+  //       permission: permission("experimentsStats"),
+  //     },
+  //     {
+  //       name: "Request Tracking",
+  //       icon: GitPullRequest,
+  //       path: "/request-tracking",
+  //       permission: permission("requestTracking"),
+  //     },
+  //   ],
+  // },
 
   {
     name: "Subscription & Payments",
