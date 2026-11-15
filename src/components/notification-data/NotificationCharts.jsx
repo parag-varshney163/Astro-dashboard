@@ -368,7 +368,7 @@ import colors from "../../constants/colors";
 const PIE_COLORS = [
   colors.accent,
   colors.success,
-  colors.accentLight,
+  colors.danger,
 ];
 
 export default function NotificationCharts({ filter, refreshKey }) {

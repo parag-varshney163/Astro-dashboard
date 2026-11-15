@@ -88,9 +88,9 @@ const NotificationInsights = ({ filter, refreshKey }) => {
     deliveryRate: "Delivery Rate",
     opens: "Opens",
     openRate: "Open Rate",
-    clicks: "Clicks",
-    clickRate: "Click Rate",
-    rechargeConv: "Recharge Conversion",
+    // clicks: "Clicks",
+    // clickRate: "Click Rate",
+    // rechargeConv: "Recharge Conversion",
   };
 
   const metrics = data?.metrics || {};

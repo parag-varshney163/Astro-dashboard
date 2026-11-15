@@ -243,7 +243,7 @@ export default function NotificationStatsData({ filter, refreshKey }) {
           }
         );
 
-        console.log("Notification Stats API Response:", res.data);
+        //console.log("Notification Stats API Response:", res.data);
 
         // API response data contains metrics
         setData(res?.data?.data || null);
@@ -304,13 +304,13 @@ export default function NotificationStatsData({ filter, refreshKey }) {
       icon: TrendingUp,
       suffix: "%",
     },
-    { title: "Clicks", key: "clicks", icon: MousePointerClick },
-    {
-      title: "Click Rate",
-      key: "clickRate",
-      icon: Percent,
-      suffix: "%",
-    },
+    // { title: "Clicks", key: "clicks", icon: MousePointerClick },
+    // {
+    //   title: "Click Rate",
+    //   key: "clickRate",
+    //   icon: Percent,
+    //   suffix: "%",
+    // },
     // {
     //   title: "Recharge Conv.",
     //   key: "rechargeConv",
