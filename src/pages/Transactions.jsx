@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import React from "react";
 
+import UserTransactionsEngagement from "../components/transactions/UserTransactionsEngagement";
 import TransactionsTable from "../components/transactions/TransactionsTable";
 import Sidebar from "../components/ui/Sidebar";
 import Navbar from "../components/ui/Navbar";
@@ -52,7 +53,8 @@ const Transactions = () => {
             color: colors.textPrimary,
           }}
         >
-          <TransactionsTable />
+          {/* <TransactionsTable /> */}
+          <UserTransactionsEngagement/>
         </div>
       </motion.main>
     </div>
